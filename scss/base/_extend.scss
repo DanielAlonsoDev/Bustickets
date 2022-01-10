@@ -1,0 +1,53 @@
+%btnBasico {
+    font-weight: bold;
+    border: none;
+    color: white;
+    padding: 1.5rem 2.5rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    margin: 0 0.5rem;
+    transition: all ease 80ms;
+    position: relative;
+    top: 0;
+    display: inline-block;
+}
+
+@mixin crearBoton($colorTexto,$colorBase) {
+    @extend %btnBasico;
+
+    /* SELECCION DE COLORES */
+    color: $colorTexto;
+    background-color: $colorBase;
+    box-shadow: 0px 6px 0px darken($colorBase, 15%);
+
+    &:hover {
+        background-color: lighten($colorBase, $amount: 10%);
+        box-shadow: 0px 6px 0px lighten(darken($colorBase, 15%), 5%);
+    }
+
+    &:active {
+        background-color: $colorBase;
+        /* se restan 6px para simular el movimiento del boton */
+        box-shadow: 0px 0px 0px darken($colorBase, 25%);
+        top: 6px;
+    }
+}
+
+@mixin media-size($medidaMin,$medidaMax) {
+
+    @if $medidaMax == null {
+        @media only screen and (min-width: $medidaMin) {
+            @content;
+        } 
+    
+    } @else if $medidaMin == null {
+        @media only screen and (max-width: $medidaMax) {
+            @content;
+        } 
+    
+    } @else {
+        @media (min-width: $medidaMin) and (max-width: $medidaMax) {
+            @content;
+        }
+    }
+}

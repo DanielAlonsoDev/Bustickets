@@ -1,12 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bustickets - Simulador de Boletería</title>
+    <!-- HOJAS DE ESTILOS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+
 </head>
-<body>
-    
+
+<body id="simulador-busticket">
+    <header class="container-fluid g-basic-card">
+        <div class="container">
+            <img src="/images/BusTicketslogo.svg" alt="Logo del sitio">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                        aria-selected="true">Boletería</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">Administración</button>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+
+    <main class="tab-content" id="pills-tabContent">
+        <!-- CONTENEDOR SECTION BOLETERIA -->
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+            <section id="boleteria" class="container">
+                <div class="grid-layout">
+                    <article id="boletos" class="g-basic-card">
+                        <div class="row">
+                            <h2 class="titulo-section">Boletería</h2>
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Nombre Pasajero</h4>
+                                        </label>
+                                        <input type="text" placeholder="Ingresa el nombre">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Apellido Pasajero</h4>
+                                        </label>
+                                        <input type="text" placeholder="Ingresa el apellido">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Documento Identidad Pasajero</h4>
+                                        </label>
+                                        <input type="text" placeholder="Ingresa el n° documento">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Ruta</h4>
+                                        </label>
+                                        <select name="rutas" id="">
+                                            <option value="">stgo-valpo</option>
+                                            <option value="">stgo-talca</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Horario</h4>
+                                        </label>
+                                        <select name="rutas" id="">
+                                            <option value="">16:40</option>
+                                            <option value="">20:30</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Salida</h4>
+                                        </label>
+                                        <input type="text" placeholder="Santiago">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="">
+                                            <h4>Destino</h4>
+                                        </label>
+                                        <input type="text" placeholder="Valparaiso">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h4>Costo</h4>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="costos-detalles">
+                                            <label for="">Pasaje</label>
+                                            <input type="text" placeholder="6500$">
+                                        </div>
+                                        <div class="costos-detalles">
+                                            <label for="">IVA</label>
+                                            <input type="text" placeholder="300$">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="costos-detalles">
+                                            <label for="">
+                                                <h4>Total</h4>
+                                            </label>
+                                            <input type="text" placeholder="6800$">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="botonera">
+                                    <button class="g-btn">Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </article>
+                    <article id="resumen" class="g-basic-card">
+                        <h2 class="titulo-section">Resumen</h2>
+                        <div class="grid-layout">
+                            
+                        </div>
+                    </article>
+                    <article id="ocupacion" class="g-basic-card">
+                        <h2 class="titulo-section">Ocupación</h2>
+                    </article>
+                    <article id="ventas" class="g-basic-card">
+                        <h2 class="titulo-section">Últimas Ventas</h2>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTENEDOR SECTION ADMINISTRACION -->
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">Segunda</div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

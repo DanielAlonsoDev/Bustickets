@@ -1,0 +1,47 @@
+#boleteria {
+    .grid-layout {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: 2fr 1fr 1fr 1fr;
+        grid-gap: 2rem;
+        grid-template-areas: 
+            "boletos"
+            "resumen"
+            "ocupacion"
+            "ventas";
+    }
+
+    @include media-size($md-large,null){
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 6fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 2rem;
+            grid-template-areas: 
+                "boletos resumen"
+                "boletos ocupacion"
+                "boletos ventas";
+        }
+    }
+
+    #boletos {
+        grid-area: boletos;
+    }
+
+    #resumen {
+        grid-area: resumen;
+    }
+
+    #ocupacion {
+        grid-area: ocupacion;
+    }
+
+    #ventas {
+        grid-area: ventas;
+    }
+
+    .g-basic-card {
+        padding: 4rem;
+    }
+    
+}

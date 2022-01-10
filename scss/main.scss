@@ -1,0 +1,12 @@
+// Importamos las tipografias a utilizar en el proyecto
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+// Importamos los componentes del sitio
+@import 'base/variables';
+@import 'base/extend';
+@import 'base/base';
+@import 'components/header';
+@import 'components/grid-layout';
+@import 'components/boletos';
+@import 'components/resumen';
+@import 'components/icons';

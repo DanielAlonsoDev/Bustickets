@@ -1,0 +1,44 @@
+#boleteria {
+    #boletos {
+        form {
+            h4 {
+                font-size: 2rem;
+
+            }
+            input[type="text"], select {
+                border-radius: 0.5rem;
+                border: 1px solid $border-color;
+                padding: 1rem 1rem;
+                width: 100%;
+                background-color: white;
+            }
+
+            .row {
+                margin-top: 2rem;
+
+                > div {
+                    margin-bottom: 2rem;
+                }
+            }
+
+            .costos-detalles {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                label {
+                    padding-left: 1rem;
+                }
+                
+                input {
+                    width: 18rem;
+                    margin-bottom: 1rem;
+                }
+            }
+            .botonera {
+                display: flex;
+                justify-content: end;
+            }
+        }
+    }
+}

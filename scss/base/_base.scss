@@ -1,0 +1,23 @@
+html {
+    font-family: 'Montserrat';
+    font-size: 8px;
+}
+
+body {
+    font-size: 2rem;
+    color: $text-color;
+}
+
+.g-basic-card {
+    background-color: white;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18);
+
+    .titulo-section {
+        font-weight: normal;
+        font-size: 3rem;
+    }
+}
+
+.g-btn {
+    @include crearBoton(#ffffff,$primary-color);
+}
