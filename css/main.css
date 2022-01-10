@@ -125,6 +125,11 @@ header {
   display: flex;
   justify-content: end; }
 
+#resumen .grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr; }
+
 @font-face {
   font-family: 'bustickets_v1';
   src: url("/fonts/bustickets_v1.ttf?cxzsmg") format("truetype"), url("/fonts/bustickets_v1.woff?cxzsmg") format("woff"), url("/fonts/bustickets_v1.svg?cxzsmg#bustickets_v1") format("svg");
