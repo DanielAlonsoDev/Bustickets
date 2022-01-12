@@ -28,6 +28,11 @@ header {
             &.active {
                 background-color: $primary-color!important;
                 }
+
+            i {
+                position: relative;
+                top: 1px;
+            }
         }
 
         &:first-child .nav-link {

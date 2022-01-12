@@ -19,14 +19,14 @@
             <img src="/images/BusTicketslogo.svg" alt="Logo del sitio">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                        aria-selected="true">Boletería</button>
+                    <button class="nav-link active" id="pills-tickets-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-tickets" type="button" role="tab" aria-controls="pills-tickets"
+                        aria-selected="true">Boletería <i class="icon-ticket"></i></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                        aria-selected="false">Administración</button>
+                    <button class="nav-link" id="pills-administration-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-administration" type="button" role="tab"
+                        aria-controls="pills-administration" aria-selected="false">Administración <i class="icon-equalizer2"></i></button>
                 </li>
             </ul>
         </div>
@@ -34,115 +34,502 @@
     </header>
 
     <main class="tab-content" id="pills-tabContent">
-        <!-- CONTENEDOR SECTION BOLETERIA -->
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <!-- CONTENEDOR SECTION register-tickets -->
+        <div class="tab-pane fade" id="pills-tickets" role="tabpanel" aria-labelledby="pills-tickets-tab">
 
-            <section id="boleteria" class="container">
+            <section id="register-tickets" class="container">
                 <div class="grid-layout">
-                    <article id="boletos" class="g-basic-card">
-                        <div class="row">
-                            <h2 class="titulo-section">Boletería</h2>
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="">
-                                            <h4>Nombre Pasajero</h4>
-                                        </label>
-                                        <input type="text" placeholder="Ingresa el nombre">
+                    <!-- TICKETS RIGISTER -->
+                    <article id="tickets" class="g-basic-card">
+                        <h2 class="title-section">Boletería</h2>
+                        <form action="">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Nombre Pasajero</h4>
+                                    </label>
+                                    <input type="text" placeholder="Ingresa el nombre">
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Apellido Pasajero</h4>
+                                    </label>
+                                    <input type="text" placeholder="Ingresa el apellido">
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Documento Identidad Pasajero</h4>
+                                    </label>
+                                    <input type="text" placeholder="Ingresa el n° documento">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Ruta</h4>
+                                    </label>
+                                    <select name="rutas" id="">
+                                        <option value="">stgo-valpo</option>
+                                        <option value="">stgo-talca</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Horario</h4>
+                                    </label>
+                                    <select name="rutas" id="">
+                                        <option value="">Tarde - 16:40</option>
+                                        <option value="">Noche - 20:30</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Salida</h4>
+                                    </label>
+                                    <input type="text" placeholder="Lugar de Salida" readonly>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="">
+                                        <h4>Destino</h4>
+                                    </label>
+                                    <input type="text" placeholder="Lugar de Destino" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4>Costo</h4>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="cost-details">
+                                        <label for="">Pasaje</label>
+                                        <input type="text" placeholder="0$" readonly>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="">
-                                            <h4>Apellido Pasajero</h4>
-                                        </label>
-                                        <input type="text" placeholder="Ingresa el apellido">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="">
-                                            <h4>Documento Identidad Pasajero</h4>
-                                        </label>
-                                        <input type="text" placeholder="Ingresa el n° documento">
+                                    <div class="cost-details">
+                                        <label for="">IVA</label>
+                                        <input type="text" placeholder="0$" readonly>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="cost-details">
                                         <label for="">
-                                            <h4>Ruta</h4>
+                                            <h4>Total</h4>
                                         </label>
-                                        <select name="rutas" id="">
-                                            <option value="">stgo-valpo</option>
-                                            <option value="">stgo-talca</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="">
-                                            <h4>Horario</h4>
-                                        </label>
-                                        <select name="rutas" id="">
-                                            <option value="">16:40</option>
-                                            <option value="">20:30</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="">
-                                            <h4>Salida</h4>
-                                        </label>
-                                        <input type="text" placeholder="Santiago">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="">
-                                            <h4>Destino</h4>
-                                        </label>
-                                        <input type="text" placeholder="Valparaiso">
+                                        <input type="text" placeholder="0$" readonly>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <h4>Costo</h4>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="costos-detalles">
-                                            <label for="">Pasaje</label>
-                                            <input type="text" placeholder="6500$">
-                                        </div>
-                                        <div class="costos-detalles">
-                                            <label for="">IVA</label>
-                                            <input type="text" placeholder="300$">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="costos-detalles">
-                                            <label for="">
-                                                <h4>Total</h4>
-                                            </label>
-                                            <input type="text" placeholder="6800$">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="botonera">
-                                    <button class="g-btn">Registrar</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="button-panel">
+                                <button class="g-btn">Registrar</button>
+                            </div>
+                        </form>
+                    </article>
+                    <!-- RESUMEN DE VENTAS -->
+                    <article id="resume" class="g-basic-card">
+                        <h2 class="title-section">Resumen</h2>
+                        <div class="row text-center mt-5">
+                            <div class="col-6">
+                                <div class="sold-tickets-value show-value">57</div>
+                                <label for="">Tickets Vendidos</label>
+                            </div>
+                            <div class="col-6">
+                                <div class="flow-cash-value show-value">120.000$</div>
+                                <label for="">Dinero en Caja</label>
+                            </div>
                         </div>
                     </article>
-                    <article id="resumen" class="g-basic-card">
-                        <h2 class="titulo-section">Resumen</h2>
-                        <div class="grid-layout">
-                            <div class="tickets-vendidos-value">57</div>
-                            <div class="dinero-caja-value">120.000$</div>
-                            <label for="" class="tickets-vendidos">Tickets Vendidos</label>
-                            <label for="" class="dinero-caja">Dinero en Caja</label>
+                    <!-- ESTADISTICAS DE OCUPACION -->
+                    <article id="occupancy" class="g-basic-card">
+                        <h2 class="title-section">Ocupación</h2>
+                        <div class="row text-center mt-5">
+                            <div class="col-4">
+                                <div class="show-value">10/30</div>
+                                <label for="">Santiago - Valparaiso</label>
+                            </div>
+                            <div class="col-4">
+                                <div class="show-value">27/30</div>
+                                <label for="">Santiago - Talca</label>
+                            </div>
+                            <div class="col-4">
+                                <div class="show-value">20/30</div>
+                                <label for="">Santiago - Los Andes</label>
+                            </div>
                         </div>
                     </article>
-                    <article id="ocupacion" class="g-basic-card">
-                        <h2 class="titulo-section">Ocupación</h2>
-                    </article>
-                    <article id="ventas" class="g-basic-card">
-                        <h2 class="titulo-section">Últimas Ventas</h2>
+                    <!-- ESTADISTICAS DE VENTAS -->
+                    <article id="sells" class="g-basic-card">
+                        <h2 class="title-section">Últimas Ventas</h2>
+                        <table class="table table-striped text-center mt-5">
+                            <tr>
+                                <td>Nombre Apellido</td>
+                                <td>stgo - valparaiso</td>
+                                <td>6800$</td>
+                            </tr>
+                            <tr>
+                                <td>Nombre Apellido</td>
+                                <td>stgo - valparaiso</td>
+                                <td>6800$</td>
+                            </tr>
+                            <tr>
+                                <td>Nombre Apellido</td>
+                                <td>stgo - valparaiso</td>
+                                <td>6800$</td>
+                            </tr>
+                        </table>
                     </article>
                 </div>
             </section>
         </div>
 
         <!-- CONTENEDOR SECTION ADMINISTRACION -->
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">Segunda</div>
+        <div class="tab-pane fade show active" id="pills-administration" role="tabpanel" aria-labelledby="pills-administration-tab">
+            <!-- ADMINISTRACION DE INFORMACION DEL SITIO -->
+            <section id="info-administration" class="container">
+                <div class="g-basic-card">
+                    <h2 class="title-section">Adminstración</h2>
+                    <nav>
+                        <!-- BOTONES DEL TAB DE NAVEGACION -->
+                        <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-bustrip-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-bustrip" type="button" role="tab" aria-controls="nav-bustrip"
+                                aria-selected="true">Viajes</button>
+
+                            <button class="nav-link" id="nav-routes-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-routes" type="button" role="tab" aria-controls="nav-routes"
+                                aria-selected="false">Rutas</button>
+
+                            <button class="nav-link" id="nav-vehicle-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-vehicle" type="button" role="tab" aria-controls="nav-vehicle"
+                                aria-selected="false">Vehículos</button>
+                            <button class="nav-link" id="nav-schedule-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-schedule" type="button" role="tab" aria-controls="nav-schedule"
+                                aria-selected="false">Horarios</button>
+                        </div>
+                    </nav>
+                    
+                    <div class="tab-content" id="nav-tabContent">
+                        <!-- VIAJES -->
+                        <div  class="tab-pane fade" id="nav-bustrip" role="tabpanel" aria-labelledby="nav-bustrip-tab">
+                            <div id="viajes"  class="row mt-5 g-administration-item-layout">
+                                <label for="">
+                                    <h4>Viajes Creados</h4>
+                                </label>
+                                <div class="container-table col-3">
+                                    <!-- TABLA DE VIAJES -->
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td>Viaje 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Viaje 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Viaje 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Viaje 4</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- FORMULARIO DE INFORMACION DE VIAJE -->
+                                <div class="col-9">
+                                    <div class="d-flex flex-row justify-content-between align-items-center">
+                                        <h2 class="title-section">Información de Viaje</h2>
+                                        <nav class="g-action-button-panel">
+                                            <ul>
+                                                <li><a href="" class="btn active">Nuevo<i class="icon-file-text2"></i> </a></li>
+                                                <li><a href="" class="btn">Editar<i class="icon-pencil"></i></a></li>
+                                                <li><a href="" class="btn">Guardar<i class="icon-floppy-disk"></i></a></li>                                                
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <form action="">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Seleccionar Ruta</h4>
+                                                </label>
+                                                <select name="" id="">
+                                                    <option value="">-Seleccionar-</option>
+                                                    <option value="">stgo-valpo</option>
+                                                    <option value="">stgo-talca</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Seleccionar Horario</h4>
+                                                </label>
+                                                <select name="" id="">
+                                                    <option value="">-Seleccionar-</option>
+                                                    <option value="">16:40</option>
+                                                    <option value="">20:30</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Seleccionar Vehiculo</h4>
+                                                </label>
+                                                <select name="" id="">
+                                                    <option value="">-Seleccionar-</option>
+                                                    <option value="">Mecerdes Mb-350 6R46BC</option>
+                                                    <option value="">Mercedes tp-180 6F7A92</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Costo del Pasaje</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese el monto">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- RUTAS -->
+                        <div class="tab-pane fade" id="nav-routes" role="tabpanel" aria-labelledby="nav-routes-tab">
+                            <div id="route"  class="row mt-5 g-administration-item-layout">
+                                <!-- TABLA DE RUTAS -->
+                                <label for="">
+                                    <h4>Rutas Creadas</h4>
+                                </label>
+                                <div class="container-table col-3">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td>Ruta 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ruta 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ruta 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ruta 4</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- FORMULARIO DE INFORMACION DE RUTA -->
+                                <div class="col-9">
+                                    <div class="d-flex flex-row justify-content-between align-items-center">
+                                        <h2 class="title-section">Información de Ruta</h2>
+                                        <nav class="g-action-button-panel">
+                                            <ul>
+                                                <li><a href="" class="btn active">Nuevo<i class="icon-file-text2"></i> </a></li>
+                                                <li><a href="" class="btn">Editar<i class="icon-pencil"></i></a></li>
+                                                <li><a href="" class="btn">Guardar<i class="icon-floppy-disk"></i></a></li>                                                
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <form action="">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Nombre de Ruta</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingresa el nombre ruta">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Lugar de Origen</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingresa el nombre de origen">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Código Lugar de Origen</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingresa el código origen">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Lugar de Destino</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingresa el nombre de destino">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Código Lugar de Destino</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingresa el código destino">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Distancia de Ruta (Km)</h4>
+                                                </label>
+                                                <input type="text" placeholder="Distancia en Km">
+                                            </div>
+                                            <div class="input-eta col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Tiempo Estimado</h4>
+                                                </label>
+                                                <div class="">
+                                                    <input class="" type="text" placeholder="Horas" readonly>
+                                                    <input class="" type="text" placeholder="Minutos" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- VEHICULOS -->
+                        <div class="tab-pane fade" id="nav-vehicle" role="tabpanel" aria-labelledby="nav-vehicle-tab">
+                            <div id="vehiculos"  class="row mt-5 g-administration-item-layout">
+                                <label for="">
+                                    <h4>Vehiculos Creados</h4>
+                                </label>
+                                <div class="container-table col-3">
+                                    <!-- TABLA DE VEHICULOS -->
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td>Vehiculo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehiculo 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehiculo 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehiculo 4</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- FORMULARIO DE INFORMACION DE VEHICULOS -->
+                                <div class="col-9">
+                                    <div class="d-flex flex-row justify-content-between align-items-center">
+                                        <h2 class="title-section">Información de Viaje</h2>
+                                        <nav class="g-action-button-panel">
+                                            <ul>
+                                                <li><a href="" class="btn active">Nuevo<i class="icon-file-text2"></i> </a></li>
+                                                <li><a href="" class="btn">Editar<i class="icon-pencil"></i></a></li>
+                                                <li><a href="" class="btn">Guardar<i class="icon-floppy-disk"></i></a></li>                                                
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <form action="">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Marca Vehículo</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese marca">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Modelo Vehículo</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese modelo">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Patente Vehículo</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese patente">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Cantidad Asientos</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese cantidad de asientos">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Personal de operación</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese personal">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Capacidad</h4>
+                                                </label>
+                                                <input type="text" placeholder="Capacidad pasajeros" readonly>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- HORARIOS -->
+                        <div class="tab-pane fade show active" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
+                            <div id="horarios"  class="row mt-5 g-administration-item-layout">
+                                <label for="">
+                                    <h4>Horarios Creados</h4>
+                                </label>
+                                <div class="container-table col-3">
+                                    <!-- TABLA DE VIAJES -->
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td>Horario 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Horario 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Horario 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Horario 4</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- FORMULARIO DE INFORMACION DE Viaje -->
+                                <div class="col-9">
+                                    <div class="d-flex flex-row justify-content-between align-items-center">
+                                        <h2 class="title-section">Información de Horario</h2>
+                                        <nav class="g-action-button-panel">
+                                            <ul>
+                                                <li><a href="" class="btn active">Nuevo<i class="icon-file-text2"></i> </a></li>
+                                                <li><a href="" class="btn">Editar<i class="icon-pencil"></i></a></li>
+                                                <li><a href="" class="btn">Guardar<i class="icon-floppy-disk"></i></a></li>                                                
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <form action="">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Nombre Horario</h4>
+                                                </label>
+                                                <input type="text" placeholder="Ingrese marca">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Horario Check In</h4>
+                                                </label>
+                                                <input type="time" placeholder="Ingrese patente">
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <label for="">
+                                                    <h4>Horario Salida</h4>
+                                                </label>
+                                                <input type="time" placeholder="Ingrese cantidad de asientos">
+                                            </div>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- SCRIPTS -->

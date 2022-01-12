@@ -20,10 +20,14 @@ body {
   font-size: 2rem;
   color: #2c1c1c; }
 
+h4 {
+  font-size: 2rem; }
+
 .g-basic-card {
   background-color: white;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18); }
-  .g-basic-card .titulo-section {
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18);
+  padding: 4rem; }
+  .g-basic-card .title-section {
     font-weight: normal;
     font-size: 3rem; }
 
@@ -40,6 +44,81 @@ body {
     /* se restan 6px para simular el movimiento del boton */
     box-shadow: 0px 0px 0px #0076b9;
     top: 6px; }
+
+.grid-layout .show-value {
+  font-size: 4.5rem; }
+
+.grid-layout label {
+  font-weight: 600;
+  font-size: 2rem; }
+
+.g-action-button-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #e2e2e2;
+  border-radius: 1rem; }
+  .g-action-button-panel ul li {
+    display: inline-block;
+    margin: 0; }
+    .g-action-button-panel ul li a {
+      font-size: 2rem;
+      border: none;
+      border-radius: 0;
+      color: #2c1c1c;
+      padding: 0.8rem 2.5rem 0.8rem 2.5rem;
+      margin: 0 -2px; }
+      .g-action-button-panel ul li a:hover {
+        background-color: #39B8FF;
+        color: #fff; }
+      .g-action-button-panel ul li a.active {
+        background-color: #39B8FF;
+        color: #fff; }
+      .g-action-button-panel ul li a i {
+        position: relative;
+        top: 1px;
+        margin-left: 1rem; }
+    .g-action-button-panel ul li:first-child a {
+      border-radius: 1rem 0 0 1rem; }
+    .g-action-button-panel ul li:last-child a {
+      border-radius: 0 1rem 1rem 0; }
+
+form input[type="text"], form input[type="time"], form select {
+  border-radius: 0.5rem;
+  border: 1px solid #c4c4c4;
+  padding: 1rem 1rem;
+  width: 100%;
+  background-color: white; }
+
+form label {
+  margin-left: 0.5rem; }
+
+form .row {
+  margin-top: 2rem; }
+  form .row > div {
+    margin-bottom: 2rem; }
+
+form .button-panel {
+  display: flex;
+  justify-content: end; }
+
+.g-administration-item-layout .container-table {
+  border-radius: 1rem;
+  border: 1px solid #c4c4c4;
+  padding: 0; }
+  .g-administration-item-layout .container-table table tr td {
+    padding: 0.6rem 2rem; }
+
+.g-administration-item-layout .title-section {
+  padding-left: 1rem; }
+
+.g-administration-item-layout form {
+  margin-top: 3rem;
+  padding-left: 1rem;
+  min-height: 36rem; }
+  .g-administration-item-layout form .input-eta input {
+    width: 10rem;
+    margin-right: 0.8rem; }
 
 header {
   height: 8rem;
@@ -59,6 +138,9 @@ header {
       padding: 0.8rem 2.5rem 0.8rem 2.5rem; }
       header ul li .nav-link.active {
         background-color: #39B8FF !important; }
+      header ul li .nav-link i {
+        position: relative;
+        top: 1px; }
     header ul li:first-child .nav-link {
       border-radius: 1rem 0 0 1rem; }
     header ul li:last-child .nav-link {
@@ -66,69 +148,61 @@ header {
   header .mb-3 {
     margin-bottom: 0rem !important; }
 
-#boleteria .grid-layout {
+#register-tickets .grid-layout {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: 2fr 1fr 1fr 1fr;
   grid-gap: 2rem;
-  grid-template-areas: "boletos" "resumen" "ocupacion" "ventas"; }
+  grid-template-areas: "tickets" "resume" "occupancy" "sells"; }
 
 @media only screen and (min-width: 992px) {
-  #boleteria .grid-layout {
+  #register-tickets .grid-layout {
     display: grid;
     grid-template-columns: repeat(2, 6fr);
     grid-template-rows: repeat(3, 1fr);
     grid-gap: 2rem;
-    grid-template-areas: "boletos resumen" "boletos ocupacion" "boletos ventas"; } }
+    grid-template-areas: "tickets resume" "tickets occupancy" "tickets sells"; } }
 
-#boleteria #boletos {
-  grid-area: boletos; }
+#register-tickets #tickets {
+  grid-area: tickets; }
 
-#boleteria #resumen {
-  grid-area: resumen; }
+#register-tickets #resume {
+  grid-area: resume; }
 
-#boleteria #ocupacion {
-  grid-area: ocupacion; }
+#register-tickets #occupancy {
+  grid-area: occupancy; }
 
-#boleteria #ventas {
-  grid-area: ventas; }
+#register-tickets #sells {
+  grid-area: sells; }
 
-#boleteria .g-basic-card {
-  padding: 4rem; }
-
-#boleteria #boletos form h4 {
+#register-tickets #tickets form h4 {
   font-size: 2rem; }
 
-#boleteria #boletos form input[type="text"], #boleteria #boletos form select {
+#register-tickets #tickets form input[type="text"], #register-tickets #tickets form select {
   border-radius: 0.5rem;
   border: 1px solid #c4c4c4;
   padding: 1rem 1rem;
   width: 100%;
   background-color: white; }
 
-#boleteria #boletos form .row {
+#register-tickets #tickets form .row {
   margin-top: 2rem; }
-  #boleteria #boletos form .row > div {
+  #register-tickets #tickets form .row > div {
     margin-bottom: 2rem; }
 
-#boleteria #boletos form .costos-detalles {
+#register-tickets #tickets form .cost-details {
   display: flex;
   justify-content: space-between;
   align-items: center; }
-  #boleteria #boletos form .costos-detalles label {
+  #register-tickets #tickets form .cost-details label {
     padding-left: 1rem; }
-  #boleteria #boletos form .costos-detalles input {
+  #register-tickets #tickets form .cost-details input {
     width: 18rem;
     margin-bottom: 1rem; }
 
-#boleteria #boletos form .botonera {
+#register-tickets #tickets form .button-panel {
   display: flex;
   justify-content: end; }
-
-#resumen .grid-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr; }
 
 @font-face {
   font-family: 'bustickets_v1';

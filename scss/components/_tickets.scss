@@ -1,5 +1,5 @@
-#boleteria {
-    #boletos {
+#register-tickets {
+    #tickets {
         form {
             h4 {
                 font-size: 2rem;
@@ -21,7 +21,7 @@
                 }
             }
 
-            .costos-detalles {
+            .cost-details {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -35,7 +35,7 @@
                     margin-bottom: 1rem;
                 }
             }
-            .botonera {
+            .button-panel {
                 display: flex;
                 justify-content: end;
             }

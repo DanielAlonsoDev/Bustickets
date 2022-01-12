@@ -1,14 +1,14 @@
-#boleteria {
+#register-tickets {
     .grid-layout {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: 2fr 1fr 1fr 1fr;
         grid-gap: 2rem;
         grid-template-areas: 
-            "boletos"
-            "resumen"
-            "ocupacion"
-            "ventas";
+            "tickets"
+            "resume"
+            "occupancy"
+            "sells";
     }
 
     @include media-size($md-large,null){
@@ -18,30 +18,25 @@
             grid-template-rows: repeat(3, 1fr);
             grid-gap: 2rem;
             grid-template-areas: 
-                "boletos resumen"
-                "boletos ocupacion"
-                "boletos ventas";
+                "tickets resume"
+                "tickets occupancy"
+                "tickets sells";
         }
     }
 
-    #boletos {
-        grid-area: boletos;
+    #tickets {
+        grid-area: tickets;
     }
 
-    #resumen {
-        grid-area: resumen;
+    #resume {
+        grid-area: resume;
     }
 
-    #ocupacion {
-        grid-area: ocupacion;
+    #occupancy {
+        grid-area: occupancy;
     }
 
-    #ventas {
-        grid-area: ventas;
-    }
-
-    .g-basic-card {
-        padding: 4rem;
-    }
-    
+    #sells {
+        grid-area: sells;
+    }    
 }
