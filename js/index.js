@@ -1,5 +1,5 @@
 class Route {
-    constructor( codeDeparture, codeDestination ,departure, destination, distance, etaHour, etaMinutes) {
+    constructor( codeDeparture, codeDestination ,departure, destination, distance) {
         this.codeDeparture = codeDeparture;
         this.codeDestination = codeDestination;
         this.routeName = codeDeparture + "-" + codeDestination;
