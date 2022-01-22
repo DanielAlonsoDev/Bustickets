@@ -108,6 +108,9 @@ form .button-panel {
   padding: 0; }
   .g-administration-item-layout .container-table table tr td {
     padding: 0.6rem 2rem; }
+  .g-administration-item-layout .container-table table td.active {
+    background-color: #39B8FF;
+    color: #ffffff; }
 
 .g-administration-item-layout .title-section {
   padding-left: 1rem; }

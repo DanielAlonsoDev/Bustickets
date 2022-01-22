@@ -124,6 +124,11 @@ form {
         table tr td {
             padding: 0.6rem 2rem;
         }
+
+        table td.active {
+            background-color: $primary-color;
+            color: #ffffff;
+        }
     }
 
     .title-section {

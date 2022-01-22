@@ -87,7 +87,7 @@ let getScheduleFormData = () => {
 
         switch(scheduleNameExist){
             case true:
-                alert("El nombre ya existe");
+                alert("El nombre del horario ya existe");
                 break;
 
             case false:
@@ -96,7 +96,7 @@ let getScheduleFormData = () => {
         }
     }
     else {
-        alert("Nombre Invalido")
+        alert("Debes ingresar un nombre");
     }
 
     if(scheduleNameValidated != undefined){
@@ -112,3 +112,5 @@ let getScheduleFormData = () => {
     }
 
 }
+
+document.querySelector("#save-schedule-btn").addEventListener("click", getScheduleFormData);
