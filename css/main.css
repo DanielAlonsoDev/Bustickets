@@ -102,6 +102,9 @@ form .button-panel {
   display: flex;
   justify-content: end; }
 
+form input:disabled {
+  border-color: #eaeaea !important; }
+
 .g-administration-item-layout .container-table {
   border-radius: 1rem;
   border: 1px solid #c4c4c4;

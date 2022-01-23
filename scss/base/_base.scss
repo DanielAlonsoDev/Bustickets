@@ -113,6 +113,10 @@ form {
         display: flex;
         justify-content: end;
     }
+
+    input:disabled {
+       border-color: lighten($color: $border-color, $amount: 15) !important;
+    }
 }
 
 .g-administration-item-layout {
