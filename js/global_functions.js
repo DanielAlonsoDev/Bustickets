@@ -1,12 +1,11 @@
 //FUNCION PARA IMPRIMIR LOS VALORES EN LA TABLA
 let printTable = (listToPrint, tableIdName, propertyName) => {
     let selectedList = listToPrint;
+    let tableSelected = document.querySelector(tableIdName).querySelector('tbody');
 
     for (let index = 0; index < selectedList.length; index++) {
-        let tableSelected = document.querySelector(tableIdName).querySelector('tbody');
         let newRowElement = document.createElement('tr');
         let newColumnElement = document.createElement('td');
-    
         tableSelected.appendChild(newRowElement);
         newRowElement.appendChild(newColumnElement);
         newColumnElement.textContent = selectedList[index][propertyName];

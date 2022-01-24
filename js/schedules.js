@@ -91,8 +91,7 @@ let getScheduleFormData = () => {
         //Regsitramos la informacion en el Storage
         addScheduleToData(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated);
 
-        //Imprimimos el nuevo registro en la tabla
-        printNewTableElement(scheduleList,'#table-schedule', 'scheduleName');
+        location.reload();
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
@@ -114,6 +113,8 @@ newSchedulenBtn.addEventListener('click', () => {
     enableForm(scheduleInputsList);
     saveSchedulenBtn.classList.remove('active');
     saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
+    saveSchedulenBtn.removeEventListener('click',editScheduleFormData);
+
     
     editSchedulenBtn.classList.remove('active');
     for (let i = 0; i < document.querySelector('#table-schedule').getElementsByTagName('td').length; i++) {
@@ -133,24 +134,10 @@ newSchedulenBtn.addEventListener('click', () => {
 getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn, );
 
 
-let validateScheduleInputs = () => {
+let editScheduleFormData = () => {
+    index = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
     if(scheduleNameInput.value != '' && scheduleNameInput.value != null && scheduleNameInput.value != undefined){
-        //Comparamos el nombre con todos los guardados con anterioridad
-        let scheduleNameExist = false;
-        for (let index = 0; index < scheduleList.length; index++) {
-            if(scheduleList[index].scheduleName == scheduleNameInput.value ){
-                scheduleNameExist = true;
-            }
-        }
-        switch(scheduleNameExist){
-            case true:
-                alert('Ya existe un nombre registrado con ese nombre');
-                break;
-
-            case false:
-                scheduleNameValidated = scheduleNameInput.value;
-                break;
-        }
+        scheduleNameValidated = scheduleNameInput.value;
     } else {
         alert('Debes ingresar un nombre de horario valido');
     }
@@ -167,38 +154,36 @@ let validateScheduleInputs = () => {
     } else {
         alert('Debes ingresar una hora de Salida valida');
     }
-};
 
+    if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
+        //Regsitramos la informacion en el Storage
+        editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,index);
+        location.reload();
+        
+        cleanForm(scheduleInputsList);
+        disableForm(scheduleInputsList);
+        saveSchedulenBtn.classList.remove('active');
+        //Limpiamos los campos validados
+        scheduleNameValidated = undefined;
+        scheduleCheckInValidated = undefined;
+        scheduleDepartureValidated = undefined;
+    };
+};
 
 editSchedulenBtn.addEventListener('click', () => {
     if(itemsSelectedFromTable['scheduleTableItem'] != undefined){
         //Habilitamos el formulario
         enableForm(scheduleInputsList);
+        saveSchedulenBtn.removeEventListener('click',getScheduleFormData);
+        saveSchedulenBtn.classList.add('active');
+        editSchedulenBtn.classList.remove('active');
+
         //Rellenamos el input con la informacion
         scheduleNameInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleName;
         scheduleCheckInInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn;
         scheduleDepartureInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture;
         
-        saveSchedulenBtn.addEventListener('click', ()=>{
-
-            index = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
-            validateScheduleInputs();
-
-            if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
-                //Regsitramos la informacion en el Storage
-                editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,index);
-            
-                printTable(scheduleList,'#table-schedule','scheduleName');
-                
-                cleanForm(scheduleInputsList);
-                disableForm(scheduleInputsList);
-                saveSchedulenBtn.classList.remove('active');
-                //Limpiamos los campos validados
-                scheduleNameValidated = undefined;
-                scheduleCheckInValidated = undefined;
-                scheduleDepartureValidated = undefined;
-            }
-        })
+        saveSchedulenBtn.addEventListener('click', editScheduleFormData);
         
     }
 });
