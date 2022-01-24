@@ -1,7 +1,16 @@
-//FUNCION QUE CREA UN NUEVO REGISTRO EN LA LISTA DE RUTAS
+//FUNCION QUE CREA UN NUEVO REGISTRO EN LA LISTA DE HORARIOS
 let addSchedule = (scheduleNameValue,scheduleCheckInValue,scheduleDepartureValue) => {
     let newSchedule = new Schedule(scheduleNameValue,scheduleCheckInValue,scheduleDepartureValue);
     scheduleList.push(newSchedule);
+}
+
+//FUNCION QUE CREA UN NUEVO REGISTRO EN LA LISTA DE HORARIOS
+let editSchedule = (scheduleNameValue, scheduleCheckInValue, scheduleDepartureValue, keyValue) => {
+    let editSchedule = new Schedule(scheduleNameValue,scheduleCheckInValue,scheduleDepartureValue);
+    scheduleList[keyValue] = editSchedule;
+    sessionStorage.setItem('scheduleDataSetJSON', JSON.stringify(scheduleList));
+
+    loadScheduleDataSet();
 }
 
 //VALIDAMOS SI EXISTE INFORMACION EN EL STORAGE
@@ -40,11 +49,6 @@ let addScheduleToData = (addName, addCheckIn, addDeparture) => {
 
 //FUNCION PARA CONSEGUIR LA INFORMACION DEL FORMULARIO
 let getScheduleFormData = () => {
-    //Declaramos contenedores para los valores validados
-    let scheduleNameValidated;
-    let scheduleCheckInValidated;
-    let scheduleDepartureValidated;
-
     //Validamos que el contenido del input Name sea valido
     if(scheduleNameInput.value != '' && scheduleNameInput.value != null && scheduleNameInput.value != undefined){
         //Comparamos el nombre con todos los guardados con anterioridad
@@ -94,6 +98,10 @@ let getScheduleFormData = () => {
         disableForm(scheduleInputsList);
         saveSchedulenBtn.classList.remove('active');
         saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
+        //Limpiamos los campos validados
+        scheduleNameValidated = undefined;
+        scheduleCheckInValidated = undefined;
+        scheduleDepartureValidated = undefined;
     }
 }
 
@@ -106,6 +114,11 @@ newSchedulenBtn.addEventListener('click', () => {
     enableForm(scheduleInputsList);
     saveSchedulenBtn.classList.remove('active');
     saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
+    
+    editSchedulenBtn.classList.remove('active');
+    for (let i = 0; i < document.querySelector('#table-schedule').getElementsByTagName('td').length; i++) {
+        document.querySelector('#table-schedule').getElementsByTagName('td')[i].classList.remove('active');
+    }
 
     //Creamos un evento para validar y mostrar el boton de guardar
     scheduleNameInput.addEventListener('change', ()=>{
@@ -117,5 +130,75 @@ newSchedulenBtn.addEventListener('click', () => {
     });
 });
 
-getTableItem(scheduleList,'#table-schedule','scheduleName');
+getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn, );
 
+
+let validateScheduleInputs = () => {
+    if(scheduleNameInput.value != '' && scheduleNameInput.value != null && scheduleNameInput.value != undefined){
+        //Comparamos el nombre con todos los guardados con anterioridad
+        let scheduleNameExist = false;
+        for (let index = 0; index < scheduleList.length; index++) {
+            if(scheduleList[index].scheduleName == scheduleNameInput.value ){
+                scheduleNameExist = true;
+            }
+        }
+        switch(scheduleNameExist){
+            case true:
+                alert('Ya existe un nombre registrado con ese nombre');
+                break;
+
+            case false:
+                scheduleNameValidated = scheduleNameInput.value;
+                break;
+        }
+    } else {
+        alert('Debes ingresar un nombre de horario valido');
+    }
+    
+    //Validamos que el contenido del input Checkin sea valido
+    if(scheduleCheckInInput.value != ''){
+        scheduleCheckInValidated = scheduleCheckInInput.value;
+    } else {
+        alert('Debes ingresar una hora de Check In valida');
+    }
+
+    if(scheduleDepartureInput.value != ''){
+        scheduleDepartureValidated = scheduleDepartureInput.value;
+    } else {
+        alert('Debes ingresar una hora de Salida valida');
+    }
+};
+
+
+editSchedulenBtn.addEventListener('click', () => {
+    if(itemsSelectedFromTable['scheduleTableItem'] != undefined){
+        //Habilitamos el formulario
+        enableForm(scheduleInputsList);
+        //Rellenamos el input con la informacion
+        scheduleNameInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleName;
+        scheduleCheckInInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn;
+        scheduleDepartureInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture;
+        
+        saveSchedulenBtn.addEventListener('click', ()=>{
+
+            index = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
+            validateScheduleInputs();
+
+            if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
+                //Regsitramos la informacion en el Storage
+                editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,index);
+            
+                printTable(scheduleList,'#table-schedule','scheduleName');
+                
+                cleanForm(scheduleInputsList);
+                disableForm(scheduleInputsList);
+                saveSchedulenBtn.classList.remove('active');
+                //Limpiamos los campos validados
+                scheduleNameValidated = undefined;
+                scheduleCheckInValidated = undefined;
+                scheduleDepartureValidated = undefined;
+            }
+        })
+        
+    }
+});

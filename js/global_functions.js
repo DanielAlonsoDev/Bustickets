@@ -14,10 +14,10 @@ let printTable = (listToPrint, tableIdName, propertyName) => {
 }
 
 let printNewTableElement = (listToPrint, tableIdName, propertyName) => {
-    let selectedList = listToPrint;
-    let tableSelected = document.querySelector(tableIdName).querySelector('tbody');
-    let newRowElement = document.createElement('tr');
-    let newColumnElement = document.createElement('td');
+    const selectedList = listToPrint;
+    const tableSelected = document.querySelector(tableIdName).querySelector('tbody');
+    const newRowElement = document.createElement('tr');
+    const newColumnElement = document.createElement('td');
     
     tableSelected.appendChild(newRowElement);
     newRowElement.appendChild(newColumnElement);
@@ -45,14 +45,24 @@ let enableForm = (inputsIdNames) => {
     }
 }
 
-let getTableItem = (list, tableIdName, propertyName) => {
-    let tableElementList = document.querySelector(tableIdName).getElementsByTagName('td');
+
+let itemsSelectedFromTable = { scheduleTableItem : undefined};
+let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn) => {
+    const tableElementList = document.querySelector(tableIdName).getElementsByTagName('td');
+
     for (let i = 0; i < tableElementList.length; i++) {
             //Asignamos el evento a los elementos de la tabla
             tableElementList[i].addEventListener("click", (e) =>{
-                    let valueItem = e.target.innerText;
-                    let result = list.find(element => element[propertyName] === valueItem);
-                    console.log(result);
+                    //Removemos la clase active de cualquier otro elemento seleccionado
+                    for (let j = 0; j < tableElementList.length; j++) {
+                        tableElementList[j].classList.remove('active');
+                    }
+                    //Agregamos la clase active y almacenamos la informacion de la coincidencia
+                    e.target.classList.add('active');
+                    //Activamos el boton editar
+                    editBtn.classList.add('active');
+
+                    itemsSelectedFromTable[keyitemSelectedFromTable] = list.find(element => element[propertyName] === e.target.innerText);
             });
     }
 }

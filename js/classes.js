@@ -1,7 +1,7 @@
 class Schedule {
-    constructor(scheduleName, checkInTime, departureTime) {
+    constructor(scheduleName, scheduleCheckIn, scheduleDeparture) {
         this.scheduleName = scheduleName;
-        this.checkInTime = checkInTime;
-        this.departureTime = departureTime;
+        this.scheduleCheckIn = scheduleCheckIn;
+        this.scheduleDeparture = scheduleDeparture;
     }
 }
