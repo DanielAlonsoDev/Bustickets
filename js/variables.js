@@ -14,3 +14,12 @@ const saveSchedulenBtn = document.querySelector('#save-schedule-btn');
 let scheduleNameValidated;
 let scheduleCheckInValidated;
 let scheduleDepartureValidated;
+
+
+
+//************ VEHICLE VARIABLES ************
+let vehicleList = [];
+let vehicleData = JSON.parse(sessionStorage.getItem('vehicleDataSetJSON'));
+
+
+//id="scheduleCheckInInput"

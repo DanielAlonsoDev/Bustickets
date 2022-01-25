@@ -90,7 +90,7 @@ let getScheduleFormData = () => {
         addScheduleToData(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated);
 
         printTable(scheduleList,'table-schedule','scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn);
+        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn,scheduleEditEvent);
         
 
         cleanForm(scheduleInputsList);
@@ -129,7 +129,7 @@ let editScheduleFormData = () => {
         //Regsitramos la informacion en el Storage
         editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,index);
         printTable(scheduleList,'table-schedule','scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn);
+        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn,scheduleEditEvent);
 
         
         cleanForm(scheduleInputsList);
@@ -143,35 +143,7 @@ let editScheduleFormData = () => {
     };
 };
 
-loadScheduleDataSet();
-printTable(scheduleList,'table-schedule','scheduleName');
-getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn);
-
-//EVENTO PARA CREAR NUEVOS REGISTROS EN LAS LISTAS DE HORARIOS
-newSchedulenBtn.addEventListener('click', () => {
-    cleanForm(scheduleInputsList);
-    enableForm(scheduleInputsList);
-    saveSchedulenBtn.classList.remove('active');
-    saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
-    saveSchedulenBtn.removeEventListener('click',editScheduleFormData);
-
-    
-    editSchedulenBtn.classList.remove('active');
-    for (let i = 0; i < document.querySelector('#table-schedule').getElementsByTagName('td').length; i++) {
-        document.querySelector('#table-schedule').getElementsByTagName('td')[i].classList.remove('active');
-    }
-
-    //Creamos un evento para validar y mostrar el boton de guardar
-    scheduleNameInput.addEventListener('change', ()=>{
-        if(scheduleNameInput.value != ''){
-
-            saveSchedulenBtn.classList.add('active');
-            saveSchedulenBtn.addEventListener('click', getScheduleFormData);
-        }
-    });
-});
-
-editSchedulenBtn.addEventListener('click', () => {
+let scheduleEditEvent = () => {
     if(itemsSelectedFromTable['scheduleTableItem'] != undefined){
         //Habilitamos el formulario
         enableForm(scheduleInputsList);
@@ -183,7 +155,37 @@ editSchedulenBtn.addEventListener('click', () => {
         scheduleNameInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleName;
         scheduleCheckInInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn;
         scheduleDepartureInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture;
-        
+
         saveSchedulenBtn.addEventListener('click', editScheduleFormData);
+        editSchedulenBtn.removeEventListener('click', scheduleEditEvent);
+        scheduleNameInput.removeEventListener('change', eventName);
+    };
+};
+
+//Inicializamos la tabla
+loadScheduleDataSet();
+printTable(scheduleList,'table-schedule','scheduleName');
+getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn, scheduleEditEvent);
+
+//EVENTO PARA CREAR NUEVOS REGISTROS EN LAS LISTAS DE HORARIOS
+newSchedulenBtn.addEventListener('click', () => {
+    cleanForm(scheduleInputsList);
+    enableForm(scheduleInputsList);
+    saveSchedulenBtn.classList.remove('active');
+    saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
+    saveSchedulenBtn.removeEventListener('click', editScheduleFormData);
+    editSchedulenBtn.removeEventListener('click', scheduleEditEvent);
+    editSchedulenBtn.classList.remove('active');
+    
+    for (let i = 0; i < document.querySelector('#table-schedule').getElementsByTagName('td').length; i++) {
+        document.querySelector('#table-schedule').getElementsByTagName('td')[i].classList.remove('active');
     }
+
+    //Creamos un evento para validar cambios en el nombre y mostrar el boton de guardar
+    let eventChangeName = nameChange(scheduleNameInput,getScheduleFormData);
+    scheduleNameInput.addEventListener('change', eventChangeName);
 });
+
+
+
+

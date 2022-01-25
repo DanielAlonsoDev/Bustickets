@@ -44,11 +44,17 @@ let enableForm = (inputsIdNames) => {
     };
 };
 
+let nameChange = (inputName, saveBtnEvent) => {
+    if(inputName.value != ''){
+        saveSchedulenBtn.classList.add('active');
+        saveSchedulenBtn.addEventListener('click', saveBtnEvent);
+    }
+}
 
 let itemsSelectedFromTable = { scheduleTableItem : undefined};
-let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn) => {
+let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn, editBtnEvent) => {
     const tableElementList = document.querySelector(tableIdName).getElementsByTagName('td');
-
+    
     for (let i = 0; i < tableElementList.length; i++) {
             //Asignamos el evento a los elementos de la tabla
             tableElementList[i].addEventListener("click", (e) =>{
@@ -60,6 +66,8 @@ let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, e
                     e.target.classList.add('active');
                     //Activamos el boton editar
                     editBtn.classList.add('active');
+                    editBtn.addEventListener('click', editBtnEvent);
+
 
                     itemsSelectedFromTable[keyitemSelectedFromTable] = list.find(element => element[propertyName] === e.target.innerText);
             });
