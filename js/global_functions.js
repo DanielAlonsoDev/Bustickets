@@ -1,16 +1,16 @@
 //FUNCION PARA IMPRIMIR LOS VALORES EN LA TABLA
 let printTable = (listToPrint, tableIdName, propertyName) => {
     let selectedList = listToPrint;
-    let tableSelected = document.querySelector(tableIdName).querySelector('tbody');
-
+    let tableSelected = document.getElementById(tableIdName).querySelector('tbody');
+    tableSelected.innerHTML = '';
     for (let index = 0; index < selectedList.length; index++) {
         let newRowElement = document.createElement('tr');
         let newColumnElement = document.createElement('td');
         tableSelected.appendChild(newRowElement);
         newRowElement.appendChild(newColumnElement);
         newColumnElement.textContent = selectedList[index][propertyName];
-    }
-}
+    };
+};
 
 let printNewTableElement = (listToPrint, tableIdName, propertyName) => {
     const selectedList = listToPrint;
@@ -21,28 +21,28 @@ let printNewTableElement = (listToPrint, tableIdName, propertyName) => {
     tableSelected.appendChild(newRowElement);
     newRowElement.appendChild(newColumnElement);
     newColumnElement.textContent = selectedList[selectedList.length - 1][propertyName];
-}
+};
 
 let cleanForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
         document.getElementById(inputsIdNames[index]).value = null;
-    }
-}
+    };
+};
 
 let disableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
         document.getElementById(inputsIdNames[index]).disabled = true;
-    }
-}
+    };
+};
 
 let enableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
         document.getElementById(inputsIdNames[index]).disabled = false;
-    }
-}
+    };
+};
 
 
 let itemsSelectedFromTable = { scheduleTableItem : undefined};
@@ -63,5 +63,5 @@ let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, e
 
                     itemsSelectedFromTable[keyitemSelectedFromTable] = list.find(element => element[propertyName] === e.target.innerText);
             });
-    }
-}
+    };
+};
