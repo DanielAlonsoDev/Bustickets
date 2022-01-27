@@ -90,13 +90,14 @@ let getScheduleFormData = () => {
         addScheduleToData(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated);
 
         printTable(scheduleList,'table-schedule','scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn,scheduleEditEvent);
+        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editScheduleBtn,scheduleEditEvent);
         
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
-        saveSchedulenBtn.classList.remove('active');
-        saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
+        saveScheduleBtn.classList.remove('active');
+        saveScheduleBtn.removeEventListener('click', getScheduleFormData);
+        scheduleNameInput.removeEventListener('change', onchangeSchedule);
         //Limpiamos los campos validados
         scheduleNameValidated = undefined;
         scheduleCheckInValidated = undefined;
@@ -105,7 +106,7 @@ let getScheduleFormData = () => {
 }
 
 let editScheduleFormData = () => {
-    index = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
+    indexScheduleItem = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
     if(scheduleNameInput.value != '' && scheduleNameInput.value != null && scheduleNameInput.value != undefined){
         scheduleNameValidated = scheduleNameInput.value;
     } else {
@@ -127,15 +128,15 @@ let editScheduleFormData = () => {
 
     if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
         //Regsitramos la informacion en el Storage
-        editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,index);
+        editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,indexScheduleItem);
         printTable(scheduleList,'table-schedule','scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn,scheduleEditEvent);
+        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editScheduleBtn,scheduleEditEvent);
 
         
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
-        saveSchedulenBtn.classList.remove('active');
-        saveSchedulenBtn.removeEventListener('click', editScheduleFormData);
+        saveScheduleBtn.classList.remove('active');
+        saveScheduleBtn.removeEventListener('click', editScheduleFormData);
         //Limpiamos los campos validados
         scheduleNameValidated = undefined;
         scheduleCheckInValidated = undefined;
@@ -147,45 +148,46 @@ let scheduleEditEvent = () => {
     if(itemsSelectedFromTable['scheduleTableItem'] != undefined){
         //Habilitamos el formulario
         enableForm(scheduleInputsList);
-        saveSchedulenBtn.removeEventListener('click',getScheduleFormData);
-        saveSchedulenBtn.classList.add('active');
-        editSchedulenBtn.classList.remove('active');
+        saveScheduleBtn.removeEventListener('click',getScheduleFormData);
+        saveScheduleBtn.classList.add('active');
+        editScheduleBtn.classList.remove('active');
 
         //Rellenamos el input con la informacion
         scheduleNameInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleName;
         scheduleCheckInInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn;
         scheduleDepartureInput.value = itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture;
 
-        saveSchedulenBtn.addEventListener('click', editScheduleFormData);
-        editSchedulenBtn.removeEventListener('click', scheduleEditEvent);
-        scheduleNameInput.removeEventListener('change', eventName);
+        saveScheduleBtn.addEventListener('click', editScheduleFormData);
+        editScheduleBtn.removeEventListener('click', scheduleEditEvent);
+        scheduleNameInput.removeEventListener('change', onchangeSchedule);
     };
 };
+
+let onchangeSchedule = () => {
+    if(scheduleNameInput.value != ''){
+        saveScheduleBtn.classList.add('active');
+        saveScheduleBtn.addEventListener('click', getScheduleFormData);
+    };
+}
 
 //Inicializamos la tabla
 loadScheduleDataSet();
 printTable(scheduleList,'table-schedule','scheduleName');
-getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editSchedulenBtn, scheduleEditEvent);
+getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName',editScheduleBtn, scheduleEditEvent);
 
 //EVENTO PARA CREAR NUEVOS REGISTROS EN LAS LISTAS DE HORARIOS
-newSchedulenBtn.addEventListener('click', () => {
+newScheduleBtn.addEventListener('click', () => {
     cleanForm(scheduleInputsList);
     enableForm(scheduleInputsList);
-    saveSchedulenBtn.classList.remove('active');
-    saveSchedulenBtn.removeEventListener('click', getScheduleFormData);
-    saveSchedulenBtn.removeEventListener('click', editScheduleFormData);
-    editSchedulenBtn.removeEventListener('click', scheduleEditEvent);
-    editSchedulenBtn.classList.remove('active');
+    saveScheduleBtn.classList.remove('active');
+    saveScheduleBtn.removeEventListener('click', getScheduleFormData);
+    saveScheduleBtn.removeEventListener('click', editScheduleFormData);
+    editScheduleBtn.removeEventListener('click', scheduleEditEvent);
+    editScheduleBtn.classList.remove('active');
     
     for (let i = 0; i < document.querySelector('#table-schedule').getElementsByTagName('td').length; i++) {
         document.querySelector('#table-schedule').getElementsByTagName('td')[i].classList.remove('active');
     }
 
-    //Creamos un evento para validar cambios en el nombre y mostrar el boton de guardar
-    let eventChangeName = nameChange(scheduleNameInput,getScheduleFormData);
-    scheduleNameInput.addEventListener('change', eventChangeName);
+    scheduleNameInput.addEventListener('change', onchangeSchedule);
 });
-
-
-
-

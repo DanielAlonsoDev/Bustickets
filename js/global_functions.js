@@ -44,14 +44,7 @@ let enableForm = (inputsIdNames) => {
     };
 };
 
-let nameChange = (inputName, saveBtnEvent) => {
-    if(inputName.value != ''){
-        saveSchedulenBtn.classList.add('active');
-        saveSchedulenBtn.addEventListener('click', saveBtnEvent);
-    }
-}
-
-let itemsSelectedFromTable = { scheduleTableItem : undefined};
+let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined };
 let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn, editBtnEvent) => {
     const tableElementList = document.querySelector(tableIdName).getElementsByTagName('td');
     
@@ -73,3 +66,11 @@ let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, e
             });
     };
 };
+
+//Evitamos el comportamiento default de todos los botones
+let allAnchors = document.getElementsByTagName('a');
+for (const item of allAnchors) {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+    })
+}

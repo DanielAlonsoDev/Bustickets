@@ -7,15 +7,16 @@ class Schedule {
 }
 
 class Vehicle {
-    constructor(plates, brand, model, seats, staff) {
-        this.plates = plates;
-        this.brand = brand;
-        this.model = model;
-        this.seats = seats;
-        this.staff = staff;
+    constructor(vehicleBrand, vehicleModel, vehiclePlates, vehicleSeats, vehicleStaff) {
+        this.vehicleBrand = vehicleBrand;
+        this.vehicleModel = vehicleModel;
+        this.vehiclePlates = vehiclePlates;
+        this.vehicleSeats = vehicleSeats;
+        this.vehicleStaff = vehicleStaff;
         this.available = true;
+        this.vehicleName = vehicleBrand + " - " + vehiclePlates;
     }
-    getCapacity(){
-        return `${this.seats - this.staff} Pasajeros`
+    vehicleCapacity(){
+        return `${this.vehicleSeats - this.vehicleStaff} Pasajeros`
     }
 }
