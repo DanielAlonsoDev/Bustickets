@@ -1,76 +1,61 @@
 //FUNCION PARA IMPRIMIR LOS VALORES EN LA TABLA
 let printTable = (listToPrint, tableIdName, propertyName) => {
     let selectedList = listToPrint;
-    let tableSelected = document.getElementById(tableIdName).querySelector('tbody');
-    tableSelected.innerHTML = '';
-    for (let index = 0; index < selectedList.length; index++) {
-        let newRowElement = document.createElement('tr');
-        let newColumnElement = document.createElement('td');
-        tableSelected.appendChild(newRowElement);
-        newRowElement.appendChild(newColumnElement);
-        newColumnElement.textContent = selectedList[index][propertyName];
-    };
-};
+    $(tableIdName + ' tbody').empty();
 
-let printNewTableElement = (listToPrint, tableIdName, propertyName) => {
-    const selectedList = listToPrint;
-    const tableSelected = document.querySelector(tableIdName).querySelector('tbody');
-    const newRowElement = document.createElement('tr');
-    const newColumnElement = document.createElement('td');
-    
-    tableSelected.appendChild(newRowElement);
-    newRowElement.appendChild(newColumnElement);
-    newColumnElement.textContent = selectedList[selectedList.length - 1][propertyName];
+    for (let index = 0; index < selectedList.length; index++) {
+        $(tableIdName).append(`<tr><td>${selectedList[index][propertyName]}</td></tr>`);
+    };
 };
 
 let cleanForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
-        document.getElementById(inputsIdNames[index]).value = null;
+        // document.getElementById(inputsIdNames[index]).value = null;
+        $(inputsIdNames[index]).val(null);
     };
 };
 
 let disableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
-        document.getElementById(inputsIdNames[index]).disabled = true;
+        $(inputsIdNames[index]).prop( "disabled", true );
     };
 };
 
 let enableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
-        document.getElementById(inputsIdNames[index]).disabled = false;
+        $(inputsIdNames[index]).prop( "disabled", false );
     };
 };
 
 let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined };
 let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn, editBtnEvent) => {
-    const tableElementList = document.querySelector(tableIdName).getElementsByTagName('td');
     
-    for (let i = 0; i < tableElementList.length; i++) {
+    for (let i = 0; i < $(tableIdName + ' td').length; i++) {
             //Asignamos el evento a los elementos de la tabla
-            tableElementList[i].addEventListener("click", (e) =>{
+            $(tableIdName + ' td')[i].addEventListener("click", (e) =>{
                     //Removemos la clase active de cualquier otro elemento seleccionado
-                    for (let j = 0; j < tableElementList.length; j++) {
-                        tableElementList[j].classList.remove('active');
+                    for (let j = 0; j < $(tableIdName + ' td').length; j++) {
+                        //tableElementList.qe(j).removeClass('active');
+                        $(tableIdName + ' td').eq(j).removeClass('active');
                     }
                     //Agregamos la clase active y almacenamos la informacion de la coincidencia
                     e.target.classList.add('active');
                     //Activamos el boton editar
-                    editBtn.classList.add('active');
-                    editBtn.addEventListener('click', editBtnEvent);
-
+                    $(editBtn).addClass('active');
+                    $(editBtn).click(editBtnEvent);
 
                     itemsSelectedFromTable[keyitemSelectedFromTable] = list.find(element => element[propertyName] === e.target.innerText);
             });
     };
 };
 
-//Evitamos el comportamiento default de todos los botones
-let allAnchors = document.getElementsByTagName('a');
-for (const item of allAnchors) {
+//Evitamos el comportamiento por defecto de los enlaces y botones de la aplicacion
+for (const item of $('a')) {
     item.addEventListener('click', (e) => {
         e.preventDefault();
     })
 }
+
