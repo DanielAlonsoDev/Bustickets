@@ -20,3 +20,17 @@ let vehicleBrandValidated;
 let vehicleModelValidated;
 let vehicleSeatsValidated;
 let vehicleStaffValidated;
+
+
+//************ ROUTES VARIABLES ************
+let routeList = [];
+let routeData = JSON.parse(sessionStorage.getItem('routeDataSetJSON'));
+//INPUTS
+const routeInputsList = [ '#routeNameInput','#routedDepartureNameInput', '#routeDepartureCodeInput', '#routeDestinationNameInput', '#routeDestinationCodeInput', '#routeDistanceInput', '#routeHoursInput', '#routeMinutesInput'];
+//VALIDATED INPUTS
+let routeNameValidated;
+let routeDepartureNameValidated;
+let routeDepartureCodeValidated;
+let routeDestinationNameValidated;
+let routeDestinationCodeValidated;
+let routeDistanceValidated;

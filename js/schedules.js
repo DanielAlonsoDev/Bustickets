@@ -108,10 +108,32 @@ let getScheduleFormData = () => {
 
 let editScheduleFormData = () => {
     indexScheduleItem = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
-    if( $('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined){
+    //Validamos si se realizaron cambios en el input del nombre del horario
+    if($('#scheduleNameInput').val() == itemsSelectedFromTable['scheduleTableItem'].scheduleName){
         scheduleNameValidated = $('#scheduleNameInput').val();
     } else {
-        alert('Debes ingresar un nombre de horario valido');
+        if( $('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined){
+            //Comparamos el nombre con todos los guardados con anterioridad
+            let scheduleNameExist = false;
+            for (let index = 0; index < scheduleList.length; index++) {
+                if(scheduleList[index].scheduleName == $('#scheduleNameInput').val() ){
+                    scheduleNameExist = true;
+                }
+            }
+    
+            switch(scheduleNameExist){
+                case true:
+                    alert('Ya existe un nombre registrado con ese nombre');
+                    break;
+    
+                case false:
+                    scheduleNameValidated = $('#scheduleNameInput').val();
+                    break;
+            }
+        }
+        else {
+            alert('Debes ingresar un nombre de horario valido');
+        }
     }
     
     //Validamos que el contenido del input Checkin sea valido

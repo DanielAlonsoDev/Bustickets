@@ -20,3 +20,36 @@ class Vehicle {
         return `${this.vehicleSeats - this.vehicleStaff} Pasajeros`
     }
 }
+
+class Route {
+    constructor( codeDeparture, codeDestination ,departure, destination, distance) {
+        this.codeDeparture = codeDeparture;
+        this.codeDestination = codeDestination;
+        this.routeName = codeDeparture + "-" + codeDestination;
+        this.departure = departure;
+        this.destination = destination;
+        this.distance = distance;
+    }
+    getEta(){
+        let aproxSpeed = 80;
+        let tempResult = (this.distance/aproxSpeed)*60;
+        let counter = 0;
+        
+        while(tempResult >= 60 ){
+            tempResult = tempResult - 60;
+            counter++;
+        }
+
+        let minutes = parseInt(tempResult);
+        let hours = counter;
+
+        if (minutes == 0){
+            minutes = "00";
+            return [hours,minutes];
+        } 
+        
+        else {
+            return [hours,minutes];
+        }
+    }
+}

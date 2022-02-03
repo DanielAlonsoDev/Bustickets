@@ -53,14 +53,14 @@ let getVehicleFormData = () => {
     //Validamos que el contenido del input Name sea valido
     if( $('#vehiclePlatesInput').val() != ''){
         //Comparamos el nombre con todos los guardados con anterioridad
-        let vehicleNameExist = false;
+        let vehiclePlatesExist = false;
         for (let index = 0; index < vehicleList.length; index++) {
             if(vehicleList[index].vehiclePlates == $('#vehiclePlatesInput').val() ){
-                vehicleNameExist = true;
+                vehiclePlatesExist = true;
             }
         }
 
-        switch(vehicleNameExist){
+        switch(vehiclePlatesExist){
             case true:
                 alert('Ya existe un vehiculo registrado con esa patente');
                 break;
@@ -125,11 +125,31 @@ let getVehicleFormData = () => {
 let editVehicleFormData = () => {
     indexVehicleItem = vehicleList.findIndex(element => element.vehicleName === itemsSelectedFromTable['vehicleTableItem'].vehicleName);
     //Validamos que el contenido del input Name sea valido
-    if( $('#vehiclePlatesInput').val() != '' && $('#vehiclePlatesInput').val() != null && $('#vehiclePlatesInput').val() != undefined){
+    if ( $('#vehiclePlatesInput').val() == itemsSelectedFromTable['vehicleTableItem'].vehiclePlates) {
         vehiclePlatesValidated = $('#vehiclePlatesInput').val();
-    }
-    else {
-        alert('Debes ingresar una patente valida');
+    } else {
+        if( $('#vehiclePlatesInput').val() != ''){
+            //Comparamos el nombre con todos los guardados con anterioridad
+            let vehiclePlatesExist = false;
+            for (let index = 0; index < vehicleList.length; index++) {
+                if(vehicleList[index].vehiclePlates == $('#vehiclePlatesInput').val() ){
+                    vehiclePlatesExist = true;
+                }
+            }
+    
+            switch(vehiclePlatesExist){
+                case true:
+                    alert('Ya existe un vehiculo registrado con esa patente');
+                    break;
+    
+                case false:
+                    vehiclePlatesValidated = $('#vehiclePlatesInput').val();
+                    break;
+            }
+        }
+        else {
+            alert('Debes ingresar una patente valida');
+        }
     }
 
     //Validamos que el contenido del input Checkin sea valido
