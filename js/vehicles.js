@@ -50,13 +50,12 @@ let addVehicleToData = (addBrand, addModel, addPlates, addSeats, addStaff) => {
 
 //FUNCION PARA CONSEGUIR LA INFORMACION DEL FORMULARIO
 let getVehicleFormData = () => {
-    console.log("VEHICLE FORM DATA FUNCIONA")//TEMPORAL
     //Validamos que el contenido del input Name sea valido
-    if(vehiclePlatesInput.value != ''){
+    if( $('#vehiclePlatesInput').val() != ''){
         //Comparamos el nombre con todos los guardados con anterioridad
         let vehicleNameExist = false;
         for (let index = 0; index < vehicleList.length; index++) {
-            if(vehicleList[index].vehiclePlates == vehiclePlatesInput.value ){
+            if(vehicleList[index].vehiclePlates == $('#vehiclePlatesInput').val() ){
                 vehicleNameExist = true;
             }
         }
@@ -67,7 +66,7 @@ let getVehicleFormData = () => {
                 break;
 
             case false:
-                vehiclePlatesValidated = vehiclePlatesInput.value;
+                vehiclePlatesValidated = $('#vehiclePlatesInput').val();
                 break;
         }
     }
@@ -76,26 +75,26 @@ let getVehicleFormData = () => {
     }
 
     //Validamos que el contenido del input Checkin sea valido
-    if(vehicleBrandInput.value != ''){
-        vehicleBrandValidated = vehicleBrandInput.value;
+    if( $('#vehicleBrandInput').val() != ''){
+        vehicleBrandValidated = $('#vehicleBrandInput').val();
     } else {
         alert('Debes ingresar un nombre de marca valido');
     }
 
-    if(vehicleModelInput.value != ''){
-        vehicleModelValidated = vehicleModelInput.value;
+    if($('#vehicleModelInput').val() != ''){
+        vehicleModelValidated = $('#vehicleModelInput').val();
     } else {
         alert('Debes ingresar un nombre de modelo valido');
     }
 
-    if(vehicleSeatsInput.value != '' && !isNaN(vehicleSeatsInput.value)){
-        vehicleSeatsValidated = vehicleSeatsInput.value;
+    if( $('#vehicleSeatsInput').val() != '' && !isNaN( $('#vehicleSeatsInput').val() )){
+        vehicleSeatsValidated = $('#vehicleSeatsInput').val();
     } else {
         alert('Debes ingresar un numero de asientos');
     }
 
-    if(vehicleStaffInput.value != '' && !isNaN(vehicleStaffInput.value)){
-        vehicleStaffValidated = vehicleStaffInput.value;
+    if( $('#vehicleStaffInput').val() != '' && !isNaN( $('#vehicleStaffInput').val() )){
+        vehicleStaffValidated = $('#vehicleStaffInput').val();
     } else {
         alert('Debes ingresar un numero de personal');
     }
@@ -106,14 +105,14 @@ let getVehicleFormData = () => {
         //Regsitramos la informacion en el Storage
         addVehicleToData(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated);
 
-        printTable(vehicleList,'table-vehicle','vehicleName');
-        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', editVehicleBtn, vehicleEditEvent);
-
+        printTable(vehicleList,'#table-vehicle','vehicleName');
+        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+        
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
-        saveVehicleBtn.classList.remove('active');
-        saveVehicleBtn.removeEventListener('click', getVehicleFormData);
-        vehicleBrandInput.removeEventListener('change', onchangeVehicle);
+        $('#save-vehicle-btn').removeClass('active');
+        $('#save-vehicle-btn').unbind('click', getVehicleFormData);
+        $('#vehicleBrandInput').unbind('change', onchangeVehicle); 
         //Limpiamos los campos validados
         vehiclePlatesValidated = undefined;
         vehicleBrandValidated = undefined;
@@ -126,34 +125,34 @@ let getVehicleFormData = () => {
 let editVehicleFormData = () => {
     indexVehicleItem = vehicleList.findIndex(element => element.vehicleName === itemsSelectedFromTable['vehicleTableItem'].vehicleName);
     //Validamos que el contenido del input Name sea valido
-    if(vehiclePlatesInput.value != '' && vehiclePlatesInput.value != null && vehiclePlatesInput.value != undefined){
-        vehiclePlatesValidated = vehiclePlatesInput.value;
+    if( $('#vehiclePlatesInput').val() != '' && $('#vehiclePlatesInput').val() != null && $('#vehiclePlatesInput').val() != undefined){
+        vehiclePlatesValidated = $('#vehiclePlatesInput').val();
     }
     else {
         alert('Debes ingresar una patente valida');
     }
 
     //Validamos que el contenido del input Checkin sea valido
-    if(vehicleBrandInput.value != ''){
-        vehicleBrandValidated = vehicleBrandInput.value;
+    if($('#vehicleBrandInput').val() != ''){
+        vehicleBrandValidated = $('#vehicleBrandInput').val();
     } else {
         alert('Debes ingresar un nombre de marca valido');
     }
 
-    if(vehicleModelInput.value != ''){
-        vehicleModelValidated = vehicleModelInput.value;
+    if($('#vehicleModelInput').val() != ''){
+        vehicleModelValidated = $('#vehicleModelInput').val();
     } else {
         alert('Debes ingresar un nombre de modelo valido');
     }
 
-    if(vehicleSeatsInput.value != '' && !isNaN(vehicleSeatsInput.value)){
-        vehicleSeatsValidated = vehicleSeatsInput.value;
+    if($('#vehicleSeatsInput').val() != '' && !isNaN($('#vehicleSeatsInput').val())){
+        vehicleSeatsValidated = $('#vehicleSeatsInput').val();
     } else {
         alert('Debes ingresar un numero de asientos');
     }
 
-    if(vehicleStaffInput.value != '' && !isNaN(vehicleStaffInput.value)){
-        vehicleStaffValidated = vehicleStaffInput.value;
+    if($('#vehicleStaffInput').val() != '' && !isNaN($('#vehicleStaffInput').val())){
+        vehicleStaffValidated = $('#vehicleStaffInput').val();
     } else {
         alert('Debes ingresar un numero de personal');
     }
@@ -161,14 +160,14 @@ let editVehicleFormData = () => {
     if(vehiclePlatesValidated != undefined && vehicleBrandValidated != undefined && vehicleModelValidated != undefined && vehicleSeatsValidated != undefined && vehicleStaffValidated != undefined){
         //Regsitramos la informacion en el Storage
         editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated,indexVehicleItem);
-        printTable(vehicleList,'table-vehicle','vehicleName');
-        getTableItem(vehicleList, 'vehicleTableItem','#table-vehicle','vehicleName', editVehicleBtn, vehicleEditEvent);
+        printTable(vehicleList,'#table-vehicle','vehicleName');
+        getTableItem(vehicleList, 'vehicleTableItem','#table-vehicle','vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
 
         
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
-        saveVehicleBtn.classList.remove('active');
-        saveVehicleBtn.removeEventListener('click', editVehicleFormData);
+        $('#save-vehicle-btn').removeClass('active');
+        $('#save-vehicle-btn').unbind('click', editVehicleFormData);
         //Limpiamos los campos validados
         vehiclePlatesValidated = undefined;
         vehicleBrandValidated = undefined;
@@ -182,49 +181,59 @@ let vehicleEditEvent = () => {
     if(itemsSelectedFromTable['vehicleTableItem'] != undefined){
         //Habilitamos el formulario
         enableForm(vehicleInputsList);
-        saveVehicleBtn.removeEventListener('click',getVehicleFormData);
-        saveVehicleBtn.classList.add('active');
-        editVehicleBtn.classList.remove('active');
+        $('#save-vehicle-btn').unbind('click', getVehicleFormData);
+        $('#save-vehicle-btn').addClass('active');
+        $('#save-vehicle-btn').removeClass('active');
 
         //Rellenamos el input con la informacion
-        vehicleBrandInput.value = itemsSelectedFromTable['vehicleTableItem'].vehicleBrand;
-        vehicleModelInput.value = itemsSelectedFromTable['vehicleTableItem'].vehicleModel;
-        vehiclePlatesInput.value = itemsSelectedFromTable['vehicleTableItem'].vehiclePlates;
-        vehicleSeatsInput.value = itemsSelectedFromTable['vehicleTableItem'].vehicleSeats;
-        vehicleStaffInput.value = itemsSelectedFromTable['vehicleTableItem'].vehicleStaff;
-        vehicleCapacityInput.value = itemsSelectedFromTable['vehicleTableItem'].vehicleCapacity();
+        $('#vehicleBrandInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleBrand);
+        $('#vehicleModelInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleModel);
+        $('#vehiclePlatesInput').val(itemsSelectedFromTable['vehicleTableItem'].vehiclePlates);
+        $('#vehicleSeatsInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleSeats);
+        $('#vehicleStaffInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleStaff);
+        $('#vehicleCapacityInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleCapacity());
 
+        $('#vehicleSeatsInput').change(showVehicleCapacity);
+        $('#vehicleStaffInput').change(showVehicleCapacity);
 
-        saveVehicleBtn.addEventListener('click', editVehicleFormData);
-        editVehicleBtn.removeEventListener('click', vehicleEditEvent);
-        vehicleBrandInput.removeEventListener('change', onchangeVehicle);
+        $('#save-vehicle-btn').click(editVehicleFormData);
+        $('#edit-vehicle-btn').unbind('click', vehicleEditEvent);
+        $('#vehicleBrandInput').unbind('change', onchangeVehicle);
     };
 };
 
+let showVehicleCapacity = () => {
+    if( $('#vehicleSeatsInput').val() != null && $('#vehicleStaffInput').val() != null ){
+        $('#vehicleCapacityInput').val( $('#vehicleSeatsInput').val() - $('#vehicleStaffInput').val() + " Pasajeros" );
+    }
+};
+
 let onchangeVehicle = () => {
-    if(vehicleBrandInput.value != ''){
-        saveVehicleBtn.classList.add('active');
-        saveVehicleBtn.addEventListener('click', getVehicleFormData);
+    if($('#vehicleBrandInput').val() != ''){
+        $('#save-vehicle-btn').addClass('active');
+        $('#save-vehicle-btn').click(getVehicleFormData);
     };
 }
 
 //Inicializamos la tabla
 loadVehicleDataSet();
-printTable(vehicleList,'table-vehicle','vehicleName');
-getTableItem(vehicleList, 'vehicleTableItem','#table-vehicle','vehicleName', editVehicleBtn, vehicleEditEvent);
+printTable(vehicleList,'#table-vehicle','vehicleName');
+getTableItem(vehicleList, 'vehicleTableItem','#table-vehicle','vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
 
-newVehicleBtn.addEventListener('click', () => {
+$('#new-vehicle-btn').click(function (e) { 
     cleanForm(vehicleInputsList);
     enableForm(vehicleInputsList);
-    saveVehicleBtn.classList.remove('active');
-    saveVehicleBtn.removeEventListener('click', getVehicleFormData);
-    saveVehicleBtn.removeEventListener('click', editVehicleFormData);
-    editVehicleBtn.removeEventListener('click', vehicleEditEvent);
-    editVehicleBtn.classList.remove('active');
+    $('#save-vehicle-btn').removeClass('active');
+    $('#save-vehicle-btn').unbind('click', getVehicleFormData);
+    $('#save-vehicle-btn').unbind('click', editVehicleFormData);
+    $('#edit-vehicle-btn').unbind('click', vehicleEditEvent);
+    $('#save-vehicle-btn').removeClass('active');
     
-    for (let i = 0; i < document.querySelector('#table-vehicle').getElementsByTagName('td').length; i++) {
-        document.querySelector('#table-vehicle').getElementsByTagName('td')[i].classList.remove('active');
+    for (let i = 0; i < $('#table-vehicle td').length; i++) {
+        $('#table-vehicle td').eq(i).removeClass('active');
     }
 
-    vehicleBrandInput.addEventListener('change', onchangeVehicle);
+    $('#vehicleBrandInput').change(onchangeVehicle);
+    $('#vehicleSeatsInput').change(showVehicleCapacity);
+    $('#vehicleStaffInput').change(showVehicleCapacity);
 });

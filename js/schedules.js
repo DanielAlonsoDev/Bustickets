@@ -79,7 +79,7 @@ let getScheduleFormData = () => {
     }
 
     if($('#scheduleCheckInInput').val() != ''){
-        scheduleDepartureValidated = $('#scheduleCheckInInput').val();
+        scheduleDepartureValidated = $('#scheduleDepartureInput').val();
     } else {
         alert('Debes ingresar una hora de Salida valida');
     }
@@ -180,7 +180,7 @@ printTable(scheduleList,'#table-schedule','scheduleName');
 getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName','#edit-schedule-btn', scheduleEditEvent);
 
 //EVENTO PARA CREAR NUEVOS REGISTROS EN LAS LISTAS DE HORARIOS
-newScheduleBtn.addEventListener('click', () => {
+$('#new-schedule-btn').click(function (e) { 
     cleanForm(scheduleInputsList);
     enableForm(scheduleInputsList);
     $('#save-schedule-btn').removeClass('active');
@@ -193,5 +193,6 @@ newScheduleBtn.addEventListener('click', () => {
         $('#table-schedule td').eq(i).removeClass('active');
     }
 
-    $('#scheduleNameInput').bind('change', onchangeSchedule)
+    $('#scheduleNameInput').change(onchangeSchedule)
+    
 });
