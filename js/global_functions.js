@@ -13,8 +13,16 @@ let cleanForm = (inputsIdNames) => {
     for (let index = 0; index < inputsIdNames.length; index++) {
         // document.getElementById(inputsIdNames[index]).value = null;
         $(inputsIdNames[index]).val(null);
+        $(inputsIdNames[index]).removeClass('border-red');
+        $(inputsIdNames[index]).removeClass('border-yellow');
     };
 };
+
+let eventInputCleaner = (elementsList) => {
+    for (let index = 0; index < elementsList.length; index++) {
+        $(elementsList[index]).unbind('change');
+    }
+}
 
 let disableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
@@ -59,3 +67,39 @@ for (const item of $('a')) {
     })
 }
 
+for (const item of $('input')){
+    item.addEventListener('change', () => {
+        item.classList.remove('border-red');
+        item.classList.remove('border-yellow');
+    });
+}
+
+let animatedNotification = (notificationText, notificationType, duration, input) => {
+    let htmlContent = undefined;
+
+    switch (notificationType){
+        case 'done':
+            htmlContent = `<div class="notification-card notification-${notificationCount}"><div class="popup ${notificationType}"><i class="icon-checkmark"></i><span>${notificationText}</span></div></div>`;
+            $('#notification').append(htmlContent);
+            break;
+
+        case 'alert':
+            htmlContent = `<div class="notification-card notification-${notificationCount}"><div class="popup ${notificationType}"><i class="icon-warning"></i><span>${notificationText}</span></div></div>`;
+            $('#notification').append(htmlContent);
+            $(input).addClass('border-yellow');
+            break;
+
+        case 'error':
+            htmlContent = `<div class="notification-card notification-${notificationCount}"><div class="popup ${notificationType}"><i class="icon-blocked"></i><span>${notificationText}</span></div></div>`;
+            $('#notification').append(htmlContent);
+            $(input).addClass('border-red');
+            break;
+    }
+
+    $(`#notification .notification-${notificationCount}`).fadeIn(300);
+    $(`#notification .notification-${notificationCount}`).delay(duration);
+    $(`#notification .notification-${notificationCount}`).fadeOut(500);
+
+    notificationCount++;
+    htmlContent = undefined;
+};

@@ -27,6 +27,7 @@ let routeList = [];
 let routeData = JSON.parse(sessionStorage.getItem('routeDataSetJSON'));
 //INPUTS
 const routeInputsList = [ '#routeNameInput','#routedDepartureNameInput', '#routeDepartureCodeInput', '#routeDestinationNameInput', '#routeDestinationCodeInput', '#routeDistanceInput', '#routeHoursInput', '#routeMinutesInput'];
+const routeButtonsList = [ '#new-route-btn', '#edit-route-btn', '#save-route-btn'];
 //VALIDATED INPUTS
 let routeNameValidated;
 let routeDepartureNameValidated;
@@ -34,3 +35,5 @@ let routeDepartureCodeValidated;
 let routeDestinationNameValidated;
 let routeDestinationCodeValidated;
 let routeDistanceValidated;
+
+let notificationCount = 1;

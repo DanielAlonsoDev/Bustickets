@@ -66,35 +66,40 @@ let getRouteFormData = () => {
         }
 
         if( departureCodeExist == true && destinationCodeExist == true ){
-            alert('Ya existe una ruta con esa informacion registrada');
+            animatedNotification('Ya existe una ruta registrada con el mismo origen y destino', 'error' , 6000 , '#routeNameInput');
         }
         else {
             routeDepartureCodeValidated = $('#routeDepartureCodeInput').val();
             routeDestinationCodeValidated = $('#routeDestinationCodeInput').val();
         }
-    } else {
-        alert('Ingresa unos codigos validos');
+    } 
+    //Notificamos que falta el Codigo del Origen
+    if ($('#routeDepartureCodeInput').val() =='') {
+        animatedNotification('Debes ingresar un codigo de origen','alert', 6000, '#routeDepartureCodeInput');
+    }
+    //Notificamos que falta el Codigo del Destino
+    if ($('#routeDestinationCodeInput').val() =='') {
+        animatedNotification('Debes ingresar un codigo de destino','alert', 6000, '#routeDestinationCodeInput');
     }
 
     //Validamos que el contenido del input Checkin sea valido
     if( $('#routedDepartureNameInput').val() != ''){
         routeDepartureNameValidated = $('#routedDepartureNameInput').val();
     } else {
-        alert('Debes ingresar un nombre origen valido');
+        animatedNotification('Debes ingresar un nombre de origen','alert', 6000, '#routedDepartureNameInput');
     }
 
     if($('#routeDestinationNameInput').val() != ''){
         routeDestinationNameValidated = $('#routeDestinationNameInput').val();
     } else {
-        alert('Debes ingresar un nombre destino valido');
+        animatedNotification('Debes ingresar un nombre de destino','alert', 6000, '#routeDestinationNameInput');
     }
 
     if( $('#routeDistanceInput').val() != '' && !isNaN( $('#routeDistanceInput').val() )){
         routeDistanceValidated = $('#routeDistanceInput').val();
     } else {
-        alert('Debes ingresar la distancia del recorrido de la ruta');
+        animatedNotification('Debes ingresar la distancia de recorrido','alert', 6000, '#routeDistanceInput');
     }
-
 
     //Cuando la informacion de todos los inputs sea valida procedemos
     if(routeDepartureNameValidated != undefined && routeDepartureCodeValidated != undefined && routeDestinationNameValidated != undefined && routeDestinationCodeValidated != undefined && routeDistanceValidated != undefined){
@@ -108,14 +113,17 @@ let getRouteFormData = () => {
         disableForm(routeInputsList);
         $('#save-route-btn').removeClass('active');
         $('#save-route-btn').unbind('click', getRouteFormData);
-        $('#routedDepartureNameInput').unbind('change', onchangeRoute); 
-        //Limpiamos los campos validados
-        routeDepartureNameValidated = undefined;
-        routeDepartureCodeValidated = undefined;
-        routeDestinationNameValidated = undefined;
-        routeDestinationCodeValidated = undefined;
-        routeDistanceValidated = undefined;
+        $('#routedDepartureNameInput').unbind('change', onchangeRoute);
+
+        animatedNotification('Se ha creado una nueva ruta', 'done', 6000);
     }
+
+    //Limpiamos los campos validados
+    routeDepartureNameValidated = undefined;
+    routeDepartureCodeValidated = undefined;
+    routeDestinationNameValidated = undefined;
+    routeDestinationCodeValidated = undefined;
+    routeDistanceValidated = undefined;
 }
 
 let editRouteFormData = () => {
@@ -143,14 +151,20 @@ let editRouteFormData = () => {
             }
     
             if( departureCodeExist == true && destinationCodeExist == true ){
-                alert('Ya existe una ruta con esa informacion registrada');
+                animatedNotification('Ya existe una ruta registrada con el mismo origen y destino', 'error' , 6000 , '#routeNameInput');
             }
             else {
                 routeDepartureCodeValidated = $('#routeDepartureCodeInput').val();
                 routeDestinationCodeValidated = $('#routeDestinationCodeInput').val();
             }
-        } else {
-            alert('Ingresa unos codigos validos');
+        } 
+        //Notificamos que falta el Codigo del Origen
+        if ($('#routeDepartureCodeInput').val() =='') {
+            animatedNotification('Debes ingresar un codigo de origen','alert', 6000, '#routeDepartureCodeInput');
+        }
+        //Notificamos que falta el Codigo del Destino
+        if ($('#routeDestinationCodeInput').val() =='') {
+            animatedNotification('Debes ingresar un codigo de destino','alert', 6000, '#routeDestinationCodeInput');
         }
     }
     
@@ -159,19 +173,19 @@ let editRouteFormData = () => {
     if( $('#routedDepartureNameInput').val() != ''){
         routeDepartureNameValidated = $('#routedDepartureNameInput').val();
     } else {
-        alert('Debes ingresar un nombre origen valido');
+        animatedNotification('Debes ingresar un nombre de origen','alert', 6000, '#routedDepartureNameInput');
     }
 
     if($('#routeDestinationNameInput').val() != ''){
         routeDestinationNameValidated = $('#routeDestinationNameInput').val();
     } else {
-        alert('Debes ingresar un nombre destino valido');
+        animatedNotification('Debes ingresar un nombre de destino','alert', 6000, '#routeDestinationNameInput');
     }
 
     if( $('#routeDistanceInput').val() != '' && !isNaN( $('#routeDistanceInput').val() )){
         routeDistanceValidated = $('#routeDistanceInput').val();
     } else {
-        alert('Debes ingresar la distancia del recorrido de la ruta');
+        animatedNotification('Debes ingresar la distancia de recorrido','alert', 6000, '#routeDistanceInput');
     }
 
     if(routeDepartureNameValidated != undefined && routeDepartureCodeValidated != undefined && routeDestinationNameValidated != undefined && routeDestinationCodeValidated != undefined && routeDistanceValidated != undefined){
@@ -185,13 +199,16 @@ let editRouteFormData = () => {
         disableForm(routeInputsList);
         $('#save-route-btn').removeClass('active');
         $('#save-route-btn').unbind('click', editRouteFormData);
-        //Limpiamos los campos validados
-        routeDepartureNameValidated = undefined;
-        routeDepartureCodeValidated = undefined;
-        routeDestinationNameValidated = undefined;
-        routeDestinationCodeValidated = undefined;
-        routeDistanceValidated = undefined;
+
+        animatedNotification('Se ha actualizado la información de la ruta', 'done', 6000);
     };
+
+    //Limpiamos los campos validados
+    routeDepartureNameValidated = undefined;
+    routeDepartureCodeValidated = undefined;
+    routeDestinationNameValidated = undefined;
+    routeDestinationCodeValidated = undefined;
+    routeDistanceValidated = undefined;
 };
 
 let routeEditEvent = () => {
@@ -240,11 +257,12 @@ getTableItem(routeList, 'routeTableItem','#table-route','routeName', '#edit-rout
 $('#new-route-btn').click(function (e) { 
     cleanForm(routeInputsList);
     enableForm(routeInputsList);
+
     $('#save-route-btn').removeClass('active');
-    $('#save-route-btn').unbind('click', getRouteFormData);
-    $('#save-route-btn').unbind('click', editRouteFormData);
-    $('#edit-route-btn').unbind('click', routeEditEvent);
-    $('#save-route-btn').removeClass('active');
+    $('#save-route-btn').unbind('click');
+    $('#edit-route-btn').unbind('click');
+    //Reiniciamos los eventos de cambios
+    eventInputCleaner(routeInputsList);
     
     for (let i = 0; i < $('#table-route td').length; i++) {
         $('#table-route td').eq(i).removeClass('active');

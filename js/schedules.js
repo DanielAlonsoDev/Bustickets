@@ -60,6 +60,7 @@ let getScheduleFormData = () => {
         switch(scheduleNameExist){
             case true:
                 alert('Ya existe un nombre registrado con ese nombre');
+                animatedNotification('Ya existe un nombre registrado con ese nombre', 'error', 6000, '#scheduleNameInput')
                 break;
 
             case false:
@@ -69,19 +70,20 @@ let getScheduleFormData = () => {
     }
     else {
         alert('Debes ingresar un nombre de horario valido');
+        animatedNotification( 'Debes ingresar un nombre de horario valido', 'alert', 6000,'#scheduleNameInput');
     }
 
     //Validamos que el contenido del input Checkin sea valido
     if( $('#scheduleCheckInInput').val() != ''){
         scheduleCheckInValidated = $('#scheduleCheckInInput').val();
     } else {
-        alert('Debes ingresar una hora de Check In valida');
+        animatedNotification('Debes ingresar una hora de Check In valida', 'alert', 6000, '#scheduleCheckInInput')
     }
 
-    if($('#scheduleCheckInInput').val() != ''){
+    if($('#scheduleDepartureInput').val() != ''){
         scheduleDepartureValidated = $('#scheduleDepartureInput').val();
     } else {
-        alert('Debes ingresar una hora de Salida valida');
+        animatedNotification('Debes ingresar una hora de Salida valida', 'alert', 6000, '#scheduleDepartureInput');
     }
 
     //Cuando la informacion de todos los inputs sea valida procedemos
@@ -99,11 +101,13 @@ let getScheduleFormData = () => {
         $('#save-schedule-btn').unbind('click', getScheduleFormData);
         $('#scheduleNameInput').unbind('change', onchangeSchedule);
 
-        //Limpiamos los campos validados
-        scheduleNameValidated = undefined;
-        scheduleCheckInValidated = undefined;
-        scheduleDepartureValidated = undefined;
+        animatedNotification('Se ha creado un nuevo horario', 'done', 6000);
     }
+
+    //Limpiamos los campos validados
+    scheduleNameValidated = undefined;
+    scheduleCheckInValidated = undefined;
+    scheduleDepartureValidated = undefined;
 }
 
 let editScheduleFormData = () => {
@@ -123,7 +127,7 @@ let editScheduleFormData = () => {
     
             switch(scheduleNameExist){
                 case true:
-                    alert('Ya existe un nombre registrado con ese nombre');
+                    animatedNotification('Ya existe un nombre registrado con ese nombre', 'error', 6000, '#scheduleNameInput')
                     break;
     
                 case false:
@@ -132,21 +136,21 @@ let editScheduleFormData = () => {
             }
         }
         else {
-            alert('Debes ingresar un nombre de horario valido');
+            animatedNotification( 'Debes ingresar un nombre de horario valido', 'alert', 6000,'#scheduleNameInput');
         }
     }
-    
+
     //Validamos que el contenido del input Checkin sea valido
     if($('#scheduleCheckInInput').val() != ''){
         scheduleCheckInValidated = $('#scheduleCheckInInput').val();
     } else {
-        alert('Debes ingresar una hora de Check In valida');
+        animatedNotification('Debes ingresar una hora de Check In valida', 'alert', 6000, '#scheduleCheckInInput')
     }
 
     if( $('#scheduleDepartureInput').val() != ''){
         scheduleDepartureValidated = $('#scheduleDepartureInput').val();
     } else {
-        alert('Debes ingresar una hora de Salida valida');
+        animatedNotification('Debes ingresar una hora de Salida valida', 'alert', 6000, '#scheduleDepartureInput');
     }
 
     if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
@@ -161,11 +165,13 @@ let editScheduleFormData = () => {
         $('#save-schedule-btn').removeClass('active');
         $('#save-schedule-btn').unbind('click', editScheduleFormData);
 
-        //Limpiamos los campos validados
-        scheduleNameValidated = undefined;
-        scheduleCheckInValidated = undefined;
-        scheduleDepartureValidated = undefined;
+        animatedNotification('Se ha actualizado la información del horario', 'done', 6000);
     };
+
+    //Limpiamos los campos validados
+    scheduleNameValidated = undefined;
+    scheduleCheckInValidated = undefined;
+    scheduleDepartureValidated = undefined;
 };
 
 let scheduleEditEvent = () => {
@@ -210,11 +216,12 @@ $('#new-schedule-btn').click(function (e) {
     $('#save-schedule-btn').unbind('click', editScheduleFormData);
     $('#edit-schedule-btn').unbind('click', scheduleEditEvent);
     $('#edit-schedule-btn').removeClass('active');
+    //Reiniciamos los eventos de cambios
+    eventInputCleaner(scheduleInputsList);
     
     for (let i = 0; i < $('#table-schedule td').length; i++) {
         $('#table-schedule td').eq(i).removeClass('active');
     }
 
     $('#scheduleNameInput').change(onchangeSchedule)
-    
 });

@@ -97,6 +97,14 @@ form {
         background-color: white;
     }
 
+    .border-red {
+        border: 1px solid $red-color !important;
+    }
+
+    .border-yellow {
+        border: 1px solid $yellow-color !important;
+    }
+
     label {
         margin-left: 0.5rem;
     }
@@ -149,5 +157,53 @@ form {
             width: 10rem;
             margin-right: 0.8rem;
         }
+    }
+}
+
+#notification {
+    position: fixed;
+    left:  3rem;
+    bottom: 2rem;
+
+    .notification-card {
+        display: none;
+        margin-bottom: 1rem;   
+    }
+
+    .popup {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 37.5rem;
+        text-align: left;
+        font-weight: bold;
+        border-radius: 1rem;
+        background-color: white;
+        padding: 1rem 2rem 1rem 3rem;
+
+        i {
+            font-size: 3.5rem;
+            margin-right: 1.2rem;
+        }
+    }
+
+    .done {
+        color: $green-color;
+        border: 2px solid $green-color;
+    }
+
+    .alert {
+        color: $text-color;
+        border: 2px solid $yellow-color;
+
+        i{
+            color: $yellow-color;
+        }
+    }
+
+    .error {
+        color: $red-color;
+        border: 2px solid $red-color;
     }
 }
