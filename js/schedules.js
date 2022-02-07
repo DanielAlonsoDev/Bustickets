@@ -69,7 +69,6 @@ let getScheduleFormData = () => {
         }
     }
     else {
-        alert('Debes ingresar un nombre de horario valido');
         animatedNotification( 'Debes ingresar un nombre de horario valido', 'alert', 6000,'#scheduleNameInput');
     }
 

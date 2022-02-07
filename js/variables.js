@@ -27,7 +27,6 @@ let routeList = [];
 let routeData = JSON.parse(sessionStorage.getItem('routeDataSetJSON'));
 //INPUTS
 const routeInputsList = [ '#routeNameInput','#routedDepartureNameInput', '#routeDepartureCodeInput', '#routeDestinationNameInput', '#routeDestinationCodeInput', '#routeDistanceInput', '#routeHoursInput', '#routeMinutesInput'];
-const routeButtonsList = [ '#new-route-btn', '#edit-route-btn', '#save-route-btn'];
 //VALIDATED INPUTS
 let routeNameValidated;
 let routeDepartureNameValidated;
@@ -35,5 +34,21 @@ let routeDepartureCodeValidated;
 let routeDestinationNameValidated;
 let routeDestinationCodeValidated;
 let routeDistanceValidated;
+
+
+//************ TRIPS VARIABLES ************
+let tripList = [];
+tripKeysList = [];
+let tripData = JSON.parse(sessionStorage.getItem('tripDataSetJSON'));
+//INPUTS
+const tripInputsList = ['#tripNameInput', '#route-selector' , '#schedule-selector', '#vehicle-selector', '#tripCostInput'];
+//VALIDATED INPUTS
+let tripRouteValidated;
+let tripScheduleValidated;
+let tripVehicleValidated;
+let tripCostValidated;
+
+
+
 
 let notificationCount = 1;

@@ -16,13 +16,13 @@ class Vehicle {
         this.available = true;
         this.vehicleName = vehicleBrand + " - " + vehiclePlates;
     }
-    vehicleCapacity(){
+    vehicleCapacity() {
         return `${this.vehicleSeats - this.vehicleStaff} Pasajeros`
     }
 }
 
 class Route {
-    constructor( codeDeparture, codeDestination ,departure, destination, distance) {
+    constructor(codeDeparture, codeDestination, departure, destination, distance) {
         this.codeDeparture = codeDeparture;
         this.codeDestination = codeDestination;
         this.routeName = codeDeparture + "-" + codeDestination;
@@ -30,12 +30,12 @@ class Route {
         this.destination = destination;
         this.distance = distance;
     }
-    getEta(){
+    getEta() {
         let aproxSpeed = 80;
-        let tempResult = (this.distance/aproxSpeed)*60;
+        let tempResult = (this.distance / aproxSpeed) * 60;
         let counter = 0;
-        
-        while(tempResult >= 60 ){
+
+        while (tempResult >= 60) {
             tempResult = tempResult - 60;
             counter++;
         }
@@ -43,13 +43,34 @@ class Route {
         let minutes = parseInt(tempResult);
         let hours = counter;
 
-        if (minutes == 0){
+        if (minutes == 0) {
             minutes = "00";
-            return [hours,minutes];
-        } 
-        
-        else {
-            return [hours,minutes];
+            return [hours, minutes];
         }
+
+        else {
+            return [hours, minutes];
+        }
+    }
+}
+
+class ScheduledTrip {
+    constructor(tripName, tripRoute, tripVehicle, tripSchedule, tripCost) {
+        this.tripRoute = tripRoute;
+        this.tripVehicle = tripVehicle;
+        this.tripSchedule = tripSchedule;
+        this.tripCost = tripCost;
+        this.tripName = tripName;
+    }
+}
+
+class TripKeys {
+    constructor(tripName, routeKey, vehicleKey, scheduleKey, tripCost) {
+        this.tripName = tripName;
+        this.routeKey = routeKey;
+        this.vehicleKey = vehicleKey;
+        this.scheduleKey = scheduleKey;
+        this.tripCost = tripCost;
+        
     }
 }

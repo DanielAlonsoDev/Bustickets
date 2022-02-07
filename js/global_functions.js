@@ -38,7 +38,7 @@ let enableForm = (inputsIdNames) => {
     };
 };
 
-let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined };
+let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined , tripTableItem : undefined};
 let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn, editBtnEvent) => {
     
     for (let i = 0; i < $(tableIdName + ' td').length; i++) {
@@ -68,6 +68,13 @@ for (const item of $('a')) {
 }
 
 for (const item of $('input')){
+    item.addEventListener('change', () => {
+        item.classList.remove('border-red');
+        item.classList.remove('border-yellow');
+    });
+}
+
+for (const item of $('input, select')){
     item.addEventListener('change', () => {
         item.classList.remove('border-red');
         item.classList.remove('border-yellow');
