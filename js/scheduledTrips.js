@@ -68,6 +68,14 @@ let addTripKeys = (tripName, routeKey, vehicleKey, scheduleKey, tripCost) => {
     tripKeysList.push(newTripKeys);
 };
 
+let editTrip = (tripName, routeKey, vehicleKey, scheduleKey, tripCost, keyValue) => {
+    let editTrip = new TripKeys(tripName, routeKey, vehicleKey, scheduleKey, tripCost);
+    tripKeysList[keyValue] = editTrip;
+    sessionStorage.setItem('tripDataSetJSON', JSON.stringify(tripKeysList));
+
+    loadTripDataSet();
+}
+
 //VALIDAMOS SI EXISTE INFORMACION EN EL STORAGE
 if (tripData == null) {
     let tripDataSet = '[{"tripName":"Segunda","routeKey":"stgo-valpo","vehicleKey":"76YT9A","scheduleKey":"Segundo Mañana","tripCost":"6000"}]';
@@ -134,8 +142,6 @@ let addTripToData = (tripName, routeKey, vehicleKey, scheduleKey, tripCost) => {
 
 loadTripDataSet();
 getTripObjects();
-console.log(tripKeysList);
-console.log(tripList);
 
 let getTripFormData = () => {
     //Validamos el valor del select Route
@@ -146,10 +152,27 @@ let getTripFormData = () => {
         animatedNotification('Debes seleccionar una ruta', 'alert', 6000, '#route-selector');
     }
 
-    if ($('#tripNameInput').val() != '') {
-        tripNameValidated =  $('#tripNameInput').val();
-    } else { 
-        animatedNotification('Debes ingresar un nombre valido y seleccionar una ruta', 'alert', 6000, '#schedule-selector');
+    if( $('#tripNameInput').val() != '' && $('#tripNameInput').val() != null && $('#tripNameInput').val() != undefined){
+        //Comparamos el nombre con todos los guardados con anterioridad
+        let tripNameExist = false;
+        for (let index = 0; index < tripList.length; index++) {
+            if(tripList[index].tripName == $('#tripNameInput').val() ){
+                tripNameExist = true;
+            }
+        }
+
+        switch(tripNameExist){
+            case true:
+                animatedNotification('Ya existe un viaje registrado con ese nombre', 'error', 6000, '#tripNameInput')
+                break;
+
+            case false:
+                tripNameValidated = $('#tripNameInput').val();
+                break;
+        }
+    }
+    else {
+        animatedNotification('Debes ingresar un nombre valido', 'alert', 6000, '#schedule-selector');
     }
 
     if ($('#vehicle-selector option:selected').val() != 'default') {
@@ -191,6 +214,7 @@ let getTripFormData = () => {
     }
 
     //Limpiamos los campos validados
+    tripNameValidated = undefined;
     tripRouteValidated = undefined;
     tripScheduleValidated = undefined;
     tripVehicleValidated = undefined;
@@ -198,7 +222,7 @@ let getTripFormData = () => {
 }
 
 let editTripFormData = () => {
-    indexTripItem = tripVehicleKey.findIndex(element => element.tripName === itemsSelectedFromTable['tripTableItem'].tripName);
+    indexTripItem = tripKeysList.findIndex(element => element.tripName === itemsSelectedFromTable['tripTableItem'].tripName);
 
     //Validamos el contenido de los inputs
     if ($('#route-selector option:selected').val() != 'default') {
@@ -222,10 +246,31 @@ let editTripFormData = () => {
         animatedNotification('Debes seleccionar un horario', 'alert', 6000, '#schedule-selector');
     }
 
-    if ($('#tripNameInput').val() != '') {
+    if ($('#tripNameInput').val() == itemsSelectedFromTable['tripTableItem'].scheduleName) {
         tripNameValidated =  $('#tripNameInput').val();
-    } else { 
-        animatedNotification('Debes ingresar un nombre valido', 'alert', 6000, '#schedule-selector');
+    } else {
+        if( $('#tripNameInput').val() != '' && $('#tripNameInput').val() != null && $('#tripNameInput').val() != undefined){
+            //Comparamos el nombre con todos los guardados con anterioridad
+            let tripNameExist = false;
+            for (let index = 0; index < tripList.length; index++) {
+                if(tripList[index].tripName == $('#tripNameInput').val() ){
+                    tripNameExist = true;
+                }
+            }
+    
+            switch(tripNameExist){
+                case true:
+                    animatedNotification('Ya existe un viaje registrado con ese nombre', 'error', 6000, '#tripNameInput')
+                    break;
+    
+                case false:
+                    tripNameValidated = $('#tripNameInput').val();
+                    break;
+            }
+        }
+        else {
+            animatedNotification('Debes ingresar un nombre valido', 'alert', 6000, '#schedule-selector');
+        }
     }
 
     if ($('#tripCostInput').val() != '' && !isNaN($('#tripCostInput').val())) {
@@ -236,7 +281,7 @@ let editTripFormData = () => {
 
     if (tripNameValidated != undefined && tripRouteValidated != undefined && tripVehicleValidated != undefined && tripScheduleValidated != undefined && tripCostValidated != undefined) {
         //Registramos la informacion en el Storage
-        addTripToData(tripNameValidated,tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated);
+        editTrip(tripNameValidated,tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated, indexTripItem);
 
         printTable(tripKeysList, '#table-trip', 'tripName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripName', '#edit-trip-btn', tripEditEvent);
@@ -251,6 +296,7 @@ let editTripFormData = () => {
     }
 
     //Limpiamos los campos validados
+    tripNameValidated = undefined;
     tripRouteValidated = undefined;
     tripScheduleValidated = undefined;
     tripVehicleValidated = undefined;
@@ -281,7 +327,7 @@ let tripEditEvent = () => {
 };
 
 let onChangeTrip = () => {
-    if($('#route-selector option:selected').val() != 'default'){
+    if($('#tripNameInput').val() != ''){
         $('#save-trip-btn').addClass('active');
         $('#save-trip-btn').click( getTripFormData );
 
@@ -302,7 +348,6 @@ getTableItem(tripKeysList, 'tripTableItem','#table-trip','tripName', '#edit-trip
 
 $('#new-trip-btn').click(function (e) { 
     cleanTripForm(tripInputsList);
-
     enableForm(tripInputsList);
     $('#save-trip-btn').removeClass('active');
     $('#save-trip-btn').unbind('click', getTripFormData);
@@ -316,7 +361,6 @@ $('#new-trip-btn').click(function (e) {
         $('#table-trip td').eq(i).removeClass('active');
     }
 
-    $('#route-selector').change(onChangeTrip);
-    console.log("P10");//TEMPORAL
+    $('#tripNameInput').change(onChangeTrip);
 });
 

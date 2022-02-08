@@ -126,7 +126,7 @@ let editScheduleFormData = () => {
     
             switch(scheduleNameExist){
                 case true:
-                    animatedNotification('Ya existe un nombre registrado con ese nombre', 'error', 6000, '#scheduleNameInput')
+                    animatedNotification('Ya existe un horario registrado con ese nombre', 'error', 6000, '#scheduleNameInput')
                     break;
     
                 case false:
