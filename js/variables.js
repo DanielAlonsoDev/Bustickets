@@ -1,3 +1,4 @@
+let dataSet = [];
 //************ SCHEDULE VARIABLES ************
 let scheduleList = [];
 let scheduleData = JSON.parse(sessionStorage.getItem('scheduleDataSetJSON'));
@@ -47,8 +48,5 @@ let tripRouteValidated;
 let tripScheduleValidated;
 let tripVehicleValidated;
 let tripCostValidated;
-
-
-
 
 let notificationCount = 1;

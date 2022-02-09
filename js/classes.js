@@ -71,6 +71,6 @@ class TripKeys {
         this.vehicleKey = vehicleKey;
         this.scheduleKey = scheduleKey;
         this.tripCost = tripCost;
-        
+        this.tripColumnName = routeKey +  " -- " + tripName;
     }
 }

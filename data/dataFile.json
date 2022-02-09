@@ -1,0 +1,87 @@
+
+{
+    "vehicleData": [
+        {
+            "vehicleBrand": "Mercedes",
+            "vehicleModel": "mb-350",
+            "vehiclePlates": "B734FA",
+            "vehicleSeats": "32",
+            "vehicleStaff": "2",
+            "available": "true"
+        },
+        {
+            "vehicleBrand": "Mercedes",
+            "vehicleModel": "td-180",
+            "vehiclePlates": "76YT9A",
+            "vehicleSeats": "36",
+            "vehicleStaff": "2",
+            "available": "true"
+        },
+        {
+            "vehicleBrand": "Geely",
+            "vehicleModel": "g500",
+            "vehiclePlates": "7URS1M",
+            "vehicleSeats": "60",
+            "vehicleStaff": "2",
+            "available": "true",
+            "vehicleName": "Geely - 7URS1M"
+        }
+    ],
+
+    "scheduleData" : [
+        {
+            "scheduleName": "Primero Mañana",
+            "scheduleCheckIn": "07:45",
+            "scheduleDeparture": "08:00"
+        },
+        {
+            "scheduleName": "Segundo Mañana",
+            "scheduleCheckIn": "08:25",
+            "scheduleDeparture": "08:40"
+        },
+        {
+            "scheduleName": "Primero Tarde",
+            "scheduleCheckIn": "14:15",
+            "scheduleDeparture": "14:30"
+        },
+        {
+            "scheduleName": "Primero Noche",
+            "scheduleCheckIn": "20:15",
+            "scheduleDeparture": "20:30"
+        }
+    ],
+    
+    "routeData" : [
+        {
+            "codeDeparture": "stgo",
+            "codeDestination": "valp",
+            "departure": "Santiago",
+            "destination": "Valparaiso",
+            "distance": "116"
+        },
+        {
+            "codeDeparture": "stgo",
+            "codeDestination": "talc",
+            "departure": "Santiago",
+            "destination": "Talca",
+            "distance": "255"
+        }
+    ],
+
+    "tripData" : [
+        {
+            "tripName": "I",
+            "routeKey": "stgo-valp",
+            "vehicleKey": "76YT9A",
+            "scheduleKey": "Segundo Mañana",
+            "tripCost": "6000"
+        },
+        {
+            "tripName": "II",
+            "routeKey": "stgo-valp",
+            "vehicleKey": "76YT9A",
+            "scheduleKey": "Segundo Mañana",
+            "tripCost": "8500"
+        }
+    ]
+}

@@ -38,11 +38,6 @@ let createVehicleSelectors = () => {
     }
 }
 
-//Inicializamos los select
-createRouteSelectors();
-createScheduleSelectors();
-createVehicleSelectors();
-
 //AGREGAMOS UN ELEMENTO FOCUS SOBRE LAS LISTAS PARA TRAER LA INFORMACION
 $('#route-selector').focus(function (e) {
     createRouteSelectors();
@@ -76,13 +71,6 @@ let editTrip = (tripName, routeKey, vehicleKey, scheduleKey, tripCost, keyValue)
     loadTripDataSet();
 }
 
-//VALIDAMOS SI EXISTE INFORMACION EN EL STORAGE
-if (tripData == null) {
-    let tripDataSet = '[{"tripName":"Segunda","routeKey":"stgo-valpo","vehicleKey":"76YT9A","scheduleKey":"Segundo Mañana","tripCost":"6000"}]';
-    
-    sessionStorage.setItem('tripDataSetJSON', tripDataSet);
-};
-
 //FUNCION PARA TRAER INFORMACION ALMACENADA EN EL STORAGE
 let loadTripDataSet = () => {
     tripData = JSON.parse(sessionStorage.getItem('tripDataSetJSON'));
@@ -95,33 +83,33 @@ let loadTripDataSet = () => {
         tripScheduleData = tripData[index].scheduleKey;
         tripCostData = tripData[index].tripCost;
 
-        addTripKeys(tripNameData,tripRouteData,tripVehicleData,tripScheduleData,tripCostData);
+        addTripKeys(tripNameData, tripRouteData, tripVehicleData, tripScheduleData, tripCostData);
     };
 };
 
 //ASIGNAMOS LOS OBJETOS QUE COINCIDAN CON LOS KEYS
-let getTripObjects = ( ) => {
+let getTripObjects = () => {
     let routeIndexValidated;
     let vehicleIndexValidated;
     let scheduleIndexValidated;
 
     for (let index = 0; index < tripKeysList.length; index++) {
         let routeIndex = routeList.findIndex(element => element.routeName == tripKeysList[index].routeKey);
-        if( routeIndex != -1){
+        if (routeIndex != -1) {
             routeIndexValidated = routeIndex;
         } else {
             routeIndexValidated = undefined;
         }
 
         let vehicleIndex = vehicleList.findIndex(element => element.vehiclePlates == tripKeysList[index].vehicleKey);
-        if( vehicleIndex != -1){
+        if (vehicleIndex != -1) {
             vehicleIndexValidated = vehicleIndex;
         } else {
             vehicleIndexValidated = undefined;
         }
 
         let scheduleIndex = scheduleList.findIndex(element => element.scheduleName == tripKeysList[index].scheduleKey);
-        if( scheduleIndex != -1){
+        if (scheduleIndex != -1) {
             scheduleIndexValidated = scheduleIndex;
         } else {
             scheduleIndexValidated = undefined;
@@ -140,8 +128,8 @@ let addTripToData = (tripName, routeKey, vehicleKey, scheduleKey, tripCost) => {
     sessionStorage.setItem('tripDataSetJSON', JSON.stringify(newData));
 }
 
-loadTripDataSet();
-getTripObjects();
+//loadTripDataSet();
+//getTripObjects();
 
 let getTripFormData = () => {
     //Validamos el valor del select Route
@@ -152,16 +140,16 @@ let getTripFormData = () => {
         animatedNotification('Debes seleccionar una ruta', 'alert', 6000, '#route-selector');
     }
 
-    if( $('#tripNameInput').val() != '' && $('#tripNameInput').val() != null && $('#tripNameInput').val() != undefined){
+    if ($('#tripNameInput').val() != '' && $('#tripNameInput').val() != null && $('#tripNameInput').val() != undefined) {
         //Comparamos el nombre con todos los guardados con anterioridad
         let tripNameExist = false;
         for (let index = 0; index < tripList.length; index++) {
-            if(tripList[index].tripName == $('#tripNameInput').val() ){
+            if (tripList[index].tripName == $('#tripNameInput').val()) {
                 tripNameExist = true;
             }
         }
 
-        switch(tripNameExist){
+        switch (tripNameExist) {
             case true:
                 animatedNotification('Ya existe un viaje registrado con ese nombre', 'error', 6000, '#tripNameInput')
                 break;
@@ -198,11 +186,11 @@ let getTripFormData = () => {
     //Cuando la informacion de todos los inputs sea valida procedemos
     if (tripNameValidated != undefined && tripRouteValidated != undefined && tripVehicleValidated != undefined && tripScheduleValidated != undefined && tripCostValidated != undefined) {
         //Registramos la informacion en el Storage
-        addTripToData(tripNameValidated,tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated);
+        addTripToData(tripNameValidated, tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated);
         getTripObjects();
 
-        printTable(tripKeysList, '#table-trip', 'tripName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripName', '#edit-trip-btn', tripEditEvent);
+        printTable(tripKeysList, '#table-trip', 'tripColumnName');
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 
         cleanForm(tripInputsList);
         disableForm(tripInputsList);
@@ -246,23 +234,23 @@ let editTripFormData = () => {
         animatedNotification('Debes seleccionar un horario', 'alert', 6000, '#schedule-selector');
     }
 
-    if ($('#tripNameInput').val() == itemsSelectedFromTable['tripTableItem'].scheduleName) {
-        tripNameValidated =  $('#tripNameInput').val();
+    if ($('#tripNameInput').val() == itemsSelectedFromTable['tripTableItem'].tripName) {
+        tripNameValidated = $('#tripNameInput').val();
     } else {
-        if( $('#tripNameInput').val() != '' && $('#tripNameInput').val() != null && $('#tripNameInput').val() != undefined){
+        if ($('#tripNameInput').val() != '' && $('#tripNameInput').val() != null && $('#tripNameInput').val() != undefined) {
             //Comparamos el nombre con todos los guardados con anterioridad
             let tripNameExist = false;
             for (let index = 0; index < tripList.length; index++) {
-                if(tripList[index].tripName == $('#tripNameInput').val() ){
+                if (tripList[index].tripName == $('#tripNameInput').val()) {
                     tripNameExist = true;
                 }
             }
-    
-            switch(tripNameExist){
+
+            switch (tripNameExist) {
                 case true:
                     animatedNotification('Ya existe un viaje registrado con ese nombre', 'error', 6000, '#tripNameInput')
                     break;
-    
+
                 case false:
                     tripNameValidated = $('#tripNameInput').val();
                     break;
@@ -281,10 +269,10 @@ let editTripFormData = () => {
 
     if (tripNameValidated != undefined && tripRouteValidated != undefined && tripVehicleValidated != undefined && tripScheduleValidated != undefined && tripCostValidated != undefined) {
         //Registramos la informacion en el Storage
-        editTrip(tripNameValidated,tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated, indexTripItem);
+        editTrip(tripNameValidated, tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated, indexTripItem);
 
-        printTable(tripKeysList, '#table-trip', 'tripName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripName', '#edit-trip-btn', tripEditEvent);
+        printTable(tripKeysList, '#table-trip', 'tripColumnName');
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 
         cleanForm(tripInputsList);
         disableForm(tripInputsList);
@@ -304,7 +292,7 @@ let editTripFormData = () => {
 }
 
 let tripEditEvent = () => {
-    if(itemsSelectedFromTable['tripTableItem'] != undefined){
+    if (itemsSelectedFromTable['tripTableItem'] != undefined) {
         //Habilitamos el formulario
         enableForm(tripInputsList);
         $('#save-trip-btn').unbind('click', getTripFormData);
@@ -321,17 +309,17 @@ let tripEditEvent = () => {
         $('#save-trip-btn').click(editTripFormData);
         $('#edit-trip-btn').unbind('click', tripEditEvent);
         $('#route-selector').unbind('focus', onChangeTrip);
-        
+
         console.log("P6");//TEMPORAL
     }
 };
 
 let onChangeTrip = () => {
-    if($('#tripNameInput').val() != ''){
+    if ($('#tripNameInput').val() != '') {
         $('#save-trip-btn').addClass('active');
-        $('#save-trip-btn').click( getTripFormData );
+        $('#save-trip-btn').click(getTripFormData);
 
-    console.log("P7");//TEMPORAL
+        console.log("P7");//TEMPORAL
     };
 }
 
@@ -342,11 +330,7 @@ let cleanTripForm = (inputList) => {
     $('#vehicle-selector').append(`<option value="default" selected>--</option>`);
 }
 
-loadTripDataSet();
-printTable(tripKeysList,'#table-trip','tripName');
-getTableItem(tripKeysList, 'tripTableItem','#table-trip','tripName', '#edit-trip-btn', tripEditEvent);
-
-$('#new-trip-btn').click(function (e) { 
+$('#new-trip-btn').click(function (e) {
     cleanTripForm(tripInputsList);
     enableForm(tripInputsList);
     $('#save-trip-btn').removeClass('active');
@@ -356,7 +340,7 @@ $('#new-trip-btn').click(function (e) {
     $('#save-trip-btn').removeClass('active');
     //Reiniciamos los eventos de cambios
     eventInputCleaner(tripInputsList);
-    
+
     for (let i = 0; i < $('#table-trip td').length; i++) {
         $('#table-trip td').eq(i).removeClass('active');
     }
@@ -364,3 +348,37 @@ $('#new-trip-btn').click(function (e) {
     $('#tripNameInput').change(onChangeTrip);
 });
 
+if (tripData != null) {
+    getTripObjects();
+    loadTripDataSet();
+    printTable(tripKeysList, '#table-trip', 'tripColumnName');
+    getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+}
+
+$.ajax({
+    type: "GET",
+    url: "/data/dataFile.json",
+    success: function (data) {
+        //Cargamos la Data de Viajes
+        if (tripData == null) {
+            for (let index = 0; index < data.tripData.length; index++) {
+                dataSet.push(data.tripData[index]);
+            }
+            sessionStorage.setItem('tripDataSetJSON', JSON.stringify(dataSet));
+            dataSet = [];
+
+            //Inicializamos los select
+            createRouteSelectors();
+            createScheduleSelectors();
+            createVehicleSelectors();
+
+            getTripObjects();
+            loadTripDataSet();
+            printTable(tripKeysList, '#table-trip', 'tripColumnName');
+            getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        }
+    },
+    error: function () {
+        animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
+    }
+});

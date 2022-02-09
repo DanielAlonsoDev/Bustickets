@@ -1,22 +1,16 @@
 //FUNCION QUE CREA UN NUEVO REGISTRO EN LA LISTA DE HORARIOS
-let addSchedule = (scheduleNameValue,scheduleCheckInValue,scheduleDepartureValue) => {
-    let newSchedule = new Schedule(scheduleNameValue,scheduleCheckInValue,scheduleDepartureValue);
+let addSchedule = (scheduleNameValue, scheduleCheckInValue, scheduleDepartureValue) => {
+    let newSchedule = new Schedule(scheduleNameValue, scheduleCheckInValue, scheduleDepartureValue);
     scheduleList.push(newSchedule);
 }
 
 //FUNCION QUE CREA UN NUEVO REGISTRO EN LA LISTA DE HORARIOS
 let editSchedule = (scheduleNameValue, scheduleCheckInValue, scheduleDepartureValue, keyValue) => {
-    let editSchedule = new Schedule(scheduleNameValue,scheduleCheckInValue,scheduleDepartureValue);
+    let editSchedule = new Schedule(scheduleNameValue, scheduleCheckInValue, scheduleDepartureValue);
     scheduleList[keyValue] = editSchedule;
     sessionStorage.setItem('scheduleDataSetJSON', JSON.stringify(scheduleList));
 
     loadScheduleDataSet();
-}
-
-//VALIDAMOS SI EXISTE INFORMACION EN EL STORAGE
-if( scheduleData == null ){
-    let scheduleDataSet = '[ {"scheduleName":"Primero Mañana", "scheduleCheckIn":"07:45", "scheduleDeparture":"08:00" }, {"scheduleName":"Segundo Mañana", "scheduleCheckIn":"08:25", "scheduleDeparture":"08:40"},{"scheduleName":"Primero Tarde", "scheduleCheckIn":"14:15", "scheduleDeparture":"14:30"} ]';
-    sessionStorage.setItem('scheduleDataSetJSON', scheduleDataSet);
 }
 
 //FUNCION PARA TRAER INFORMACION ALMACENADA EN EL STORAGE
@@ -28,8 +22,8 @@ let loadScheduleDataSet = () => {
         scheduleNameData = scheduleData[index].scheduleName;
         scheduleCheckInData = scheduleData[index].scheduleCheckIn;
         scheduleDepartureData = scheduleData[index].scheduleDeparture;
-    
-        addSchedule(scheduleNameData,scheduleCheckInData,scheduleDepartureData);
+
+        addSchedule(scheduleNameData, scheduleCheckInData, scheduleDepartureData);
     }
 }
 
@@ -39,7 +33,7 @@ let addScheduleToData = (addName, addCheckIn, addDeparture) => {
     addSchedule(addName, addCheckIn, addDeparture);
 
     newData = JSON.parse(sessionStorage.getItem('scheduleDataSetJSON'));
-    newData.push(scheduleList[scheduleList.length-1]);
+    newData.push(scheduleList[scheduleList.length - 1]);
     sessionStorage.setItem('scheduleDataSetJSON', JSON.stringify(newData));
     //Cargamos al storage
     loadScheduleDataSet();
@@ -48,16 +42,16 @@ let addScheduleToData = (addName, addCheckIn, addDeparture) => {
 //FUNCION PARA CONSEGUIR LA INFORMACION DEL FORMULARIO
 let getScheduleFormData = () => {
     //Validamos que el contenido del input Name sea valido
-    if( $('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined){
+    if ($('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined) {
         //Comparamos el nombre con todos los guardados con anterioridad
         let scheduleNameExist = false;
         for (let index = 0; index < scheduleList.length; index++) {
-            if(scheduleList[index].scheduleName == $('#scheduleNameInput').val() ){
+            if (scheduleList[index].scheduleName == $('#scheduleNameInput').val()) {
                 scheduleNameExist = true;
             }
         }
 
-        switch(scheduleNameExist){
+        switch (scheduleNameExist) {
             case true:
                 alert('Ya existe un nombre registrado con ese nombre');
                 animatedNotification('Ya existe un nombre registrado con ese nombre', 'error', 6000, '#scheduleNameInput')
@@ -69,30 +63,30 @@ let getScheduleFormData = () => {
         }
     }
     else {
-        animatedNotification( 'Debes ingresar un nombre de horario valido', 'alert', 6000,'#scheduleNameInput');
+        animatedNotification('Debes ingresar un nombre de horario valido', 'alert', 6000, '#scheduleNameInput');
     }
 
     //Validamos que el contenido del input Checkin sea valido
-    if( $('#scheduleCheckInInput').val() != ''){
+    if ($('#scheduleCheckInInput').val() != '') {
         scheduleCheckInValidated = $('#scheduleCheckInInput').val();
     } else {
         animatedNotification('Debes ingresar una hora de Check In valida', 'alert', 6000, '#scheduleCheckInInput')
     }
 
-    if($('#scheduleDepartureInput').val() != ''){
+    if ($('#scheduleDepartureInput').val() != '') {
         scheduleDepartureValidated = $('#scheduleDepartureInput').val();
     } else {
         animatedNotification('Debes ingresar una hora de Salida valida', 'alert', 6000, '#scheduleDepartureInput');
     }
 
     //Cuando la informacion de todos los inputs sea valida procedemos
-    if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
+    if (scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined) {
         //Regsitramos la informacion en el Storage
         addScheduleToData(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated);
 
-        printTable(scheduleList,'#table-schedule','scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName','#edit-schedule-btn',scheduleEditEvent);
-        
+        printTable(scheduleList, '#table-schedule', 'scheduleName');
+        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
@@ -112,53 +106,53 @@ let getScheduleFormData = () => {
 let editScheduleFormData = () => {
     indexScheduleItem = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
     //Validamos si se realizaron cambios en el input del nombre del horario
-    if($('#scheduleNameInput').val() == itemsSelectedFromTable['scheduleTableItem'].scheduleName){
+    if ($('#scheduleNameInput').val() == itemsSelectedFromTable['scheduleTableItem'].scheduleName) {
         scheduleNameValidated = $('#scheduleNameInput').val();
     } else {
-        if( $('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined){
+        if ($('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined) {
             //Comparamos el nombre con todos los guardados con anterioridad
             let scheduleNameExist = false;
             for (let index = 0; index < scheduleList.length; index++) {
-                if(scheduleList[index].scheduleName == $('#scheduleNameInput').val() ){
+                if (scheduleList[index].scheduleName == $('#scheduleNameInput').val()) {
                     scheduleNameExist = true;
                 }
             }
-    
-            switch(scheduleNameExist){
+
+            switch (scheduleNameExist) {
                 case true:
                     animatedNotification('Ya existe un horario registrado con ese nombre', 'error', 6000, '#scheduleNameInput')
                     break;
-    
+
                 case false:
                     scheduleNameValidated = $('#scheduleNameInput').val();
                     break;
             }
         }
         else {
-            animatedNotification( 'Debes ingresar un nombre de horario valido', 'alert', 6000,'#scheduleNameInput');
+            animatedNotification('Debes ingresar un nombre de horario valido', 'alert', 6000, '#scheduleNameInput');
         }
     }
 
     //Validamos que el contenido del input Checkin sea valido
-    if($('#scheduleCheckInInput').val() != ''){
+    if ($('#scheduleCheckInInput').val() != '') {
         scheduleCheckInValidated = $('#scheduleCheckInInput').val();
     } else {
         animatedNotification('Debes ingresar una hora de Check In valida', 'alert', 6000, '#scheduleCheckInInput')
     }
 
-    if( $('#scheduleDepartureInput').val() != ''){
+    if ($('#scheduleDepartureInput').val() != '') {
         scheduleDepartureValidated = $('#scheduleDepartureInput').val();
     } else {
         animatedNotification('Debes ingresar una hora de Salida valida', 'alert', 6000, '#scheduleDepartureInput');
     }
 
-    if(scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined ){
+    if (scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined) {
         //Regsitramos la informacion en el Storage
-        editSchedule(scheduleNameValidated,scheduleCheckInValidated,scheduleDepartureValidated,indexScheduleItem);
-        printTable(scheduleList,'#table-schedule','scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName','#edit-schedule-btn',scheduleEditEvent);
+        editSchedule(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated, indexScheduleItem);
+        printTable(scheduleList, '#table-schedule', 'scheduleName');
+        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
 
-        
+
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
         $('#save-schedule-btn').removeClass('active');
@@ -174,7 +168,7 @@ let editScheduleFormData = () => {
 };
 
 let scheduleEditEvent = () => {
-    if(itemsSelectedFromTable['scheduleTableItem'] != undefined){
+    if (itemsSelectedFromTable['scheduleTableItem'] != undefined) {
         //Habilitamos el formulario
         enableForm(scheduleInputsList);
         $('#save-schedule-btn').unbind('click', getScheduleFormData);
@@ -182,11 +176,11 @@ let scheduleEditEvent = () => {
         $('#edit-schedule-btn').removeClass('active');
 
         //Rellenamos el input con la informacion
-        $('#scheduleNameInput').val( itemsSelectedFromTable['scheduleTableItem'].scheduleName );
-        $('#scheduleCheckInInput').val( itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn );
-        $('#scheduleDepartureInput').val( itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture );
+        $('#scheduleNameInput').val(itemsSelectedFromTable['scheduleTableItem'].scheduleName);
+        $('#scheduleCheckInInput').val(itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn);
+        $('#scheduleDepartureInput').val(itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture);
 
-        
+
         $('#save-schedule-btn').click(editScheduleFormData);
         $('#edit-schedule-btn').unbind('click', scheduleEditEvent);
         $('#scheduleNameInput').unbind('change', onchangeSchedule);
@@ -195,19 +189,14 @@ let scheduleEditEvent = () => {
 };
 
 let onchangeSchedule = () => {
-    if( $('#scheduleNameInput').val() != ''){
+    if ($('#scheduleNameInput').val() != '') {
         $('#save-schedule-btn').addClass('active');
         $('#save-schedule-btn').click(getScheduleFormData);
     };
 }
 
-//Inicializamos la tabla
-loadScheduleDataSet();
-printTable(scheduleList,'#table-schedule','scheduleName');
-getTableItem(scheduleList, 'scheduleTableItem','#table-schedule','scheduleName','#edit-schedule-btn', scheduleEditEvent);
-
 //EVENTO PARA CREAR NUEVOS REGISTROS EN LAS LISTAS DE HORARIOS
-$('#new-schedule-btn').click(function (e) { 
+$('#new-schedule-btn').click(function (e) {
     cleanForm(scheduleInputsList);
     enableForm(scheduleInputsList);
     $('#save-schedule-btn').removeClass('active');
@@ -217,10 +206,40 @@ $('#new-schedule-btn').click(function (e) {
     $('#edit-schedule-btn').removeClass('active');
     //Reiniciamos los eventos de cambios
     eventInputCleaner(scheduleInputsList);
-    
+
     for (let i = 0; i < $('#table-schedule td').length; i++) {
         $('#table-schedule td').eq(i).removeClass('active');
     }
 
     $('#scheduleNameInput').change(onchangeSchedule)
+});
+
+if (scheduleData != null) {
+    //Inicializamos la tabla
+    loadScheduleDataSet();
+    printTable(scheduleList, '#table-schedule', 'scheduleName');
+    getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+}
+
+$.ajax({
+    type: "GET",
+    url: "/data/dataFile.json",
+    success: function (data) {
+        //Cargamos la Data de Horarios
+        if (scheduleData == null) {
+            for (let index = 0; index < data.scheduleData.length; index++) {
+                dataSet.push(data.scheduleData[index]);
+            }
+            sessionStorage.setItem('scheduleDataSetJSON', JSON.stringify(dataSet));
+            dataSet = [];
+
+            //Inicializamos la tabla
+            loadScheduleDataSet();
+            printTable(scheduleList, '#table-schedule', 'scheduleName');
+            getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+        }
+    },
+    error: function () {
+        animatedNotification('No se pudo cargar el archivo JSON con la información', 'error',6000);
+    }
 });
