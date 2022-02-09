@@ -355,6 +355,7 @@ if (tripData != null) {
     getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 }
 
+//Cargamos la informacion de Storage
 $.ajax({
     type: "GET",
     url: "/data/dataFile.json",

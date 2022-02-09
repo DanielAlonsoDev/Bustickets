@@ -262,6 +262,7 @@ if (vehicleData != null) {
     getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
 }
 
+//Cargamos la informacion de Storage
 $.ajax({
     type: "GET",
     url: "/data/dataFile.json",

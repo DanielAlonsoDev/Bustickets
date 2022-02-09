@@ -16,15 +16,6 @@
             "vehicleSeats": "36",
             "vehicleStaff": "2",
             "available": "true"
-        },
-        {
-            "vehicleBrand": "Geely",
-            "vehicleModel": "g500",
-            "vehiclePlates": "7URS1M",
-            "vehicleSeats": "60",
-            "vehicleStaff": "2",
-            "available": "true",
-            "vehicleName": "Geely - 7URS1M"
         }
     ],
 
@@ -43,14 +34,8 @@
             "scheduleName": "Primero Tarde",
             "scheduleCheckIn": "14:15",
             "scheduleDeparture": "14:30"
-        },
-        {
-            "scheduleName": "Primero Noche",
-            "scheduleCheckIn": "20:15",
-            "scheduleDeparture": "20:30"
         }
     ],
-    
     "routeData" : [
         {
             "codeDeparture": "stgo",
