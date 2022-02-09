@@ -221,9 +221,10 @@ if (scheduleData != null) {
     getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
 }
 
+//Cargamos la informacion de Storage
 $.ajax({
     type: "GET",
-    url: "/data/dataFile.json",
+    url: "../data/dataFile.json",
     success: function (data) {
         //Cargamos la Data de Horarios
         if (scheduleData == null) {

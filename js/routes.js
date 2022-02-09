@@ -270,9 +270,10 @@ if (routeData != null) {
     getTableItem(routeList, 'routeTableItem', '#table-route', 'routeName', '#edit-route-btn', routeEditEvent);
 }
 
+//Cargamos la informacion de Storage
 $.ajax({
     type: "GET",
-    url: "/data/dataFile.json",
+    url: "../data/dataFile.json",
     success: function (data) {
         //Cargamos la Data de Rutas
         if (routeData == null) {
