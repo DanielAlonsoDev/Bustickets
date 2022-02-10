@@ -209,6 +209,7 @@ let routeEditEvent = () => {
     if (itemsSelectedFromTable['routeTableItem'] != undefined) {
         //Habilitamos el formulario
         enableForm(routeInputsList);
+        cleanForm(routeInputsList);
         $('#save-route-btn').unbind('click', getRouteFormData);
         $('#save-route-btn').addClass('active');
         $('#save-route-btn').removeClass('active');

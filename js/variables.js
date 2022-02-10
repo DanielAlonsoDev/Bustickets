@@ -44,6 +44,7 @@ let tripData = JSON.parse(sessionStorage.getItem('tripDataSetJSON'));
 //INPUTS
 const tripInputsList = ['#tripNameInput', '#route-selector' , '#schedule-selector', '#vehicle-selector', '#tripCostInput'];
 //VALIDATED INPUTS
+let tripNameValidated;
 let tripRouteValidated;
 let tripScheduleValidated;
 let tripVehicleValidated;

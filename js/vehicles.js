@@ -201,6 +201,7 @@ let vehicleEditEvent = () => {
     if (itemsSelectedFromTable['vehicleTableItem'] != undefined) {
         //Habilitamos el formulario
         enableForm(vehicleInputsList);
+        cleanForm(vehicleInputsList);
         $('#save-vehicle-btn').unbind('click', getVehicleFormData);
         $('#save-vehicle-btn').addClass('active');
         $('#save-vehicle-btn').removeClass('active');

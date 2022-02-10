@@ -171,6 +171,7 @@ let scheduleEditEvent = () => {
     if (itemsSelectedFromTable['scheduleTableItem'] != undefined) {
         //Habilitamos el formulario
         enableForm(scheduleInputsList);
+        cleanForm(scheduleInputsList);
         $('#save-schedule-btn').unbind('click', getScheduleFormData);
         $('#save-schedule-btn').addClass('active');
         $('#edit-schedule-btn').removeClass('active');
@@ -184,7 +185,6 @@ let scheduleEditEvent = () => {
         $('#save-schedule-btn').click(editScheduleFormData);
         $('#edit-schedule-btn').unbind('click', scheduleEditEvent);
         $('#scheduleNameInput').unbind('change', onchangeSchedule);
-
     };
 };
 

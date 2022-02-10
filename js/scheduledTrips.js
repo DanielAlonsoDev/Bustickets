@@ -277,12 +277,11 @@ let editTripFormData = () => {
         cleanForm(tripInputsList);
         disableForm(tripInputsList);
         $('#save-trip-btn').removeClass('active');
-        $('#save-trip-btn').unbind('click', getTripFormData);
+        $('#save-trip-btn').unbind('click', editTripFormData);
         $('#route-selector').unbind('change', onChangeTrip);
 
         animatedNotification('Se ha creado un nuevo viaje', 'done', 6000);
     }
-
     //Limpiamos los campos validados
     tripNameValidated = undefined;
     tripRouteValidated = undefined;
@@ -295,7 +294,10 @@ let tripEditEvent = () => {
     if (itemsSelectedFromTable['tripTableItem'] != undefined) {
         //Habilitamos el formulario
         enableForm(tripInputsList);
+        cleanForm(tripInputsList);
         $('#save-trip-btn').unbind('click', getTripFormData);
+        $('#save-trip-btn').unbind('click', editTripFormData);
+
         $('#save-trip-btn').addClass('active');
         $('#save-trip-btn').removeClass('active');
 
@@ -351,6 +353,12 @@ $('#new-trip-btn').click(function (e) {
 if (tripData != null) {
     getTripObjects();
     loadTripDataSet();
+
+    //Inicializamos los select
+    createRouteSelectors();
+    createScheduleSelectors();
+    createVehicleSelectors();
+
     printTable(tripKeysList, '#table-trip', 'tripColumnName');
     getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 }
@@ -367,14 +375,14 @@ $.ajax({
             }
             sessionStorage.setItem('tripDataSetJSON', JSON.stringify(dataSet));
             dataSet = [];
+            getTripObjects();
+            loadTripDataSet();
 
             //Inicializamos los select
             createRouteSelectors();
             createScheduleSelectors();
             createVehicleSelectors();
 
-            getTripObjects();
-            loadTripDataSet();
             printTable(tripKeysList, '#table-trip', 'tripColumnName');
             getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         }
