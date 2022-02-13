@@ -183,9 +183,18 @@ let editRouteFormData = () => {
     }
 
     if (routeDepartureNameValidated != undefined && routeDepartureCodeValidated != undefined && routeDestinationNameValidated != undefined && routeDestinationCodeValidated != undefined && routeDistanceValidated != undefined) {
-        //Regsitramos la informacion en el Storage
+        //Actualizamos el Key del Trip
+        for (let index = 0; index < tripKeysList.length; index++) {
+            if (tripKeysList[index].routeKey == routeList[indexRouteItem].routeName) {
+                editTrip(tripKeysList[index].tripName, routeDepartureCodeValidated + "-" + routeDestinationCodeValidated, tripKeysList[index].vehicleKey,  tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
+            }
+        }
         editRoute(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated, indexRouteItem);
-
+        createRouteSelectors();
+        printTable(tripKeysList, '#table-trip', 'tripColumnName');
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        
+        //Registramos la informacion en el Storage
         printTable(routeList, '#table-route', 'routeName');
         getTableItem(routeList, 'routeTableItem', '#table-route', 'routeName', '#edit-route-btn', routeEditEvent);
 

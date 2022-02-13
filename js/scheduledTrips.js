@@ -306,8 +306,6 @@ let tripEditEvent = () => {
         $(`#schedule-selector option[value="${itemsSelectedFromTable['tripTableItem'].scheduleKey}"]`).prop('selected', true);
         $('#tripCostInput').val(itemsSelectedFromTable['tripTableItem'].tripCost);
 
-        console.log(itemsSelectedFromTable['tripTableItem'].vehicleKey);
-
         $('#save-trip-btn').click(editTripFormData);
         $('#edit-trip-btn').unbind('click');
         $('#route-selector').unbind('focus');

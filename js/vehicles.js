@@ -177,15 +177,15 @@ let editVehicleFormData = () => {
     if (vehiclePlatesValidated != undefined && vehicleBrandValidated != undefined && vehicleModelValidated != undefined && vehicleSeatsValidated != undefined && vehicleStaffValidated != undefined) {
         //Actualizamos el Key del Trip
         for (let index = 0; index < tripKeysList.length; index++) {
-
             if( tripKeysList[index].vehicleKey == vehicleList[indexVehicleItem].vehiclePlates ){
-
                 editTrip(tripKeysList[index].tripName, tripKeysList[index].routeKey, vehiclePlatesValidated, tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
             }
         }
         editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated, indexVehicleItem);
         getTripObjects();
         createVehicleSelectors();
+        printTable(tripKeysList, '#table-trip', 'tripColumnName');
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         
         //Registramos la informacion en el Storage
         printTable(vehicleList, '#table-vehicle', 'vehicleName');

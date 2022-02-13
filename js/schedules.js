@@ -147,11 +147,20 @@ let editScheduleFormData = () => {
     }
 
     if (scheduleNameValidated != undefined && scheduleCheckInValidated != undefined && scheduleDepartureValidated != undefined) {
-        //Regsitramos la informacion en el Storage
+        //Actualizamos el Key del Trip
+        for (let index = 0; index < tripKeysList.length; index++) {
+            if (tripKeysList[index].scheduleKey == scheduleList[indexScheduleItem].scheduleName) {
+                editTrip(tripKeysList[index].tripName, tripKeysList[index].routeKey, tripKeysList[index].vehicleKey, scheduleNameValidated, tripKeysList[index].tripCost, index);
+            }
+        }
         editSchedule(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated, indexScheduleItem);
+        createScheduleSelectors();
+        printTable(tripKeysList, '#table-trip', 'tripColumnName');
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        
+        //Registramos la informacion en el Storage
         printTable(scheduleList, '#table-schedule', 'scheduleName');
         getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
-
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
@@ -237,6 +246,6 @@ $.ajax({
         }
     },
     error: function () {
-        animatedNotification('No se pudo cargar el archivo JSON con la información', 'error',6000);
+        animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
 });
