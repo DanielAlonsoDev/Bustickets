@@ -175,11 +175,21 @@ let editVehicleFormData = () => {
     }
 
     if (vehiclePlatesValidated != undefined && vehicleBrandValidated != undefined && vehicleModelValidated != undefined && vehicleSeatsValidated != undefined && vehicleStaffValidated != undefined) {
-        //Regsitramos la informacion en el Storage
-        editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated, indexVehicleItem);
-        printTable(vehicleList, '#table-vehicle', 'vehicleName');
-        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+        //Actualizamos el Key del Trip
+        for (let index = 0; index < tripKeysList.length; index++) {
 
+            if( tripKeysList[index].vehicleKey == vehicleList[indexVehicleItem].vehiclePlates ){
+
+                editTrip(tripKeysList[index].tripName, tripKeysList[index].routeKey, vehiclePlatesValidated, tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
+            }
+        }
+        editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated, indexVehicleItem);
+        getTripObjects();
+        createVehicleSelectors();
+        
+        //Registramos la informacion en el Storage
+        printTable(vehicleList, '#table-vehicle', 'vehicleName');
+        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName','#edit-vehicle-btn', vehicleEditEvent);
 
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
@@ -202,10 +212,10 @@ let vehicleEditEvent = () => {
         //Habilitamos el formulario
         enableForm(vehicleInputsList);
         cleanForm(vehicleInputsList);
-        $('#save-vehicle-btn').unbind('click', getVehicleFormData);
+        $('#save-vehicle-btn').unbind('click');
         $('#save-vehicle-btn').addClass('active');
-        $('#save-vehicle-btn').removeClass('active');
-
+        $('#edit-vehicle-btn').removeClass('active');
+        
         //Rellenamos el input con la informacion
         $('#vehicleBrandInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleBrand);
         $('#vehicleModelInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleModel);
@@ -214,12 +224,11 @@ let vehicleEditEvent = () => {
         $('#vehicleStaffInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleStaff);
         $('#vehicleCapacityInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleCapacity());
 
-        $('#vehicleSeatsInput').change(showVehicleCapacity);
-        $('#vehicleStaffInput').change(showVehicleCapacity);
+        $('#vehicleSeatsInput, #vehicleStaffInput').change(showVehicleCapacity);
 
         $('#save-vehicle-btn').click(editVehicleFormData);
-        $('#edit-vehicle-btn').unbind('click', vehicleEditEvent);
-        $('#vehicleBrandInput').unbind('change', onchangeVehicle);
+        $('#edit-vehicle-btn').unbind('click');
+        $('#vehicleBrandInput').unbind('change');
     };
 };
 
@@ -239,11 +248,8 @@ let onchangeVehicle = () => {
 $('#new-vehicle-btn').click(function (e) {
     cleanForm(vehicleInputsList);
     enableForm(vehicleInputsList);
-    $('#save-vehicle-btn').removeClass('active');
-    $('#save-vehicle-btn').unbind('click', getVehicleFormData);
-    $('#save-vehicle-btn').unbind('click', editVehicleFormData);
-    $('#edit-vehicle-btn').unbind('click', vehicleEditEvent);
-    $('#save-vehicle-btn').removeClass('active');
+    $('#save-vehicle-btn, #edit-vehicle-btn').removeClass('active');
+    $('#save-vehicle-btn, #edit-vehicle-btn').unbind('click');
     //Reiniciamos los eventos de cambios
     eventInputCleaner(vehicleInputsList);
 
@@ -252,8 +258,7 @@ $('#new-vehicle-btn').click(function (e) {
     }
 
     $('#vehicleBrandInput').change(onchangeVehicle);
-    $('#vehicleSeatsInput').change(showVehicleCapacity);
-    $('#vehicleStaffInput').change(showVehicleCapacity);
+    $('#vehicleSeatsInput, #vehicleStaffInput').change(showVehicleCapacity);
 });
 
 if (vehicleData != null) {

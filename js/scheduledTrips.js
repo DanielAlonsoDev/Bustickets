@@ -92,6 +92,7 @@ let getTripObjects = () => {
     let routeIndexValidated;
     let vehicleIndexValidated;
     let scheduleIndexValidated;
+    tripList = [];
 
     for (let index = 0; index < tripKeysList.length; index++) {
         let routeIndex = routeList.findIndex(element => element.routeName == tripKeysList[index].routeKey);
@@ -115,7 +116,9 @@ let getTripObjects = () => {
             scheduleIndexValidated = undefined;
         }
 
-        addTrip(tripKeysList[index].tripName, routeList[routeIndexValidated], vehicleList[vehicleIndexValidated], scheduleList[scheduleIndexValidated], tripKeysList[index].tripCost);
+        if (routeIndexValidated != undefined && vehicleIndexValidated != undefined && scheduleIndexValidated != undefined) {
+            addTrip(tripKeysList[index].tripName, routeList[routeIndexValidated], vehicleList[vehicleIndexValidated], scheduleList[scheduleIndexValidated], tripKeysList[index].tripCost);
+        }
     }
 }
 
@@ -127,9 +130,6 @@ let addTripToData = (tripName, routeKey, vehicleKey, scheduleKey, tripCost) => {
     newData.push(tripKeysList[tripKeysList.length - 1]);
     sessionStorage.setItem('tripDataSetJSON', JSON.stringify(newData));
 }
-
-//loadTripDataSet();
-//getTripObjects();
 
 let getTripFormData = () => {
     //Validamos el valor del select Route
@@ -295,33 +295,31 @@ let tripEditEvent = () => {
         //Habilitamos el formulario
         enableForm(tripInputsList);
         cleanForm(tripInputsList);
-        $('#save-trip-btn').unbind('click', getTripFormData);
-        $('#save-trip-btn').unbind('click', editTripFormData);
-
+        $('#save-trip-btn').unbind('click');
         $('#save-trip-btn').addClass('active');
-        $('#save-trip-btn').removeClass('active');
+        $('#edit-trip-btn').removeClass('active');
 
         //Rellenamos el input con la informacion
         $('#tripNameInput').val(itemsSelectedFromTable['tripTableItem'].tripName);
-        $('#route-selector').val(itemsSelectedFromTable['tripTableItem'].routeKey);
-        $('#vehicle-selector').val(itemsSelectedFromTable['tripTableItem'].vehicleKey);
-        $('#schedule-selector').val(itemsSelectedFromTable['tripTableItem'].scheduleKey);
+        $(`#route-selector option[value="${itemsSelectedFromTable['tripTableItem'].routeKey}"]`).prop('selected', true);
+        $(`#vehicle-selector option[value="${itemsSelectedFromTable['tripTableItem'].vehicleKey}"]`).prop('selected', true);
+        $(`#schedule-selector option[value="${itemsSelectedFromTable['tripTableItem'].scheduleKey}"]`).prop('selected', true);
         $('#tripCostInput').val(itemsSelectedFromTable['tripTableItem'].tripCost);
 
-        $('#save-trip-btn').click(editTripFormData);
-        $('#edit-trip-btn').unbind('click', tripEditEvent);
-        $('#route-selector').unbind('focus', onChangeTrip);
+        console.log(itemsSelectedFromTable['tripTableItem'].vehicleKey);
 
-        console.log("P6");//TEMPORAL
+        $('#save-trip-btn').click(editTripFormData);
+        $('#edit-trip-btn').unbind('click');
+        $('#route-selector').unbind('focus');
     }
 };
 
 let onChangeTrip = () => {
+    $('#save-trip-btn').unbind('click');
+    //Validamos el contenido del input
     if ($('#tripNameInput').val() != '') {
         $('#save-trip-btn').addClass('active');
         $('#save-trip-btn').click(getTripFormData);
-
-        console.log("P7");//TEMPORAL
     };
 }
 
@@ -335,12 +333,9 @@ let cleanTripForm = (inputList) => {
 $('#new-trip-btn').click(function (e) {
     cleanTripForm(tripInputsList);
     enableForm(tripInputsList);
-    $('#save-trip-btn').removeClass('active');
-    $('#save-trip-btn').unbind('click', getTripFormData);
-    $('#save-trip-btn').unbind('click', editTripFormData);
-    $('#edit-trip-btn').unbind('click', tripEditEvent);
-    $('#save-trip-btn').removeClass('active');
-    //Reiniciamos los eventos de cambios
+    //Reiniciamos los eventosy los cambios de clases
+    $('#save-trip-btn, #edit-trip-btn').removeClass('active');
+    $('#save-trip-btn, #edit-trip-btn').unbind('click');
     eventInputCleaner(tripInputsList);
 
     for (let i = 0; i < $('#table-trip td').length; i++) {
@@ -351,8 +346,8 @@ $('#new-trip-btn').click(function (e) {
 });
 
 if (tripData != null) {
-    getTripObjects();
     loadTripDataSet();
+    getTripObjects();
 
     //Inicializamos los select
     createRouteSelectors();
@@ -375,8 +370,8 @@ $.ajax({
             }
             sessionStorage.setItem('tripDataSetJSON', JSON.stringify(dataSet));
             dataSet = [];
-            getTripObjects();
             loadTripDataSet();
+            getTripObjects();
 
             //Inicializamos los select
             createRouteSelectors();

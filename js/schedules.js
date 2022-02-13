@@ -172,7 +172,7 @@ let scheduleEditEvent = () => {
         //Habilitamos el formulario
         enableForm(scheduleInputsList);
         cleanForm(scheduleInputsList);
-        $('#save-schedule-btn').unbind('click', getScheduleFormData);
+        $('#save-schedule-btn').unbind('click');
         $('#save-schedule-btn').addClass('active');
         $('#edit-schedule-btn').removeClass('active');
 
@@ -181,10 +181,9 @@ let scheduleEditEvent = () => {
         $('#scheduleCheckInInput').val(itemsSelectedFromTable['scheduleTableItem'].scheduleCheckIn);
         $('#scheduleDepartureInput').val(itemsSelectedFromTable['scheduleTableItem'].scheduleDeparture);
 
-
         $('#save-schedule-btn').click(editScheduleFormData);
-        $('#edit-schedule-btn').unbind('click', scheduleEditEvent);
-        $('#scheduleNameInput').unbind('change', onchangeSchedule);
+        $('#edit-schedule-btn').unbind('click');
+        $('#scheduleNameInput').unbind('change');
     };
 };
 
@@ -199,11 +198,8 @@ let onchangeSchedule = () => {
 $('#new-schedule-btn').click(function (e) {
     cleanForm(scheduleInputsList);
     enableForm(scheduleInputsList);
-    $('#save-schedule-btn').removeClass('active');
-    $('#save-schedule-btn').unbind('click', getScheduleFormData);
-    $('#save-schedule-btn').unbind('click', editScheduleFormData);
-    $('#edit-schedule-btn').unbind('click', scheduleEditEvent);
-    $('#edit-schedule-btn').removeClass('active');
+    $('#save-schedule-btn, #edit-schedule-btn').removeClass('active');
+    $('#save-schedule-btn, #edit-schedule-btn').unbind('click');
     //Reiniciamos los eventos de cambios
     eventInputCleaner(scheduleInputsList);
 

@@ -210,9 +210,9 @@ let routeEditEvent = () => {
         //Habilitamos el formulario
         enableForm(routeInputsList);
         cleanForm(routeInputsList);
-        $('#save-route-btn').unbind('click', getRouteFormData);
+        $('#save-route-btn').unbind('click');
         $('#save-route-btn').addClass('active');
-        $('#save-route-btn').removeClass('active');
+        $('#edit-route-btn').removeClass('active');
 
         //Rellenamos el input con la informacion
         $('#routeDepartureCodeInput').val(itemsSelectedFromTable['routeTableItem'].codeDeparture);
@@ -224,16 +224,17 @@ let routeEditEvent = () => {
         $('#routeHoursInput').val(itemsSelectedFromTable['routeTableItem'].getEta()[0] + 'h');
         $('#routeMinutesInput').val(itemsSelectedFromTable['routeTableItem'].getEta()[1] + 'm');
 
-        $('#routeDepartureCodeInput').change(showRouteName);
-        $('#routeDestinationCodeInput').change(showRouteName);
+        $('#routeDepartureCodeInput, #routeDestinationCodeInput').change(showRouteName);
 
         $('#save-route-btn').click(editRouteFormData);
-        $('#edit-route-btn').unbind('click', routeEditEvent);
-        $('#routedDepartureNameInput').unbind('change', onchangeRoute);
+        $('#edit-route-btn').unbind('click');
+        $('#routedDepartureNameInput').unbind('change');
     };
 };
 
 let onchangeRoute = () => {
+    $('#save-route-btn').unbind('click');
+    //Validamos el contenido del input
     if ($('#routedDepartureNameInput').val() != '') {
         $('#save-route-btn').addClass('active');
         $('#save-route-btn').click(getRouteFormData);
@@ -248,11 +249,9 @@ let showRouteName = () => {
 $('#new-route-btn').click(function (e) {
     cleanForm(routeInputsList);
     enableForm(routeInputsList);
-
-    $('#save-route-btn').removeClass('active');
-    $('#save-route-btn').unbind('click');
-    $('#edit-route-btn').unbind('click');
-    //Reiniciamos los eventos de cambios
+    //Reiniciamos los eventosy los cambios de clases
+    $('#save-route-btn, #edit-route-btn').removeClass('active');
+    $('#save-route-btn, #edit-route-btn').unbind('click');
     eventInputCleaner(routeInputsList);
 
     for (let i = 0; i < $('#table-route td').length; i++) {
@@ -260,8 +259,7 @@ $('#new-route-btn').click(function (e) {
     }
 
     $('#routedDepartureNameInput').change(onchangeRoute);
-    $('#routeDepartureCodeInput').change(showRouteName);
-    $('#routeDestinationCodeInput').change(showRouteName);
+    $('#routeDepartureCodeInput, #routeDestinationCodeInput').change(showRouteName);
 });
 
 if (routeData != null) {
