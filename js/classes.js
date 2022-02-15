@@ -55,22 +55,22 @@ class Route {
 }
 
 class ScheduledTrip {
-    constructor(tripName, tripRoute, tripVehicle, tripSchedule, tripCost) {
+    constructor(tripDate, tripRoute, tripVehicle, tripSchedule, tripCost) {
         this.tripRoute = tripRoute;
         this.tripVehicle = tripVehicle;
         this.tripSchedule = tripSchedule;
         this.tripCost = tripCost;
-        this.tripName = tripName;
+        this.tripDate = tripDate;
     }
 }
 
 class TripKeys {
-    constructor(tripName, routeKey, vehicleKey, scheduleKey, tripCost) {
-        this.tripName = tripName;
+    constructor(tripDate, routeKey, vehicleKey, scheduleKey, tripCost) {
+        this.tripDate = tripDate;
         this.routeKey = routeKey;
         this.vehicleKey = vehicleKey;
         this.scheduleKey = scheduleKey;
         this.tripCost = tripCost;
-        this.tripColumnName = routeKey +  " -- " + tripName;
+        this.tripColumnName = routeKey +  " -- " + tripDate;
     }
 }

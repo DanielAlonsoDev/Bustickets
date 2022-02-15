@@ -178,7 +178,7 @@ let editVehicleFormData = () => {
         //Actualizamos el Key del Trip
         for (let index = 0; index < tripKeysList.length; index++) {
             if( tripKeysList[index].vehicleKey == vehicleList[indexVehicleItem].vehiclePlates ){
-                editTrip(tripKeysList[index].tripName, tripKeysList[index].routeKey, vehiclePlatesValidated, tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
+                editTrip(tripKeysList[index].tripDate, tripKeysList[index].routeKey, vehiclePlatesValidated, tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
             }
         }
         editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated, indexVehicleItem);

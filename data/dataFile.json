@@ -55,14 +55,14 @@
 
     "tripData" : [
         {
-            "tripName": "I",
+            "tripDate": "2022-02-15",
             "routeKey": "stgo-valp",
             "vehicleKey": "B734FA",
             "scheduleKey": "Segundo Mañana",
             "tripCost": "6000"
         },
         {
-            "tripName": "II",
+            "tripDate": "2022-02-16",
             "routeKey": "stgo-valp",
             "vehicleKey": "76YT9A",
             "scheduleKey": "Segundo Mañana",

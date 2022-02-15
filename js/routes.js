@@ -186,7 +186,7 @@ let editRouteFormData = () => {
         //Actualizamos el Key del Trip
         for (let index = 0; index < tripKeysList.length; index++) {
             if (tripKeysList[index].routeKey == routeList[indexRouteItem].routeName) {
-                editTrip(tripKeysList[index].tripName, routeDepartureCodeValidated + "-" + routeDestinationCodeValidated, tripKeysList[index].vehicleKey,  tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
+                editTrip(tripKeysList[index].tripDate, routeDepartureCodeValidated + "-" + routeDestinationCodeValidated, tripKeysList[index].vehicleKey,  tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
             }
         }
         editRoute(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated, indexRouteItem);

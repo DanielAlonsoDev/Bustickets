@@ -150,7 +150,7 @@ let editScheduleFormData = () => {
         //Actualizamos el Key del Trip
         for (let index = 0; index < tripKeysList.length; index++) {
             if (tripKeysList[index].scheduleKey == scheduleList[indexScheduleItem].scheduleName) {
-                editTrip(tripKeysList[index].tripName, tripKeysList[index].routeKey, tripKeysList[index].vehicleKey, scheduleNameValidated, tripKeysList[index].tripCost, index);
+                editTrip(tripKeysList[index].tripDate, tripKeysList[index].routeKey, tripKeysList[index].vehicleKey, scheduleNameValidated, tripKeysList[index].tripCost, index);
             }
         }
         editSchedule(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated, indexScheduleItem);
