@@ -132,6 +132,47 @@ let addTripToData = (tripDate, routeKey, vehicleKey, scheduleKey, tripCost) => {
 }
 
 let getTripFormData = () => {
+
+    //Validamos el valor del date
+    if ($('#tripDateInput').val() != '' && $('#vehicle-selector option:selected').val() != 'default') {
+        //Comparamos la con todos los guardados con anterioridad
+        let tripExist = false;
+        for (let index = 0; index < tripList.length; index++) {
+            let tripDateExist = false;
+            let tripVehicleExist = false;
+            let tripScheduleExist = false;
+
+            if (tripKeysList[index].tripDate == $('#tripDateInput').val()) {
+                tripDateExist = true;
+                console.log("Checkpoint 1");
+            }
+            if (tripKeysList[index].vehicleKey == $('#vehicle-selector option:selected').val()) {
+                tripVehicleExist = true;
+                console.log("Checkpoint 2");
+            }
+
+            if (tripKeysList[index].scheduleKey == $('#schedule-selector option:selected').val()) {
+                tripScheduleExist = true;
+                console.log("Checkpoint 3");
+            }
+
+            if (tripDateExist && tripVehicleExist && tripScheduleExist) {
+                tripExist = true;
+            }
+        }
+        switch (tripExist) {
+            case true:
+                animatedNotification('Existe un viaje guardado con esos datos', 'error', 6000, '#tripDateInput, #vehicle-selector, #schedule-selector');
+                break;
+
+            default:
+                tripDateValidated = $('#tripDateInput').val();
+                tripVehicleValidated = $('#vehicle-selector option:selected').val();
+                tripScheduleValidated = $('#schedule-selector option:selected').val();
+                break;
+        }
+    }
+
     //Validamos el valor del select Route
     if ($('#route-selector option:selected').val() != 'default') {
         tripRouteValidated = $('#route-selector option:selected').val();
@@ -140,44 +181,17 @@ let getTripFormData = () => {
         animatedNotification('Debes seleccionar una ruta', 'alert', 6000, '#route-selector');
     }
 
-    if ($('#tripDateInput').val() != '') {
-        //Comparamos la con todos los guardados con anterioridad
-        let tripDateExist = false;
-        for (let index = 0; index < tripList.length; index++) {
-            if (tripList[index].tripDate === $('#tripDateInput').val()) {
-                tripDateExist = true;
-                console.log("Checkpoint 1")
-            }
-        }
-
-        switch (tripDateExist) {
-            case true:
-                animatedNotification('Ya existe un viaje registrado con ese nombre', 'error', 6000, '#tripDateInput')
-                break;
-
-            case false:
-                tripDateValidated = $('#tripDateInput').val();
-                break;
-        }
-    }
-    else {
-        animatedNotification('Debes ingresar un nombre valido', 'alert', 6000, '#tripDateInput');
-    }
-
-    if ($('#vehicle-selector option:selected').val() != 'default') {
-        tripVehicleValidated = $('#vehicle-selector option:selected').val();
-    }
-    else {
+    //Validamos el valor del select vehicle
+    if ($('#vehicle-selector option:selected').val() == 'default') {
         animatedNotification('Debes seleccionar un vehiculo', 'alert', 6000, '#vehicle-selector');
     }
 
-    if ($('#schedule-selector option:selected').val() != 'default') {
-        tripScheduleValidated = $('#schedule-selector option:selected').val();
-    }
-    else {
+    //Validamos el valor del select schedule
+    if ($('#schedule-selector option:selected').val() == 'default') {
         animatedNotification('Debes seleccionar un horario', 'alert', 6000, '#schedule-selector');
     }
 
+    //Validamos el valor del select Cost
     if ($('#tripCostInput').val() != '' && !isNaN($('#tripCostInput').val())) {
         tripCostValidated = $('#tripCostInput').val();
     } else {
@@ -213,6 +227,52 @@ let getTripFormData = () => {
 let editTripFormData = () => {
     indexTripItem = tripKeysList.findIndex(element => element.tripDate === itemsSelectedFromTable['tripTableItem'].tripDate);
 
+    if ($('#tripDateInput').val() == itemsSelectedFromTable['tripTableItem'].tripDate && $('#vehicle-selector option:selected').val() == itemsSelectedFromTable['tripTableItem'].vehicleKey && $('#schedule-selector option:selected').val() == itemsSelectedFromTable['tripTableItem'].scheduleKey) {
+        tripDateValidated = $('#tripDateInput').val();
+        tripVehicleValidated = $('#vehicle-selector option:selected').val();
+        tripScheduleValidated = $('#schedule-selector option:selected').val();
+    } else {
+        if ($('#tripDateInput').val() != '' && $('#vehicle-selector option:selected').val() != 'default') {
+            //Comparamos la con todos los guardados con anterioridad
+            let tripExist = false;
+            for (let index = 0; index < tripList.length; index++) {
+                
+                let tripDateExist = false;
+                let tripVehicleExist = false;
+                let tripScheduleExist = false;
+
+                if (tripKeysList[index].tripDate == $('#tripDateInput').val()) {
+                    tripDateExist = true;
+                    console.log("Checkpoint 1");
+                }
+                if (tripKeysList[index].vehicleKey == $('#vehicle-selector option:selected').val()) {
+                    tripVehicleExist = true;
+                    console.log("Checkpoint 2");
+                }
+
+                if (tripKeysList[index].scheduleKey == $('#schedule-selector option:selected').val()) {
+                    tripScheduleExist = true;
+                    console.log("Checkpoint 3");
+                }
+
+                if (tripDateExist && tripVehicleExist && tripScheduleExist) {
+                    tripExist = true;
+                }
+            }
+            switch (tripExist) {
+                case true:
+                    animatedNotification('Existe un viaje guardado con esos datos', 'error', 6000, '#tripDateInput, #vehicle-selector, #schedule-selector');
+                    break;
+
+                default:
+                    tripDateValidated = $('#tripDateInput').val();
+                    tripVehicleValidated = $('#vehicle-selector option:selected').val();
+                    tripScheduleValidated = $('#schedule-selector option:selected').val();
+                    break;
+            }
+        }
+    }
+
     //Validamos el contenido de los inputs
     if ($('#route-selector option:selected').val() != 'default') {
         tripRouteValidated = $('#route-selector option:selected').val();
@@ -221,47 +281,17 @@ let editTripFormData = () => {
         animatedNotification('Debes seleccionar una ruta', 'alert', 6000, '#route-selector');
     }
 
-    if ($('#vehicle-selector option:selected').val() != 'default') {
-        tripVehicleValidated = $('#vehicle-selector option:selected').val();
-    }
-    else {
+    //Validamos el valor del select vehicle
+    if ($('#vehicle-selector option:selected').val() == 'default') {
         animatedNotification('Debes seleccionar un vehiculo', 'alert', 6000, '#vehicle-selector');
     }
 
-    if ($('#schedule-selector option:selected').val() != 'default') {
-        tripScheduleValidated = $('#schedule-selector option:selected').val();
-    }
-    else {
+    //Validamos el valor del select schedule
+    if ($('#schedule-selector option:selected').val() == 'default') {
         animatedNotification('Debes seleccionar un horario', 'alert', 6000, '#schedule-selector');
     }
 
-    if ($('#tripDateInput').val() == itemsSelectedFromTable['tripTableItem'].tripDate) {
-        tripDateValidated = $('#tripDateInput').val();
-    } else {
-        if ($('#tripDateInput').val() != '' && $('#tripDateInput').val() != null && $('#tripDateInput').val() != undefined) {
-            //Comparamos el nombre con todos los guardados con anterioridad
-            let tripDateExist = false;
-            for (let index = 0; index < tripList.length; index++) {
-                if (tripList[index].tripDate == $('#tripDateInput').val()) {
-                    tripDateExist = true;
-                }
-            }
-
-            switch (tripDateExist) {
-                case true:
-                    animatedNotification('Ya existe un viaje registrado con ese nombre', 'error', 6000, '#tripDateInput')
-                    break;
-
-                case false:
-                    tripDateValidated = $('#tripDateInput').val();
-                    break;
-            }
-        }
-        else {
-            animatedNotification('Debes ingresar un nombre valido', 'alert', 6000, '#schedule-selector');
-        }
-    }
-
+    //Validamos el valor del select Cost
     if ($('#tripCostInput').val() != '' && !isNaN($('#tripCostInput').val())) {
         tripCostValidated = $('#tripCostInput').val();
     } else {
