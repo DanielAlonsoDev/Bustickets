@@ -74,3 +74,14 @@ class TripKeys {
         this.tripColumnName = tripDate  +  " - " + routeKey +  " - " + scheduleKey + " - " + vehicleKey;
     }
 }
+
+class User {
+    constructor( userName, userLastaName, userId){
+        this.userName = userName;
+        this.userLastaName = userLastaName;
+        this.userId = userId;
+    }
+    fullUserName(){
+        return `${this.userName} ${this.userLastaName}`;
+    }
+}

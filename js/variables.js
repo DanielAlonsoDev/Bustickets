@@ -50,4 +50,11 @@ let tripScheduleValidated;
 let tripVehicleValidated;
 let tripCostValidated;
 
+let userList = [];
+const userInputsList = ['#userNameInput','#userLastNameInput','#userIdInput'];
+let userNameValidated;
+let userLastNameValidated;
+let userIdValidated;
+
+
 let notificationCount = 1;
