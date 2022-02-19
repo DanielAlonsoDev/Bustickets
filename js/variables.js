@@ -40,6 +40,7 @@ let routeDistanceValidated;
 //************ TRIPS VARIABLES ************
 let tripList = [];
 tripKeysList = [];
+let idTripNumber = 1;
 let tripData = JSON.parse(sessionStorage.getItem('tripDataSetJSON'));
 //INPUTS
 const tripInputsList = ['#tripDateInput', '#route-selector' , '#schedule-selector', '#vehicle-selector', '#tripCostInput'];
@@ -50,8 +51,12 @@ let tripScheduleValidated;
 let tripVehicleValidated;
 let tripCostValidated;
 
-let userList = [];
-const userInputsList = ['#userNameInput','#userLastNameInput','#userIdInput'];
+//************ TICKET VARIABLES ************
+let ticketKeysList = [];
+let ticketList = [];
+let ticketData = JSON.parse(sessionStorage.getItem('ticketDataSetJSON'));
+
+const ticketInputsList = ['#userNameInput','#userLastNameInput','#userIdInput','#showDepartureInput','#showDestinationInput','#showCostInput','#showTaxesInput', '#showTotalInput'];
 let userNameValidated;
 let userLastNameValidated;
 let userIdValidated;

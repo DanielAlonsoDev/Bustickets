@@ -225,7 +225,7 @@ let getTripFormData = () => {
 }
 
 let editTripFormData = () => {
-    indexTripItem = tripKeysList.findIndex(element => element.tripDate === itemsSelectedFromTable['tripTableItem'].tripDate);
+    indexTripItem = tripKeysList.findIndex(element => element.tripColumnName === itemsSelectedFromTable['tripTableItem'].tripColumnName);
 
     if ($('#tripDateInput').val() == itemsSelectedFromTable['tripTableItem'].tripDate && $('#vehicle-selector option:selected').val() == itemsSelectedFromTable['tripTableItem'].vehicleKey && $('#schedule-selector option:selected').val() == itemsSelectedFromTable['tripTableItem'].scheduleKey) {
         tripDateValidated = $('#tripDateInput').val();

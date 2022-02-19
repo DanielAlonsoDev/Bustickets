@@ -59,14 +59,29 @@
             "routeKey": "stgo-valp",
             "vehicleKey": "B734FA",
             "scheduleKey": "Segundo Mañana",
-            "tripCost": "6000"
+            "tripCost": "6300"
         },
         {
             "tripDate": "2022-02-16",
-            "routeKey": "stgo-valp",
+            "routeKey": "stgo-talc",
             "vehicleKey": "76YT9A",
             "scheduleKey": "Segundo Mañana",
             "tripCost": "8500"
+        }
+    ],
+
+    "ticketData" : [
+        {
+            "userName" : "Maria",
+            "userLastaName" : "Martinez",
+            "userId" : "14.256.687-6",
+            "tripKey" : "2022-02-16 - stgo-talc - Segundo Mañana - 76YT9A"
+        },
+        {
+            "userName" : "Fabian",
+            "userLastaName" : "Gomez",
+            "userId" : "17.674.214-0",
+            "tripKey" : "2022-02-15 - stgo-valp - Segundo Mañana - B734FA"
         }
     ]
 }

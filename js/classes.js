@@ -75,13 +75,20 @@ class TripKeys {
     }
 }
 
-class User {
-    constructor( userName, userLastaName, userId){
+class TicketKeys {
+    constructor( userName, userLastaName, userId, tripKey){
         this.userName = userName;
         this.userLastaName = userLastaName;
         this.userId = userId;
+        this.tripKey = tripKey;
     }
-    fullUserName(){
-        return `${this.userName} ${this.userLastaName}`;
+}
+
+class Ticket {
+    constructor( userName, userLastaName, userId, trip){
+        this.userName = userName;
+        this.userLastaName = userLastaName;
+        this.userId = userId;
+        this.trip = trip;
     }
 }
