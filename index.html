@@ -77,17 +77,23 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12 col-md-6">
+                                <div class="col-sm-12 col-md-4">
                                     <label for="">
                                         <h4>Salida</h4>
                                     </label>
                                     <input type="text" id="showDepartureInput" placeholder="Lugar de Salida" readonly>
                                 </div>
-                                <div class="col-sm-12 col-md-6">
+                                <div class="col-sm-12 col-md-4">
                                     <label for="">
                                         <h4>Destino</h4>
                                     </label>
                                     <input type="text" id="showDestinationInput" placeholder="Lugar de Destino" readonly>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <label for="">
+                                        <h4>Disponibles</h4>
+                                    </label>
+                                    <input type="text" id="showAvailableInput" placeholder="Disponibles" readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -121,30 +127,12 @@
                         <h2 class="title-section">Resumen</h2>
                         <div class="row text-center mt-5">
                             <div class="col-6">
-                                <div class="sold-tickets-value show-value">57</div>
+                                <div id="sold-tickets-value" class=" show-value">0</div>
                                 <label for="">Tickets Vendidos</label>
                             </div>
                             <div class="col-6">
-                                <div class="flow-cash-value show-value">120.000$</div>
+                                <div id="flow-cash-value" class="show-value">0$</div>
                                 <label for="">Dinero en Caja</label>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- ESTADISTICAS DE OCUPACION -->
-                    <article id="occupancy" class="g-basic-card">
-                        <h2 class="title-section">Ocupación</h2>
-                        <div class="row text-center mt-5">
-                            <div class="col-4">
-                                <div class="show-value">10/30</div>
-                                <label for="">Santiago - Valparaiso</label>
-                            </div>
-                            <div class="col-4">
-                                <div class="show-value">27/30</div>
-                                <label for="">Santiago - Talca</label>
-                            </div>
-                            <div class="col-4">
-                                <div class="show-value">20/30</div>
-                                <label for="">Santiago - Los Andes</label>
                             </div>
                         </div>
                     </article>

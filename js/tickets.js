@@ -22,10 +22,29 @@ let calculateTaxes = (cost) => {
     return [taxesValue, total];
 }
 
+let showAvailableCapacity = ( selectorValue ) => {
+    loadTicketDataSet();
+    $('#showAvailableInput').removeClass('border-red');
+    let seatsCount = 0;
+    for (let index = 0; index < ticketKeysList.length; index++) {
+        if ( ticketKeysList[index].tripKey === $('#trip-selector option:selected').val() ) {
+            seatsCount++;
+        }
+    }
+
+    let indexTripItem = ticketKeysList.findIndex(element => element.tripKey == $('#trip-selector option:selected').val());
+
+    let availableCapacity = ticketList[indexTripItem].trip.tripVehicle.vehicleSeats - ticketList[indexTripItem].trip.tripVehicle.vehicleStaff;
+
+    if( (availableCapacity - seatsCount) == 0){
+        ticketList[indexTripItem].trip.available = false;
+    }
+    $('#showAvailableInput').val( availableCapacity - seatsCount);
+}
+
 $('#trip-selector').change(function (e) {
     if ($('#trip-selector option:selected').val() != 'default') {
         let indexTripItem = tripKeysList.findIndex(element => element.tripColumnName == $('#trip-selector option:selected').val());
-        console.log(tripList[indexTripItem]);
         getTripObjects();
         $('#showDepartureInput').val(tripList[indexTripItem].tripRoute.departure);
         $('#showDestinationInput').val(tripList[indexTripItem].tripRoute.destination);
@@ -34,27 +53,29 @@ $('#trip-selector').change(function (e) {
         let taxesValue = calculateTaxes(tripList[indexTripItem].tripCost);
         $('#showTaxesInput').val(taxesValue[0] + "$");
         $('#showTotalInput').val(taxesValue[1] + "$");
+
+        showAvailableCapacity();
     }
     else {
         cleanForm(ticketInputsList);
     }
 });
 
-let addTicketKeys = (userName, userLastaName, userId, tripKey) => {
-    let newTicket = new TicketKeys(userName, userLastaName, userId, tripKey);
+let addTicketKeys = (userName, userLastName, userId, tripKey) => {
+    let newTicket = new TicketKeys(userName, userLastName, userId, tripKey);
     ticketKeysList.push(newTicket);
 };
 
-let editTicketKeys = (userName, userLastaName, userId, tripKey, keyValue) => {
-    let editTicket = new TicketKeys(userName, userLastaName, userId, tripKey);
+let editTicketKeys = (userName, userLastName, userId, tripKey, keyValue) => {
+    let editTicket = new TicketKeys(userName, userLastName, userId, tripKey);
     ticketKeysList[keyValue] = editTicket;
     sessionStorage.setItem('ticketDataSetJSON', JSON.stringify(ticketKeysList));
 
     loadTicketDataSet();
 }
 
-let addTicket = (userName, userLastaName, userId, route, schedule, vehicle) => {
-    let newTicket = new Ticket(userName, userLastaName, userId, route, schedule, vehicle);
+let addTicket = (userName, userLastName, userId, route, schedule, vehicle) => {
+    let newTicket = new Ticket(userName, userLastName, userId, route, schedule, vehicle);
     ticketList.push(newTicket);
 };
 
@@ -64,7 +85,7 @@ let loadTicketDataSet = () => {
 
     for (let index = 0; index < ticketData.length; index++) {
         ticketUserNameData = ticketData[index].userName;
-        ticketUserLastNameData = ticketData[index].userLastaName;
+        ticketUserLastNameData = ticketData[index].userLastName;
         ticketUserIdData = ticketData[index].userId;
         ticketTripData = ticketData[index].tripKey;
         
@@ -72,9 +93,9 @@ let loadTicketDataSet = () => {
     };
 };
 
-let addTicketToData = (userName, userLastaName, userId, tripKey) => {
+let addTicketKeysToData = (userName, userLastName, userId, tripKey) => {
     //Agregamos registro al ticketKeysList
-    addTripKeys(userName, userLastaName, userId, tripKey);
+    addTicketKeys(userName, userLastName, userId, tripKey);
 
     newData = JSON.parse(sessionStorage.getItem('ticketDataSetJSON'));
     newData.push(ticketKeysList[ticketKeysList.length - 1]);
@@ -83,6 +104,7 @@ let addTicketToData = (userName, userLastaName, userId, tripKey) => {
 
 let getTicketObjects = () => {
     let tripIndexValidated;
+    ticketList = [];
     for (let index = 0; index < ticketKeysList.length; index++) {
 
         let tripIndex = tripKeysList.findIndex(element => element.tripColumnName == ticketKeysList[index].tripKey);
@@ -98,8 +120,6 @@ let getTicketObjects = () => {
         }
     }
 }
-
-
 
 let getTicketFormData = () => {
     //Validamos el contenido del input UserName
@@ -123,34 +143,65 @@ let getTicketFormData = () => {
         animatedNotification('Debes ingresar un documento de identidad de pasajero valido', 'alert', 6000, '#userIdInput');
     }
 
-    // if($('#trip-selector option:selected').val() != 'default'){
+    if($('#trip-selector option:selected').val() != 'default'){
+        ticketTripValidated = $('#trip-selector option:selected').val();
+    } else {
+        animatedNotification('Debes seleccionar un viajes', 'alert', 6000, '#trip-selector' );
+    }
 
-    // }
+    let indexTripItem = ticketKeysList.findIndex(element => element.tripKey == $('#trip-selector option:selected').val());
 
-    if (userNameValidated != undefined && userLastNameValidated != undefined && userIdValidated != undefined) {
-        console.log(userNameValidated);
-        console.log(userLastNameValidated);
-        console.log(userIdValidated);
-        console.log('PRUEBA');
-        cleanForm(ticketInputsList);
-        animatedNotification('Venta Registrada', 'done', 6000);
+    //Validamos la disponibilidad
+    if (ticketList[indexTripItem].trip.available == false){
+        console.log('Exito en la validacion');
+        animatedNotification('El viaje ya no tiene puestos disponibles','error', 6000, '#showAvailableInput');
+    }     
+
+    if (userNameValidated != undefined && userLastNameValidated != undefined && userIdValidated != undefined && ticketList[indexTripItem].trip.available == true) {
+        addTicketKeysToData( userNameValidated, userLastNameValidated, userIdValidated,ticketTripValidated);
+        getTicketObjects();
+        salesSummary();
+
+        console.log(ticketKeysList);
+        console.log(ticketList);
+
+        cleanTicketForm(ticketInputsList);
+        animatedNotification('Venta de ticket registrada', 'done', 6000);
     }
 
     userNameValidated = undefined;
     userLastNameValidated = undefined;
     userIdValidated = undefined;
+    ticketTripValidated = undefined;
+}
+
+let salesSummary = () => {
+    loadTicketDataSet();
+    getTicketObjects();
+    
+    let salesRevenue = 0;
+    for (const item of ticketList) {
+        salesRevenue = salesRevenue + parseInt(item.trip.tripCost);
+    }
+
+    $('#sold-tickets-value').text(ticketKeysList.length);
+    $('#flow-cash-value').text(salesRevenue + '$');
+}
+
+let cleanTicketForm = (inputList) => {
+    cleanForm(inputList);
+    $('#trip-selector option[value="default"]').prop('selected', true);
 }
 
 $('#register-ticket-btn').click(function (e) {
     e.preventDefault();
-    //getTicketFormData();
-    console.log(ticketKeysList);
-    console.log(ticketList);
+    getTicketFormData();
 });
 
 if (ticketData != null) {
     loadTicketDataSet();
     getTicketObjects();
+    salesSummary();
 }
 
 //Cargamos la informacion de Storage
@@ -167,7 +218,7 @@ $.ajax({
             dataSet = [];
             loadTicketDataSet();
             getTicketObjects();
-
+            salesSummary();
         }
     },
     error: function () {

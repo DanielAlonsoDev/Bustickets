@@ -13,7 +13,6 @@ class Vehicle {
         this.vehiclePlates = vehiclePlates;
         this.vehicleSeats = vehicleSeats;
         this.vehicleStaff = vehicleStaff;
-        this.available = true;
         this.vehicleName = vehicleBrand + " - " + vehiclePlates;
     }
     vehicleCapacity() {
@@ -61,6 +60,7 @@ class ScheduledTrip {
         this.tripSchedule = tripSchedule;
         this.tripCost = tripCost;
         this.tripDate = tripDate;
+        this.available = true;
     }
 }
 
@@ -76,18 +76,18 @@ class TripKeys {
 }
 
 class TicketKeys {
-    constructor( userName, userLastaName, userId, tripKey){
+    constructor( userName, userLastName, userId, tripKey){
         this.userName = userName;
-        this.userLastaName = userLastaName;
+        this.userLastName = userLastName;
         this.userId = userId;
         this.tripKey = tripKey;
     }
 }
 
 class Ticket {
-    constructor( userName, userLastaName, userId, trip){
+    constructor( userName, userLastName, userId, trip){
         this.userName = userName;
-        this.userLastaName = userLastaName;
+        this.userLastName = userLastName;
         this.userId = userId;
         this.trip = trip;
     }

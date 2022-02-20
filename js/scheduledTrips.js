@@ -132,7 +132,6 @@ let addTripToData = (tripDate, routeKey, vehicleKey, scheduleKey, tripCost) => {
 }
 
 let getTripFormData = () => {
-
     //Validamos el valor del date
     if ($('#tripDateInput').val() != '' && $('#vehicle-selector option:selected').val() != 'default') {
         //Comparamos la con todos los guardados con anterioridad

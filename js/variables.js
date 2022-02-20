@@ -56,10 +56,11 @@ let ticketKeysList = [];
 let ticketList = [];
 let ticketData = JSON.parse(sessionStorage.getItem('ticketDataSetJSON'));
 
-const ticketInputsList = ['#userNameInput','#userLastNameInput','#userIdInput','#showDepartureInput','#showDestinationInput','#showCostInput','#showTaxesInput', '#showTotalInput'];
+const ticketInputsList = ['#userNameInput','#userLastNameInput','#userIdInput','#showDepartureInput','#showDestinationInput','#showCostInput','#showTaxesInput', '#showTotalInput', '#showAvailableInput'];
 let userNameValidated;
 let userLastNameValidated;
 let userIdValidated;
+let ticketTripValidated;
 
 
 let notificationCount = 1;

@@ -5,7 +5,7 @@
             "vehicleBrand": "Mercedes",
             "vehicleModel": "mb-350",
             "vehiclePlates": "B734FA",
-            "vehicleSeats": "32",
+            "vehicleSeats": "6",
             "vehicleStaff": "2",
             "available": "true"
         },
@@ -73,13 +73,13 @@
     "ticketData" : [
         {
             "userName" : "Maria",
-            "userLastaName" : "Martinez",
+            "userLastName" : "Martinez",
             "userId" : "14.256.687-6",
             "tripKey" : "2022-02-16 - stgo-talc - Segundo Mañana - 76YT9A"
         },
         {
             "userName" : "Fabian",
-            "userLastaName" : "Gomez",
+            "userLastName" : "Gomez",
             "userId" : "17.674.214-0",
             "tripKey" : "2022-02-15 - stgo-valp - Segundo Mañana - B734FA"
         }

@@ -207,7 +207,7 @@ header {
     grid-template-columns: repeat(2, 6fr);
     grid-template-rows: repeat(3, 1fr);
     grid-gap: 2rem;
-    grid-template-areas: "tickets resume" "tickets occupancy" "tickets sells"; } }
+    grid-template-areas: "tickets resume" "tickets sells" "tickets sells"; } }
 
 #register-tickets #tickets {
   grid-area: tickets; }
