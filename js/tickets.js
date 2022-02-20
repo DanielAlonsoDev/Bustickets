@@ -22,7 +22,7 @@ let calculateTaxes = (cost) => {
     return [taxesValue, total];
 }
 
-let showAvailableCapacity = ( selectorValue ) => {
+let showAvailableCapacity = () => {
     loadTicketDataSet();
     $('#showAvailableInput').removeClass('border-red');
     let seatsCount = 0;
@@ -32,12 +32,12 @@ let showAvailableCapacity = ( selectorValue ) => {
         }
     }
 
-    let indexTripItem = ticketKeysList.findIndex(element => element.tripKey == $('#trip-selector option:selected').val());
+    let indexTripItem = tripKeysList.findIndex(element => element.tripColumnName == $('#trip-selector option:selected').val());
 
-    let availableCapacity = ticketList[indexTripItem].trip.tripVehicle.vehicleSeats - ticketList[indexTripItem].trip.tripVehicle.vehicleStaff;
+    let availableCapacity = tripList[indexTripItem].tripVehicle.vehicleSeats - tripList[indexTripItem].tripVehicle.vehicleStaff;
 
     if( (availableCapacity - seatsCount) == 0){
-        ticketList[indexTripItem].trip.available = false;
+        tripList[indexTripItem].available = false;
     }
     $('#showAvailableInput').val( availableCapacity - seatsCount);
 }
@@ -62,20 +62,20 @@ $('#trip-selector').change(function (e) {
 });
 
 let addTicketKeys = (userName, userLastName, userId, tripKey) => {
-    let newTicket = new TicketKeys(userName, userLastName, userId, tripKey);
+    let newTicket = new TicketKeys(userName, userLastName, userId, tripKey, generateTicketNumber());
     ticketKeysList.push(newTicket);
 };
 
-let editTicketKeys = (userName, userLastName, userId, tripKey, keyValue) => {
-    let editTicket = new TicketKeys(userName, userLastName, userId, tripKey);
-    ticketKeysList[keyValue] = editTicket;
-    sessionStorage.setItem('ticketDataSetJSON', JSON.stringify(ticketKeysList));
+// let editTicketKeys = (userName, userLastName, userId, tripKey, keyValue) => {
+//     let editTicket = new TicketKeys(userName, userLastName, userId, tripKey);
+//     ticketKeysList[keyValue] = editTicket;
+//     sessionStorage.setItem('ticketDataSetJSON', JSON.stringify(ticketKeysList));
 
-    loadTicketDataSet();
-}
+//     loadTicketDataSet();
+// }
 
-let addTicket = (userName, userLastName, userId, route, schedule, vehicle) => {
-    let newTicket = new Ticket(userName, userLastName, userId, route, schedule, vehicle);
+let addTicket = (userName, userLastName, userId, trip, ticketNumber) => {
+    let newTicket = new Ticket(userName, userLastName, userId, trip, ticketNumber);
     ticketList.push(newTicket);
 };
 
@@ -116,7 +116,7 @@ let getTicketObjects = () => {
         }
         
         if (tripIndexValidated != undefined) {
-            addTicket(ticketKeysList[index].userName, ticketKeysList[index].userLastName, ticketKeysList[index].userId, tripList[tripIndex]);
+            addTicket(ticketKeysList[index].userName, ticketKeysList[index].userLastName, ticketKeysList[index].userId, tripList[tripIndex], ticketKeysList[index].ticketNumber);
         }
     }
 }
@@ -149,18 +149,19 @@ let getTicketFormData = () => {
         animatedNotification('Debes seleccionar un viajes', 'alert', 6000, '#trip-selector' );
     }
 
-    let indexTripItem = ticketKeysList.findIndex(element => element.tripKey == $('#trip-selector option:selected').val());
+    let indexTripItem = tripKeysList.findIndex(element => element.tripColumnName == $('#trip-selector option:selected').val());
 
     //Validamos la disponibilidad
-    if (ticketList[indexTripItem].trip.available == false){
+    if (tripList[indexTripItem].available == false){
         console.log('Exito en la validacion');
         animatedNotification('El viaje ya no tiene puestos disponibles','error', 6000, '#showAvailableInput');
     }     
 
-    if (userNameValidated != undefined && userLastNameValidated != undefined && userIdValidated != undefined && ticketList[indexTripItem].trip.available == true) {
+    if (userNameValidated != undefined && userLastNameValidated != undefined && userIdValidated != undefined && tripList[indexTripItem].available == true) {
         addTicketKeysToData( userNameValidated, userLastNameValidated, userIdValidated,ticketTripValidated);
         getTicketObjects();
         salesSummary();
+        printTicketsTable();
 
         console.log(ticketKeysList);
         console.log(ticketList);
@@ -181,11 +182,35 @@ let salesSummary = () => {
     
     let salesRevenue = 0;
     for (const item of ticketList) {
-        salesRevenue = salesRevenue + parseInt(item.trip.tripCost);
+        let total = calculateTaxes(item.trip.tripCost);
+        salesRevenue = salesRevenue + parseInt(total[1]);
     }
 
     $('#sold-tickets-value').text(ticketKeysList.length);
     $('#flow-cash-value').text(salesRevenue + '$');
+}
+
+let generateTicketNumber = () => {
+    ticketCount = ticketKeysList.length +1;
+    return ticketCount;
+}
+
+let printTicketsTable = () => {
+    //<tr><td></td><td></td></tr>
+    $('#table-tickets tbody').empty();
+
+    let ticketListReverse = ticketList.reverse();
+    for (let index = 0; index < ticketListReverse.length; index++) {
+        let htmlTicket = `
+        <tr id="${ticketListReverse[index].ticketNumber}">
+            <td>${ticketListReverse[index].userName} ${ticketListReverse[index].userLastName}</td>
+            <td>${ticketListReverse[index].trip.tripRoute.routeName}</td>
+            <td>${ticketListReverse[index].trip.tripDate.slice(5)}</td>
+            <td>${ticketListReverse[index].trip.tripSchedule.scheduleDeparture}</td>
+        </tr>`
+
+        $('#table-tickets tbody').append(htmlTicket);
+    };
 }
 
 let cleanTicketForm = (inputList) => {
@@ -202,6 +227,7 @@ if (ticketData != null) {
     loadTicketDataSet();
     getTicketObjects();
     salesSummary();
+    printTicketsTable();
 }
 
 //Cargamos la informacion de Storage
@@ -219,9 +245,12 @@ $.ajax({
             loadTicketDataSet();
             getTicketObjects();
             salesSummary();
+            printTicketsTable();
         }
     },
     error: function () {
         animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
 });
+
+

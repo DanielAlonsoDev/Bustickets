@@ -61,6 +61,6 @@ let userNameValidated;
 let userLastNameValidated;
 let userIdValidated;
 let ticketTripValidated;
-
+let ticketCount = 0;
 
 let notificationCount = 1;

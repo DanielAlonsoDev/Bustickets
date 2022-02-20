@@ -71,24 +71,26 @@ class TripKeys {
         this.vehicleKey = vehicleKey;
         this.scheduleKey = scheduleKey;
         this.tripCost = tripCost;
-        this.tripColumnName = tripDate  +  " - " + routeKey +  " - " + scheduleKey + " - " + vehicleKey;
+        this.tripColumnName = tripDate +  " - " + routeKey +  " - " + scheduleKey + " - " + vehicleKey;
     }
 }
 
 class TicketKeys {
-    constructor( userName, userLastName, userId, tripKey){
+    constructor( userName, userLastName, userId, tripKey, ticketNumber){
         this.userName = userName;
         this.userLastName = userLastName;
         this.userId = userId;
         this.tripKey = tripKey;
+        this.ticketNumber = ticketNumber;
     }
 }
 
 class Ticket {
-    constructor( userName, userLastName, userId, trip){
+    constructor( userName, userLastName, userId, trip, ticketNumber){
         this.userName = userName;
         this.userLastName = userLastName;
         this.userId = userId;
         this.trip = trip;
+        this.ticketNumber = ticketNumber;
     }
 }

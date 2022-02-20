@@ -75,13 +75,15 @@
             "userName" : "Maria",
             "userLastName" : "Martinez",
             "userId" : "14.256.687-6",
-            "tripKey" : "2022-02-16 - stgo-talc - Segundo Mañana - 76YT9A"
+            "tripKey" : "2022-02-16 - stgo-talc - Segundo Mañana - 76YT9A",
+            "ticketNumber" : 1
         },
         {
             "userName" : "Fabian",
             "userLastName" : "Gomez",
             "userId" : "17.674.214-0",
-            "tripKey" : "2022-02-15 - stgo-valp - Segundo Mañana - B734FA"
+            "tripKey" : "2022-02-15 - stgo-valp - Segundo Mañana - B734FA",
+            "ticketNumber" : 2
         }
     ]
 }
