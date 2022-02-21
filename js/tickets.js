@@ -1,3 +1,4 @@
+//CREAR EL SELECTOR DE VIAJES
 let createTripSelectors = () => {
     if (tripKeysList.length > 0) {
         let contentOption;
@@ -27,7 +28,7 @@ let showAvailableCapacity = () => {
     $('#showAvailableInput').removeClass('border-red');
     let seatsCount = 0;
     for (let index = 0; index < ticketKeysList.length; index++) {
-        if ( ticketKeysList[index].tripKey === $('#trip-selector option:selected').val() ) {
+        if (ticketKeysList[index].tripKey === $('#trip-selector option:selected').val()) {
             seatsCount++;
         }
     }
@@ -36,10 +37,10 @@ let showAvailableCapacity = () => {
 
     let availableCapacity = tripList[indexTripItem].tripVehicle.vehicleSeats - tripList[indexTripItem].tripVehicle.vehicleStaff;
 
-    if( (availableCapacity - seatsCount) == 0){
+    if ((availableCapacity - seatsCount) == 0) {
         tripList[indexTripItem].available = false;
     }
-    $('#showAvailableInput').val( availableCapacity - seatsCount);
+    $('#showAvailableInput').val(availableCapacity - seatsCount);
 }
 
 $('#trip-selector').change(function (e) {
@@ -66,13 +67,13 @@ let addTicketKeys = (userName, userLastName, userId, tripKey) => {
     ticketKeysList.push(newTicket);
 };
 
-// let editTicketKeys = (userName, userLastName, userId, tripKey, keyValue) => {
-//     let editTicket = new TicketKeys(userName, userLastName, userId, tripKey);
-//     ticketKeysList[keyValue] = editTicket;
-//     sessionStorage.setItem('ticketDataSetJSON', JSON.stringify(ticketKeysList));
+let editTicketKeys = (userName, userLastName, userId, tripKey, ticketNumber, keyValue) => {
+    let editTicket = new TicketKeys(userName, userLastName, userId, tripKey, ticketNumber);
+    ticketKeysList[keyValue] = editTicket;
+    sessionStorage.setItem('ticketDataSetJSON', JSON.stringify(ticketKeysList));
 
-//     loadTicketDataSet();
-// }
+    loadTicketDataSet();
+}
 
 let addTicket = (userName, userLastName, userId, trip, ticketNumber) => {
     let newTicket = new Ticket(userName, userLastName, userId, trip, ticketNumber);
@@ -88,7 +89,7 @@ let loadTicketDataSet = () => {
         ticketUserLastNameData = ticketData[index].userLastName;
         ticketUserIdData = ticketData[index].userId;
         ticketTripData = ticketData[index].tripKey;
-        
+
         addTicketKeys(ticketUserNameData, ticketUserLastNameData, ticketUserIdData, ticketTripData);
     };
 };
@@ -114,7 +115,7 @@ let getTicketObjects = () => {
         } else {
             tripIndexValidated = undefined;
         }
-        
+
         if (tripIndexValidated != undefined) {
             addTicket(ticketKeysList[index].userName, ticketKeysList[index].userLastName, ticketKeysList[index].userId, tripList[tripIndex], ticketKeysList[index].ticketNumber);
         }
@@ -143,25 +144,26 @@ let getTicketFormData = () => {
         animatedNotification('Debes ingresar un documento de identidad de pasajero valido', 'alert', 6000, '#userIdInput');
     }
 
-    if($('#trip-selector option:selected').val() != 'default'){
+    if ($('#trip-selector option:selected').val() != 'default') {
         ticketTripValidated = $('#trip-selector option:selected').val();
     } else {
-        animatedNotification('Debes seleccionar un viajes', 'alert', 6000, '#trip-selector' );
+        animatedNotification('Debes seleccionar un viajes', 'alert', 6000, '#trip-selector');
     }
 
     let indexTripItem = tripKeysList.findIndex(element => element.tripColumnName == $('#trip-selector option:selected').val());
 
     //Validamos la disponibilidad
-    if (tripList[indexTripItem].available == false){
+    if (tripList[indexTripItem].available == false) {
         console.log('Exito en la validacion');
-        animatedNotification('El viaje ya no tiene puestos disponibles','error', 6000, '#showAvailableInput');
-    }     
+        animatedNotification('El viaje ya no tiene puestos disponibles', 'error', 6000, '#showAvailableInput');
+    }
 
     if (userNameValidated != undefined && userLastNameValidated != undefined && userIdValidated != undefined && tripList[indexTripItem].available == true) {
-        addTicketKeysToData( userNameValidated, userLastNameValidated, userIdValidated,ticketTripValidated);
+        addTicketKeysToData(userNameValidated, userLastNameValidated, userIdValidated, ticketTripValidated);
         getTicketObjects();
         salesSummary();
         printTicketsTable();
+        showTicketEvent();
 
         console.log(ticketKeysList);
         console.log(ticketList);
@@ -179,7 +181,7 @@ let getTicketFormData = () => {
 let salesSummary = () => {
     loadTicketDataSet();
     getTicketObjects();
-    
+
     let salesRevenue = 0;
     for (const item of ticketList) {
         let total = calculateTaxes(item.trip.tripCost);
@@ -191,7 +193,7 @@ let salesSummary = () => {
 }
 
 let generateTicketNumber = () => {
-    ticketCount = ticketKeysList.length +1;
+    ticketCount = 'T-#' + (ticketKeysList.length + 1);
     return ticketCount;
 }
 
@@ -202,15 +204,72 @@ let printTicketsTable = () => {
     let ticketListReverse = ticketList.reverse();
     for (let index = 0; index < ticketListReverse.length; index++) {
         let htmlTicket = `
-        <tr id="${ticketListReverse[index].ticketNumber}">
+        <tr>
             <td>${ticketListReverse[index].userName} ${ticketListReverse[index].userLastName}</td>
             <td>${ticketListReverse[index].trip.tripRoute.routeName}</td>
             <td>${ticketListReverse[index].trip.tripDate.slice(5)}</td>
             <td>${ticketListReverse[index].trip.tripSchedule.scheduleDeparture}</td>
+            <td><button id="${ticketListReverse[index].ticketNumber}" class="g-show-ticket" data-bs-toggle="modal" data-bs-target="#modalTicket"><i class="icon-file-text2" data-toggle="tooltip" data-placement="top" title="Ver Factura"></i> </button></td>
         </tr>`
 
         $('#table-tickets tbody').append(htmlTicket);
     };
+}
+
+let showTicketEvent = () => {
+    $('.g-show-ticket').click(function (e) {
+        e.preventDefault();
+        let indexTicket = ticketList.findIndex(element => element.ticketNumber == e.currentTarget.id);
+        $('#modalTicketLabel').empty();
+        $('#modalTicketLabel').text('Ticket ' + e.currentTarget.id);
+
+        let htmlContent = `
+        <tr>
+            <td colspan="2" class="text-center"><b>Información Usuario</b></td>
+        </tr>
+        <tr>
+            <td>Nombre Cliente:</td>
+            <td>${ticketList[indexTicket].userName} ${ticketList[indexTicket].userLastName}</td>
+        </tr>
+        <tr>
+            <td>Documento de identidad:</td>
+            <td>${ticketList[indexTicket].userId}</td>
+        </tr>
+        <hr>
+        <tr>
+            <td colspan="2" class="text-center"><b>Información del Viaje</b></td>
+        </tr>
+        <tr>
+            <td>Salida:</td>
+            <td>${ticketList[indexTicket].trip.tripRoute.departure}</td>
+        </tr>
+        <tr>
+            <td>Destino:</td>
+            <td>${ticketList[indexTicket].trip.tripRoute.destination}</td>
+        </tr>
+        <tr>
+            <td>Hora Check-In:</td>
+            <td>${ticketList[indexTicket].trip.tripSchedule.scheduleCheckIn}</td>
+        </tr>
+        <tr>
+            <td>Hora Salida:</td>
+            <td>${ticketList[indexTicket].trip.tripSchedule.scheduleDeparture}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-center"><b>Información del Transporte</b></td>
+        </tr>
+        <tr>
+            <td>Vehículo</td>
+            <td>${ticketList[indexTicket].trip.tripVehicle.vehicleBrand} ${ticketList[indexTicket].trip.tripVehicle.vehicleModel}</td>
+        </tr>
+        <tr>
+            <td>Patente:</td>
+            <td>${ticketList[indexTicket].trip.tripVehicle.vehiclePlates}</td>
+        </tr>`;
+        
+        $('#table-printTickets tbody').empty();
+        $('#table-printTickets tbody').append(htmlContent);
+    });
 }
 
 let cleanTicketForm = (inputList) => {
@@ -228,6 +287,7 @@ if (ticketData != null) {
     getTicketObjects();
     salesSummary();
     printTicketsTable();
+    showTicketEvent();
 }
 
 //Cargamos la informacion de Storage
@@ -246,6 +306,7 @@ $.ajax({
             getTicketObjects();
             salesSummary();
             printTicketsTable();
+            showTicketEvent();
         }
     },
     error: function () {

@@ -10,7 +10,8 @@
   transition: all ease 80ms;
   position: relative;
   top: 0;
-  display: inline-block; }
+  display: inline-block;
+  text-decoration: none; }
 
 html {
   font-family: 'Montserrat';
@@ -22,6 +23,12 @@ body {
 
 h4 {
   font-size: 2rem; }
+
+.g-show-ticket {
+  border: none;
+  background-color: #39B8FF;
+  color: #ffffff;
+  border-radius: 0.5rem; }
 
 .g-basic-card {
   background-color: white;
@@ -165,6 +172,12 @@ form input:disabled {
   #notification .error {
     color: #E60965;
     border: 2px solid #E60965; }
+
+#modalTicketLabel {
+  font-size: 2.5rem; }
+
+.modal-footer button {
+  font-size: 2rem; }
 
 header {
   height: 8rem;

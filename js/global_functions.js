@@ -8,6 +8,7 @@ let printTable = (listToPrint, tableIdName, propertyName) => {
     };
 };
 
+//FUNCION LIMPIAR FORMULARIOS
 let cleanForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
@@ -18,12 +19,14 @@ let cleanForm = (inputsIdNames) => {
     };
 };
 
+//FUNCION PARA LIMPIAR EVENTOS DE ELEMENTOS
 let eventInputCleaner = (elementsList) => {
     for (let index = 0; index < elementsList.length; index++) {
         $(elementsList[index]).unbind('change');
     }
 }
 
+//DESHABILITAR FORMULARIOS
 let disableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
@@ -31,6 +34,7 @@ let disableForm = (inputsIdNames) => {
     };
 };
 
+//HABILITAR FORMULARIOS
 let enableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
@@ -38,16 +42,17 @@ let enableForm = (inputsIdNames) => {
     };
 };
 
-let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined , tripTableItem : undefined};
-let getTableItem = (list, keyitemSelectedFromTable, tableIdName, propertyName, editBtn, editBtnEvent) => {
+//CONSEGUIR SELECCIONAR UN ITEM DE UNA TABLA
+let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined , tripTableItem : undefined, ticketTableItem : undefined};
+let getTableItem = (list, keyitemSelectedFromTable, selectedElement, propertyName, editBtn, editBtnEvent) => {
     
-    for (let i = 0; i < $(tableIdName + ' td').length; i++) {
+    for (let i = 0; i < $(selectedElement).length; i++) {
             //Asignamos el evento a los elementos de la tabla
-            $(tableIdName + ' td')[i].addEventListener("click", (e) =>{
+            $(selectedElement)[i].addEventListener("click", (e) =>{
                     //Removemos la clase active de cualquier otro elemento seleccionado
-                    for (let j = 0; j < $(tableIdName + ' td').length; j++) {
+                    for (let j = 0; j < $(selectedElement).length; j++) {
                         //tableElementList.qe(j).removeClass('active');
-                        $(tableIdName + ' td').eq(j).removeClass('active');
+                        $(selectedElement).eq(j).removeClass('active');
                     }
                     //Agregamos la clase active y almacenamos la informacion de la coincidencia
                     e.target.classList.add('active');
@@ -67,13 +72,7 @@ for (const item of $('a')) {
     })
 }
 
-for (const item of $('input')){
-    item.addEventListener('change', () => {
-        item.classList.remove('border-red');
-        item.classList.remove('border-yellow');
-    });
-}
-
+//LIMPIAR CAMBIOS DE COLOR EN INPUTS AL RECIBIR UN CAMBIO
 for (const item of $('input, select')){
     item.addEventListener('change', () => {
         item.classList.remove('border-red');
@@ -81,6 +80,7 @@ for (const item of $('input, select')){
     });
 }
 
+//CREAR NOTIFICACIONES DE MANERA DINAMICA y APLICAR CAMBIOS A INPUTS
 let animatedNotification = (notificationText, notificationType, duration, input) => {
     let htmlContent = undefined;
 

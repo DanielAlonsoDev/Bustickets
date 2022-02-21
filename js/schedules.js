@@ -85,7 +85,7 @@ let getScheduleFormData = () => {
         addScheduleToData(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated);
 
         printTable(scheduleList, '#table-schedule', 'scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
 
 
         cleanForm(scheduleInputsList);
@@ -156,11 +156,11 @@ let editScheduleFormData = () => {
         editSchedule(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated, indexScheduleItem);
         createScheduleSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         
         //Registramos la informacion en el Storage
         printTable(scheduleList, '#table-schedule', 'scheduleName');
-        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
@@ -223,7 +223,7 @@ if (scheduleData != null) {
     //Inicializamos la tabla
     loadScheduleDataSet();
     printTable(scheduleList, '#table-schedule', 'scheduleName');
-    getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+    getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
 }
 
 //Cargamos la informacion de Storage
@@ -242,7 +242,7 @@ $.ajax({
             //Inicializamos la tabla
             loadScheduleDataSet();
             printTable(scheduleList, '#table-schedule', 'scheduleName');
-            getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+            getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
         }
     },
     error: function () {

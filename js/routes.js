@@ -101,7 +101,7 @@ let getRouteFormData = () => {
         addRouteToData(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated);
 
         printTable(routeList, '#table-route', 'routeName');
-        getTableItem(routeList, 'routeTableItem', '#table-route', 'routeName', '#edit-route-btn', routeEditEvent);
+        getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
 
         cleanForm(routeInputsList);
         disableForm(routeInputsList);
@@ -192,11 +192,11 @@ let editRouteFormData = () => {
         editRoute(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated, indexRouteItem);
         createRouteSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         
         //Registramos la informacion en el Storage
         printTable(routeList, '#table-route', 'routeName');
-        getTableItem(routeList, 'routeTableItem', '#table-route', 'routeName', '#edit-route-btn', routeEditEvent);
+        getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
 
         cleanForm(routeInputsList);
         disableForm(routeInputsList);
@@ -275,7 +275,7 @@ if (routeData != null) {
     //Inicializamos la tabla
     loadRouteDataSet();
     printTable(routeList, '#table-route', 'routeName');
-    getTableItem(routeList, 'routeTableItem', '#table-route', 'routeName', '#edit-route-btn', routeEditEvent);
+    getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
 }
 
 //Cargamos la informacion de Storage
@@ -293,7 +293,7 @@ $.ajax({
             //Inicializamos la tabla
             loadRouteDataSet();
             printTable(routeList, '#table-route', 'routeName');
-            getTableItem(routeList, 'routeTableItem', '#table-route', 'routeName', '#edit-route-btn', routeEditEvent);
+            getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
         }
     },
     error: function () {

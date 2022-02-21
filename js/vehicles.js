@@ -100,7 +100,7 @@ let getVehicleFormData = () => {
         addVehicleToData(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated);
 
         printTable(vehicleList, '#table-vehicle', 'vehicleName');
-        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
 
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
@@ -185,11 +185,11 @@ let editVehicleFormData = () => {
         getTripObjects();
         createVehicleSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         
         //Registramos la informacion en el Storage
         printTable(vehicleList, '#table-vehicle', 'vehicleName');
-        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName','#edit-vehicle-btn', vehicleEditEvent);
+        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName','#edit-vehicle-btn', vehicleEditEvent);
 
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
@@ -265,7 +265,7 @@ if (vehicleData != null) {
     //Inicializamos la tabla
     loadVehicleDataSet();
     printTable(vehicleList, '#table-vehicle', 'vehicleName');
-    getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+    getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
 }
 
 //Cargamos la informacion de Storage
@@ -284,7 +284,7 @@ $.ajax({
             //Inicializamos la tabla
             loadVehicleDataSet();
             printTable(vehicleList, '#table-vehicle', 'vehicleName');
-            getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+            getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
         }
     },
     error: function () {

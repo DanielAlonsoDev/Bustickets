@@ -204,7 +204,7 @@ let getTripFormData = () => {
         getTripObjects();
 
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 
         cleanTripForm(tripInputsList);
         disableForm(tripInputsList);
@@ -302,7 +302,7 @@ let editTripFormData = () => {
         editTrip(tripDateValidated, tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated, indexTripItem);
 
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
-        getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 
         cleanTripForm(tripInputsList);
         disableForm(tripInputsList);
@@ -381,7 +381,7 @@ if (tripData != null) {
     createVehicleSelectors();
 
     printTable(tripKeysList, '#table-trip', 'tripColumnName');
-    getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+    getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
 }
 
 //Cargamos la informacion de Storage
@@ -405,7 +405,7 @@ $.ajax({
             createVehicleSelectors();
 
             printTable(tripKeysList, '#table-trip', 'tripColumnName');
-            getTableItem(tripKeysList, 'tripTableItem', '#table-trip', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+            getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         }
     },
     error: function () {
