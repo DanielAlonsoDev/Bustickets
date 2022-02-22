@@ -4,7 +4,7 @@ let printTable = (listToPrint, tableIdName, propertyName) => {
     $(tableIdName + ' tbody').empty();
 
     for (let index = 0; index < selectedList.length; index++) {
-        $(tableIdName).append(`<tr><td>${selectedList[index][propertyName]}</td></tr>`);
+        $(tableIdName).append(`<tr><td id="${selectedList[index][propertyName]}">${selectedList[index][propertyName]}<i id="${selectedList[index][propertyName]}" class="icon-bin2"></i></td></tr>`);
     };
 };
 
@@ -30,7 +30,7 @@ let eventInputCleaner = (elementsList) => {
 let disableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
-        $(inputsIdNames[index]).prop( "disabled", true );
+        $(inputsIdNames[index]).prop("disabled", true);
     };
 };
 
@@ -38,30 +38,28 @@ let disableForm = (inputsIdNames) => {
 let enableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     for (let index = 0; index < inputsIdNames.length; index++) {
-        $(inputsIdNames[index]).prop( "disabled", false );
+        $(inputsIdNames[index]).prop("disabled", false);
     };
 };
 
 //CONSEGUIR SELECCIONAR UN ITEM DE UNA TABLA
-let itemsSelectedFromTable = { scheduleTableItem : undefined, vehicleTableItem : undefined, routeTableItem : undefined , tripTableItem : undefined, ticketTableItem : undefined};
+let itemsSelectedFromTable = { scheduleTableItem: undefined, vehicleTableItem: undefined, routeTableItem: undefined, tripTableItem: undefined, ticketTableItem: undefined };
 let getTableItem = (list, keyitemSelectedFromTable, selectedElement, propertyName, editBtn, editBtnEvent) => {
-    
     for (let i = 0; i < $(selectedElement).length; i++) {
-            //Asignamos el evento a los elementos de la tabla
-            $(selectedElement)[i].addEventListener("click", (e) =>{
-                    //Removemos la clase active de cualquier otro elemento seleccionado
-                    for (let j = 0; j < $(selectedElement).length; j++) {
-                        //tableElementList.qe(j).removeClass('active');
-                        $(selectedElement).eq(j).removeClass('active');
-                    }
-                    //Agregamos la clase active y almacenamos la informacion de la coincidencia
-                    e.target.classList.add('active');
-                    //Activamos el boton editar
-                    $(editBtn).addClass('active');
-                    $(editBtn).click(editBtnEvent);
+        //Asignamos el evento a los elementos de la tabla
+        $(selectedElement)[i].addEventListener("click", (e) => {
+            //Removemos la clase active de cualquier otro elemento seleccionado
+            for (let j = 0; j < $(selectedElement).length; j++) {
+                $(selectedElement).eq(j).removeClass('active');
+            }
+            //Agregamos la clase active y almacenamos la informacion de la coincidencia
+            e.currentTarget.classList.add('active');
+            //Activamos el boton editar
+            $(editBtn).addClass('active');
+            $(editBtn).click(editBtnEvent);
 
-                    itemsSelectedFromTable[keyitemSelectedFromTable] = list.find(element => element[propertyName] === e.target.innerText);
-            });
+            itemsSelectedFromTable[keyitemSelectedFromTable] = list.find(element => element[propertyName] === e.target.id);
+        });
     };
 };
 
@@ -73,7 +71,7 @@ for (const item of $('a')) {
 }
 
 //LIMPIAR CAMBIOS DE COLOR EN INPUTS AL RECIBIR UN CAMBIO
-for (const item of $('input, select')){
+for (const item of $('input, select')) {
     item.addEventListener('change', () => {
         item.classList.remove('border-red');
         item.classList.remove('border-yellow');
@@ -84,9 +82,14 @@ for (const item of $('input, select')){
 let animatedNotification = (notificationText, notificationType, duration, input) => {
     let htmlContent = undefined;
 
-    switch (notificationType){
+    switch (notificationType) {
         case 'done':
             htmlContent = `<div class="notification-card notification-${notificationCount}"><div class="popup ${notificationType}"><i class="icon-checkmark"></i><span>${notificationText}</span></div></div>`;
+            $('#notification').append(htmlContent);
+            break;
+
+        case 'delete':
+            htmlContent = `<div class="notification-card notification-${notificationCount}"><div class="popup ${notificationType}"><i class="icon-bin2"></i><span>${notificationText}</span></div></div>`;
             $('#notification').append(htmlContent);
             break;
 

@@ -200,6 +200,11 @@ form {
         border: 2px solid $green-color;
     }
 
+    .delete {
+        color: $red-color;
+        border: 2px solid $red-color;
+    }
+
     .alert {
         color: $text-color;
         border: 2px solid $yellow-color;
@@ -222,5 +227,21 @@ form {
 .modal-footer {
     button {
     font-size: 2rem;
+    }
+}
+
+#table-route td {
+    position: relative;
+}
+
+table td {
+    position: relative;
+
+    .icon-bin2 {
+        position: absolute;
+        transform: translate(0%, -50%);
+        right: 2rem;
+        top: 50%;
+        color: #3c3c3c;
     }
 }

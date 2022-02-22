@@ -164,6 +164,9 @@ form input:disabled {
   #notification .done {
     color: #17D7A0;
     border: 2px solid #17D7A0; }
+  #notification .delete {
+    color: #E60965;
+    border: 2px solid #E60965; }
   #notification .alert {
     color: #2c1c1c;
     border: 2px solid #FFE162; }
@@ -178,6 +181,18 @@ form input:disabled {
 
 .modal-footer button {
   font-size: 2rem; }
+
+#table-route td {
+  position: relative; }
+
+table td {
+  position: relative; }
+  table td .icon-bin2 {
+    position: absolute;
+    transform: translate(0%, -50%);
+    right: 2rem;
+    top: 50%;
+    color: #3c3c3c; }
 
 header {
   height: 8rem;
@@ -326,6 +341,9 @@ header {
 
 .icon-stats-bars:before {
   content: "\e99c"; }
+
+.icon-bin2:before {
+  content: "\e9ad"; }
 
 .icon-warning:before {
   content: "\ea07"; }

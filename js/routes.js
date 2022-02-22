@@ -102,6 +102,7 @@ let getRouteFormData = () => {
 
         printTable(routeList, '#table-route', 'routeName');
         getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
+        deleteRouteItem();
 
         cleanForm(routeInputsList);
         disableForm(routeInputsList);
@@ -186,17 +187,18 @@ let editRouteFormData = () => {
         //Actualizamos el Key del Trip
         for (let index = 0; index < tripKeysList.length; index++) {
             if (tripKeysList[index].routeKey == routeList[indexRouteItem].routeName) {
-                editTrip(tripKeysList[index].tripDate, routeDepartureCodeValidated + "-" + routeDestinationCodeValidated, tripKeysList[index].vehicleKey,  tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
+                editTrip(tripKeysList[index].tripDate, routeDepartureCodeValidated + "-" + routeDestinationCodeValidated, tripKeysList[index].vehicleKey, tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
             }
         }
         editRoute(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated, indexRouteItem);
         createRouteSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
-        
+
         //Registramos la informacion en el Storage
         printTable(routeList, '#table-route', 'routeName');
         getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
+        deleteRouteItem();
 
         cleanForm(routeInputsList);
         disableForm(routeInputsList);
@@ -255,6 +257,33 @@ let showRouteName = () => {
     $('#routeNameInput').val(inputNameValue);
 }
 
+let deleteRouteItem = () => {
+    $('#table-route .icon-bin2').unbind('click');
+    $('#table-route .icon-bin2').click(function (e) {
+        e.preventDefault();
+
+        let itemRouteExist = false;
+        for (const item of tripKeysList) {
+            if (item.routeKey == e.currentTarget.id) {
+                itemRouteExist = true;
+            }
+        }
+
+        switch (itemRouteExist) {
+            case true:
+                animatedNotification('El elemento no se puede eliminar ya que se encuentra en uso', 'alert', 6000);
+                break;
+
+            default:
+                let routeIndexTemp = routeList.findIndex(element => element.routeName == e.currentTarget.id);
+                routeList.splice(routeIndexTemp, 1);
+                sessionStorage.setItem('routeDataSetJSON', JSON.stringify(routeList));
+                animatedNotification('Elemento borrado', 'delete', 6000);
+                break;
+        }
+    });
+}
+
 $('#new-route-btn').click(function (e) {
     cleanForm(routeInputsList);
     enableForm(routeInputsList);
@@ -276,6 +305,7 @@ if (routeData != null) {
     loadRouteDataSet();
     printTable(routeList, '#table-route', 'routeName');
     getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
+    deleteRouteItem();
 }
 
 //Cargamos la informacion de Storage
@@ -294,9 +324,13 @@ $.ajax({
             loadRouteDataSet();
             printTable(routeList, '#table-route', 'routeName');
             getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
+            deleteRouteItem();
         }
     },
     error: function () {
         animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
 });
+
+
+
