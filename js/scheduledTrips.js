@@ -205,6 +205,7 @@ let getTripFormData = () => {
 
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        deleteTripItem();
 
         cleanTripForm(tripInputsList);
         disableForm(tripInputsList);
@@ -303,6 +304,7 @@ let editTripFormData = () => {
 
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        deleteTripItem();
 
         cleanTripForm(tripInputsList);
         disableForm(tripInputsList);
@@ -356,6 +358,36 @@ let cleanTripForm = (inputList) => {
     $('#route-selector option[value="default"], #schedule-selector option[value="default"], #vehicle-selector option[value="default"]').prop('selected', true);
 }
 
+let deleteTripItem = () => {
+    $('#table-trip .icon-bin2').click(function (e) {
+        e.preventDefault();
+
+        let itemExist = false;
+        for (const item of ticketKeysList) {
+            if (item.tripKey == e.currentTarget.id) {
+                itemExist = true;
+            }
+        }
+
+        switch (itemExist) {
+            case true:
+                animatedNotification('No se puede eliminar el viaje porque se encuentra ocupado', 'alert', 6000);
+                break;
+
+            default:
+                let index = tripKeysList.findIndex(element => element.tripColumnName == e.currentTarget.id);
+                tripKeysList.splice(index, 1);
+                sessionStorage.setItem('tripDataSetJSON', JSON.stringify(tripKeysList));
+                loadTripDataSet();
+                getTripObjects();
+
+                animatedNotification('Viaje Eliminado', 'delete', 6000);
+                $(`#table-trip td[id="${e.currentTarget.id}"]`).remove();
+                break;
+        }
+    });
+}
+
 $('#new-trip-btn').click(function (e) {
     cleanTripForm(tripInputsList);
     enableForm(tripInputsList);
@@ -382,6 +414,7 @@ if (tripData != null) {
 
     printTable(tripKeysList, '#table-trip', 'tripColumnName');
     getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+    deleteTripItem();
 }
 
 //Cargamos la informacion de Storage
@@ -406,6 +439,7 @@ $.ajax({
 
             printTable(tripKeysList, '#table-trip', 'tripColumnName');
             getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+            deleteTripItem();
         }
     },
     error: function () {

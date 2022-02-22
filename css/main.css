@@ -194,6 +194,14 @@ table td {
     top: 50%;
     color: #3c3c3c; }
 
+.g-status-positive {
+  color: #17D7A0;
+  text-transform: capitalize; }
+
+.g-status-negative {
+  color: #E60965;
+  text-transform: capitalize; }
+
 header {
   height: 8rem;
   margin-bottom: 5rem; }
@@ -225,17 +233,17 @@ header {
 #register-tickets .grid-layout {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: 2fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 30rem 1fr;
   grid-gap: 2rem;
-  grid-template-areas: "tickets" "resume" "occupancy" "sells"; }
+  grid-template-areas: "tickets" "resume" "sells"; }
 
 @media only screen and (min-width: 992px) {
   #register-tickets .grid-layout {
     display: grid;
     grid-template-columns: repeat(2, 6fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: 30rem 1fr;
     grid-gap: 2rem;
-    grid-template-areas: "tickets resume" "tickets sells" "tickets sells"; } }
+    grid-template-areas: "tickets resume" "tickets sells"; } }
 
 #register-tickets #tickets {
   grid-area: tickets; }
@@ -277,6 +285,10 @@ header {
 #register-tickets #tickets form .button-panel {
   display: flex;
   justify-content: end; }
+
+#register-tickets .table-ticket-wrap {
+  max-height: 43.75rem;
+  overflow-y: scroll; }
 
 @font-face {
   font-family: 'bustickets_v1';

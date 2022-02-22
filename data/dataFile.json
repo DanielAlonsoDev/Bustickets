@@ -2,20 +2,32 @@
 {
     "vehicleData": [
         {
-            "vehicleBrand": "Mercedes",
-            "vehicleModel": "mb-350",
-            "vehiclePlates": "B734FA",
-            "vehicleSeats": "32",
-            "vehicleStaff": "2",
-            "available": "true"
+            "vehicleBrand": "Mercedes-Benz",
+            "vehicleModel": "0400 Rse",
+            "vehiclePlates": "GKSB78",
+            "vehicleSeats": "36",
+            "vehicleStaff": "2"
         },
         {
-            "vehicleBrand": "Mercedes",
-            "vehicleModel": "td-180",
+            "vehicleBrand": "Mercedes-Benz",
+            "vehicleModel": "812",
             "vehiclePlates": "76YT9A",
-            "vehicleSeats": "38",
-            "vehicleStaff": "2",
-            "available": "true"
+            "vehicleSeats": "30",
+            "vehicleStaff": "2"
+        },
+        {
+            "vehicleBrand": "Ford",
+            "vehicleModel": "Transit",
+            "vehiclePlates": "GWKG64",
+            "vehicleSeats": "20",
+            "vehicleStaff": "1"
+        },
+        {
+            "vehicleBrand": "Scania",
+            "vehicleModel": "K 360",
+            "vehiclePlates": "DTRC78",
+            "vehicleSeats": "40",
+            "vehicleStaff": "2"
         }
     ],
 
@@ -34,6 +46,11 @@
             "scheduleName": "Primero Tarde",
             "scheduleCheckIn": "14:15",
             "scheduleDeparture": "14:30"
+        },
+        {
+            "scheduleName": "Primero Noche",
+            "scheduleCheckIn": "20:30",
+            "scheduleDeparture": "20:45"
         }
     ],
     "routeData" : [
@@ -49,41 +66,216 @@
             "codeDestination": "talc",
             "departure": "Santiago",
             "destination": "Talca",
-            "distance": "255"
+            "distance": "256"
+        },
+        {
+            "codeDeparture": "stgo",
+            "codeDestination": "ccpn",
+            "departure": "Santiago",
+            "destination": "Concepción",
+            "distance": "500"
+        },
+        {
+            "codeDeparture": "vmar",
+            "codeDestination": "valp",
+            "departure": "Viña de Mar",
+            "destination": "Valparaiso",
+            "distance": "8"
         }
     ],
 
     "tripData" : [
         {
-            "tripDate": "2022-02-15",
+            "tripDate": "2022-02-24",
             "routeKey": "stgo-valp",
-            "vehicleKey": "B734FA",
-            "scheduleKey": "Segundo Mañana",
-            "tripCost": "6300"
-        },
-        {
-            "tripDate": "2022-02-16",
-            "routeKey": "stgo-talc",
             "vehicleKey": "76YT9A",
             "scheduleKey": "Segundo Mañana",
-            "tripCost": "8500"
+            "tripCost": "5600"
+        },
+        {
+            "tripDate": "2022-02-25",
+            "routeKey": "vmar-valp",
+            "vehicleKey": "GWKG64",
+            "scheduleKey": "Primero Mañana",
+            "tripCost": "2500"
+        },
+        {
+            "tripDate": "2022-02-26",
+            "routeKey": "stgo-ccpn",
+            "vehicleKey": "DTRC78",
+            "scheduleKey": "Primero Noche",
+            "tripCost": "16000"
         }
     ],
 
     "ticketData" : [
         {
-            "userName" : "Maria",
-            "userLastName" : "Martinez",
-            "userId" : "14.256.687-6",
-            "tripKey" : "2022-02-16 - stgo-talc - Segundo Mañana - 76YT9A",
+            "userName" : "Estrella",
+            "userLastName" : "Sola",
+            "userId" : "19989496-7",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
             "ticketNumber" : "T-#1"
         },
         {
-            "userName" : "Fabian",
-            "userLastName" : "Gomez",
-            "userId" : "17.674.214-0",
-            "tripKey" : "2022-02-15 - stgo-valp - Segundo Mañana - B734FA",
+            "userName" : "Antonia",
+            "userLastName" : "Medrano",
+            "userId" : "18550449-4",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
             "ticketNumber" : "T-#2"
+        },
+        {
+            "userName" : "Andrés",
+            "userLastName" : "Manrique",
+            "userId" : "20859832-8",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#3"
+        },
+        {
+            "userName" : "Virtudes",
+            "userLastName" : "Angulo",
+            "userId" : "23600111-6",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#4"
+        },
+        {
+            "userName" : "Iryna",
+            "userLastName" : "Burgos",
+            "userId" : "17816916-1",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#5"
+        },
+        {
+            "userName" : "Joaquim",
+            "userLastName" : "Muñiz",
+            "userId" : "19621179-2",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
+            "ticketNumber" : "T-#6"
+        },
+        {
+            "userName" : "Amanda",
+            "userLastName" : "Minguez",
+            "userId" : "17821109-1",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#7"
+        },
+        {
+            "userName" : "Alma",
+            "userLastName" : "Centeno",
+            "userId" : "21791631-5",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#8"
+        },
+        {
+            "userName" : "Sacramento",
+            "userLastName" : "Alvarado",
+            "userId" : "18638779-3",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#9"
+        },
+        {
+            "userName" : "Giovanni",
+            "userLastName" : "Albert",
+            "userId" : "17982637-1",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
+            "ticketNumber" : "T-#10"
+        },
+        {
+            "userName" : "Óscar",
+            "userLastName" : "Marques",
+            "userId" : "17221160-1",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#11"
+        },
+        {
+            "userName" : "Sheila",
+            "userLastName" : "Ye",
+            "userId" : "21165429-7",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#12"
+        },
+        {
+            "userName" : "Francisco",
+            "userLastName" : "Ruano",
+            "userId" : "21989072-0",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#13"
+        },
+        {
+            "userName" : "Regina",
+            "userLastName" : "Bueno",
+            "userId" : "22903066-3",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#14"
+        },
+        {
+            "userName" : "Zahra",
+            "userLastName" : "Sabater",
+            "userId" : "20423230-5",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
+            "ticketNumber" : "T-#15"
+        },
+        {
+            "userName" : "Maria",
+            "userLastName" : "Plaza",
+            "userId" : "23487587-1",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#16"
+        },
+        {
+            "userName" : "Casilda",
+            "userLastName" : "Cuellar",
+            "userId" : "21885790-1",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
+            "ticketNumber" : "T-#17"
+        },
+        {
+            "userName" : "Constantin",
+            "userLastName" : "Alfaro",
+            "userId" : "20255770-9",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#18"
+        },
+        {
+            "userName" : "Ariana",
+            "userLastName" : "Casal",
+            "userId" : "23502028-6",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#19"
+        },
+        {
+            "userName" : "Jose",
+            "userLastName" : "Riera",
+            "userId" : "17186103-5",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#20"
+        },
+        {
+            "userName" : "Pilar",
+            "userLastName" : "Iglesias",
+            "userId" : "19243175-1",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#21"
+        },
+        {
+            "userName" : "Isaias",
+            "userLastName" : "Roca",
+            "userId" : "19555545-9",
+            "tripKey" : "2022-02-25 - vmar-valp - Primero Mañana - GWKG64",
+            "ticketNumber" : "T-#22"
+        },
+        {
+            "userName" : "Josep",
+            "userLastName" : "Tello",
+            "userId" : "19976461-7",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
+            "ticketNumber" : "T-#23"
+        },
+        {
+            "userName" : "Loreto",
+            "userLastName" : "Medina",
+            "userId" : "17845455-2",
+            "tripKey" : "2022-02-24 - stgo-valp - Segundo Mañana - 76YT9A",
+            "ticketNumber" : "T-#24"
         }
     ]
 }

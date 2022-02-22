@@ -140,9 +140,11 @@
                     <!-- ESTADISTICAS DE VENTAS -->
                     <article id="sells" class="g-basic-card">
                         <h2 class="title-section">Últimas Ventas</h2>
-                        <table id="table-tickets" class="table table-striped text-center mt-5">
-                            <tbody></tbody>
-                        </table>
+                        <div class="table-ticket-wrap">
+                            <table id="table-tickets" class="table table-striped text-center mt-5">
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </article>
                 </div>
             </section>
@@ -309,7 +311,7 @@
                                                 </label>
                                                 <input id="routeDepartureCodeInput" type="text"
                                                     placeholder="Ingresa el código del origen" disabled
-                                                    autocomplete="off">
+                                                    autocomplete="off" pattern="[A-Za-z]{4-4}">
                                             </div>
                                         </div>
                                         <div class="row">

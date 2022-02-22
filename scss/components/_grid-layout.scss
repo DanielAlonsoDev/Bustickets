@@ -2,12 +2,11 @@
     .grid-layout {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: 2fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 30rem 1fr;
         grid-gap: 2rem;
         grid-template-areas: 
             "tickets"
             "resume"
-            "occupancy"
             "sells";
     }
 
@@ -15,11 +14,10 @@
         .grid-layout {
             display: grid;
             grid-template-columns: repeat(2, 6fr);
-            grid-template-rows: repeat(3, 1fr);
+            grid-template-rows: 30rem 1fr;
             grid-gap: 2rem;
             grid-template-areas: 
                 "tickets resume"
-                "tickets sells"
                 "tickets sells";
         }
     }
