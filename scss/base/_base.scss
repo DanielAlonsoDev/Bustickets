@@ -245,3 +245,13 @@ table td {
         color: #3c3c3c;
     }
 }
+
+.g-status-positive {
+    color: $green-color;
+    text-transform: capitalize;
+}
+
+.g-status-negative {
+    color: $red-color;
+    text-transform: capitalize;
+}

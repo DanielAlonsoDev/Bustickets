@@ -223,6 +223,10 @@ let showTicketEvent = () => {
         $('#modalTicketLabel').empty();
         $('#modalTicketLabel').text('Ticket ' + e.currentTarget.id);
 
+        if(ticketList[indexTicket].trip.status == true){
+            
+        }
+
         let htmlContent = `
         <tr>
             <td colspan="2" class="text-center"><b>Información Usuario</b></td>
@@ -238,6 +242,11 @@ let showTicketEvent = () => {
         <hr>
         <tr>
             <td colspan="2" class="text-center"><b>Información del Viaje</b></td>
+        </tr>
+        <tr>
+            <td>Estado:</td>
+            <td class="g-status-positive">Programado</td>
+            ${ticketStatus}
         </tr>
         <tr>
             <td>Salida:</td>

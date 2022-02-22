@@ -258,27 +258,27 @@ let showRouteName = () => {
 }
 
 let deleteRouteItem = () => {
-    $('#table-route .icon-bin2').unbind('click');
     $('#table-route .icon-bin2').click(function (e) {
         e.preventDefault();
 
-        let itemRouteExist = false;
+        let itemExist = false;
         for (const item of tripKeysList) {
             if (item.routeKey == e.currentTarget.id) {
-                itemRouteExist = true;
+                itemExist = true;
             }
         }
 
-        switch (itemRouteExist) {
+        switch (itemExist) {
             case true:
-                animatedNotification('El elemento no se puede eliminar ya que se encuentra en uso', 'alert', 6000);
+                animatedNotification('La ruta no se puede eliminar ya que se encuentra seleccionada en un viaje', 'alert', 6000);
                 break;
 
             default:
-                let routeIndexTemp = routeList.findIndex(element => element.routeName == e.currentTarget.id);
-                routeList.splice(routeIndexTemp, 1);
+                let index = routeList.findIndex(element => element.routeName == e.currentTarget.id);
+                routeList.splice(index, 1);
                 sessionStorage.setItem('routeDataSetJSON', JSON.stringify(routeList));
-                animatedNotification('Elemento borrado', 'delete', 6000);
+                animatedNotification('Ruta Eliminada', 'delete', 6000);
+                $(`#table-route td[id="${e.currentTarget.id}"]`).remove();
                 break;
         }
     });

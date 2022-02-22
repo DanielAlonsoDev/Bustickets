@@ -101,6 +101,7 @@ let getVehicleFormData = () => {
 
         printTable(vehicleList, '#table-vehicle', 'vehicleName');
         getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+        deleteVehicleItem();
 
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
@@ -190,6 +191,7 @@ let editVehicleFormData = () => {
         //Registramos la informacion en el Storage
         printTable(vehicleList, '#table-vehicle', 'vehicleName');
         getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName','#edit-vehicle-btn', vehicleEditEvent);
+        deleteVehicleItem();
 
         cleanForm(vehicleInputsList);
         disableForm(vehicleInputsList);
@@ -245,6 +247,34 @@ let onchangeVehicle = () => {
     };
 }
 
+let deleteVehicleItem = () => {
+    $('#table-vehicle .icon-bin2').click(function (e) {
+        e.preventDefault();
+
+        let index = vehicleList.findIndex(element => element.vehicleName == e.currentTarget.id);
+        
+        let itemExist = false;
+        for (const item of tripKeysList) {
+            if (item.vehicleKey == vehicleList[index].vehiclePlates) {
+                itemExist = true;
+            }
+        }
+
+        switch (itemExist) {
+            case true:
+                animatedNotification('El vehículo no se puede eliminar ya que se encuentra seleccionado en un viaje', 'alert', 6000);
+                break;
+
+            default:
+                vehicleList.splice(index, 1);
+                sessionStorage.setItem('vehicleDataSetJSON', JSON.stringify(vehicleList));
+                animatedNotification('Vehículo eliminado', 'delete', 6000);
+                $(`#table-vehicle td[id="${e.currentTarget.id}"]`).remove();
+                break;
+        }
+    });
+}
+
 $('#new-vehicle-btn').click(function (e) {
     cleanForm(vehicleInputsList);
     enableForm(vehicleInputsList);
@@ -266,6 +296,7 @@ if (vehicleData != null) {
     loadVehicleDataSet();
     printTable(vehicleList, '#table-vehicle', 'vehicleName');
     getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+    deleteVehicleItem();
 }
 
 //Cargamos la informacion de Storage
@@ -285,6 +316,7 @@ $.ajax({
             loadVehicleDataSet();
             printTable(vehicleList, '#table-vehicle', 'vehicleName');
             getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+            deleteVehicleItem();
         }
     },
     error: function () {

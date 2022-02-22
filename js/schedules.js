@@ -86,7 +86,7 @@ let getScheduleFormData = () => {
 
         printTable(scheduleList, '#table-schedule', 'scheduleName');
         getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
-
+        deleteScheduleItem();
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
@@ -161,6 +161,7 @@ let editScheduleFormData = () => {
         //Registramos la informacion en el Storage
         printTable(scheduleList, '#table-schedule', 'scheduleName');
         getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+        deleteScheduleItem();
 
         cleanForm(scheduleInputsList);
         disableForm(scheduleInputsList);
@@ -203,6 +204,33 @@ let onchangeSchedule = () => {
     };
 }
 
+let deleteScheduleItem = () => {
+    $('#table-schedule .icon-bin2').click(function (e) {
+        e.preventDefault();
+
+        let itemExist = false;
+        for (const item of tripKeysList) {
+            if (item.scheduleKey == e.currentTarget.id) {
+                itemExist = true;
+            }
+        }
+
+        switch (itemExist) {
+            case true:
+                animatedNotification('El horario no se puede eliminar ya que se encuentra seleccionado en un viaje', 'alert', 6000);
+                break;
+
+            default:
+                let index = scheduleList.findIndex(element => element.scheduleName == e.currentTarget.id);
+                scheduleList.splice(index, 1);
+                sessionStorage.setItem('scheduleDataSetJSON', JSON.stringify(scheduleList));
+                animatedNotification('Horario Eliminado', 'delete', 6000);
+                $(`#table-schedule td[id="${e.currentTarget.id}"]`).remove();
+                break;
+        }
+    });
+}
+
 //EVENTO PARA CREAR NUEVOS REGISTROS EN LAS LISTAS DE HORARIOS
 $('#new-schedule-btn').click(function (e) {
     cleanForm(scheduleInputsList);
@@ -224,6 +252,7 @@ if (scheduleData != null) {
     loadScheduleDataSet();
     printTable(scheduleList, '#table-schedule', 'scheduleName');
     getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+    deleteScheduleItem();
 }
 
 //Cargamos la informacion de Storage
@@ -243,6 +272,7 @@ $.ajax({
             loadScheduleDataSet();
             printTable(scheduleList, '#table-schedule', 'scheduleName');
             getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+            deleteScheduleItem();
         }
     },
     error: function () {
