@@ -148,8 +148,9 @@ let getTicketFormData = () => {
     }
 
     //Validamos el contenido del input UserId
-    if ($('#userIdInput').val() != '') {
-        userIdValidated = $('#userIdInput').val();
+    if ($('#userIdInput').val() != '' && $('#userIdInput').val().length >= 8 && !isNaN($('#userIdInput').val())) {
+        let inputContent = $('#userIdInput').val();
+        userIdValidated = inputContent.slice(0, inputContent.length-7) + '.' + inputContent.slice(inputContent.length-7, inputContent.length-4) + '.' + inputContent.slice(inputContent.length-4, inputContent.length-1) + '-' + inputContent.slice(inputContent.length-1, inputContent.length);
     } else {
         animatedNotification('Debes ingresar un documento de identidad de pasajero valido', 'alert', 6000, '#userIdInput');
     }
@@ -291,11 +292,27 @@ let cleanTicketForm = (inputList) => {
     $('#trip-selector option[value="default"]').prop('selected', true);
 }
 
+$('#userIdInput').change(function (e) { 
+    e.preventDefault();
+    let inputContent = $('#userIdInput').val();
+
+    if (inputContent.length < 8) {
+        animatedNotification('El documento de identidad debe tener al menos 8 digitos', 'alert',10000, '#userIdInput');        
+    }
+});
+
 //Asignar el evento al boton nuevo
 $('#register-ticket-btn').click(function (e) {
     e.preventDefault();
     getTicketFormData();
 });
+
+$('#cancel-ticket-btn').click(function (e) {
+    e.preventDefault();
+    cleanTicketForm(ticketInputsList);
+});
+
+
 
 $(document).ready(function () {
     //Si la informacion existe en el sessionStorage
