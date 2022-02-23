@@ -3,11 +3,8 @@ let printTable = (listToPrint, tableIdName, propertyName) => {
     let selectedList = listToPrint;
     $(tableIdName + ' tbody').empty();
 
-    let index = 0;
-    while( index < selectedList.length){
+    for (let index = 0; index < selectedList.length; index++) {
         $(tableIdName).append(`<tr><td id="${selectedList[index][propertyName]}">${selectedList[index][propertyName]}<i id="${selectedList[index][propertyName]}" class="icon-bin2"></i></td></tr>`);
-
-        index++;
     }
 };
 
@@ -15,13 +12,10 @@ let printTable = (listToPrint, tableIdName, propertyName) => {
 let cleanForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
     let index = 0;
-
-    while (index < inputsIdNames.length) {
+    for (let index = 0; index < inputsIdNames.length; index++) {
         $(inputsIdNames[index]).val(null);
         $(inputsIdNames[index]).removeClass('border-red');
         $(inputsIdNames[index]).removeClass('border-yellow');
-
-        index++;
     }
 }
 
@@ -29,19 +23,17 @@ let cleanForm = (inputsIdNames) => {
 let eventInputCleaner = (elementsList) => {
     let index = 0;
 
-    while (index < elementsList.length) {
+    for (let index = 0; index < elementsList.length; index++) {
         $(elementsList[index]).unbind('change');
-        index++;
     }
 }
 
 //DESHABILITAR FORMULARIOS
 let disableForm = (inputsIdNames) => {
     //Revisamos todos los nombres de los inputs guardados en el array
-    let index = 0;
-    while (inputsIdNames.length) {
+    
+    for (let index = 0; index < inputsIdNames.length; index++) {
         $(inputsIdNames[index]).prop("disabled", true);
-        index++;
     }
 };
 

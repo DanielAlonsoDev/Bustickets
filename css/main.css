@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
-.g-btn {
+.g-btn, .g-btn-red {
   font-weight: bold;
   border: none;
   color: white;
@@ -44,12 +44,28 @@ h4 {
   background-color: #39B8FF;
   box-shadow: 0px 6px 0px #0097ec; }
   .g-btn:hover {
+    color: #ffffff;
     background-color: #6ccaff;
     box-shadow: 0px 6px 0px #06a6ff; }
   .g-btn:active {
     background-color: #39B8FF;
     /* se restan 6px para simular el movimiento del boton */
     box-shadow: 0px 0px 0px #0076b9;
+    top: 6px; }
+
+.g-btn-red {
+  /* SELECCION DE COLORES */
+  color: #ffffff;
+  background-color: #E60965;
+  box-shadow: 0px 6px 0px #9c0645; }
+  .g-btn-red:hover {
+    color: #ffffff;
+    background-color: #f72b80;
+    box-shadow: 0px 6px 0px #b5074f; }
+  .g-btn-red:active {
+    background-color: #E60965;
+    /* se restan 6px para simular el movimiento del boton */
+    box-shadow: 0px 0px 0px #6b042f;
     top: 6px; }
 
 .grid-layout .show-value {
