@@ -188,6 +188,7 @@ let getTicketFormData = () => {
     ticketTripValidated = undefined;
 }
 
+//Mostrar tickets vendidos y dinero en caja
 let salesSummary = () => {
     loadTicketDataSet();
     getTicketObjects();
@@ -202,11 +203,13 @@ let salesSummary = () => {
     $('#flow-cash-value').text(salesRevenue + '$');
 }
 
+//Crear numeros de ticket
 let generateTicketNumber = () => {
     ticketCount = 'T-#' + (ticketKeysList.length + 1);
     return ticketCount;
 }
 
+//Imprimir tabla de historial de tickets
 let printTicketsTable = () => {
     $('#table-tickets tbody').empty();
 
@@ -225,6 +228,7 @@ let printTicketsTable = () => {
     };
 }
 
+//Mostrar el modal con la informacion del tickets
 let showTicketEvent = () => {
     $('.g-show-ticket').click(function (e) {
         e.preventDefault();
@@ -281,16 +285,19 @@ let showTicketEvent = () => {
     });
 }
 
+//Eliminar la informacion del formulario
 let cleanTicketForm = (inputList) => {
     cleanForm(inputList);
     $('#trip-selector option[value="default"]').prop('selected', true);
 }
 
+//Asignar el evento al boton nuevo
 $('#register-ticket-btn').click(function (e) {
     e.preventDefault();
     getTicketFormData();
 });
 
+//Si la informacion existe en el sessionStorage
 if (ticketData != null) {
     loadTicketDataSet();
     getTicketObjects();
