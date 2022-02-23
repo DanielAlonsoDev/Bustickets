@@ -235,7 +235,7 @@ let editTripFormData = () => {
             //Comparamos con todos los guardados con anterioridad
             let tripExist = false;
             for (let index = 0; index < tripList.length; index++) {
-                
+
                 let tripDateExist = false;
                 let tripVehicleExist = false;
                 let tripScheduleExist = false;
@@ -404,20 +404,22 @@ $('#new-trip-btn').click(function (e) {
     $('#tripDateInput').change(onChangeTrip);
 });
 
-//Si los viajes se encuentran en el sessionStorage
-if (tripData != null) {
-    loadTripDataSet();
-    getTripObjects();
+$(document).ready(function () {
+    //Si los viajes se encuentran en el sessionStorage
+    if (tripData != null) {
+        loadTripDataSet();
+        getTripObjects();
 
-    //Inicializamos los select
-    createRouteSelectors();
-    createScheduleSelectors();
-    createVehicleSelectors();
+        //Inicializamos los select
+        createRouteSelectors();
+        createScheduleSelectors();
+        createVehicleSelectors();
 
-    printTable(tripKeysList, '#table-trip', 'tripColumnName');
-    getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
-    deleteTripItem();
-}
+        printTable(tripKeysList, '#table-trip', 'tripColumnName');
+        getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+        deleteTripItem();
+    }
+});
 
 //Cargamos la informacion de Storage
 $.ajax({

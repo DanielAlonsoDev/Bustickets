@@ -159,7 +159,7 @@ let editScheduleFormData = () => {
         //Imprimimos la tabla de viajes para reflejar los cambios
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
-        
+
         //Registramos la informacion en el Storage
         printTable(scheduleList, '#table-schedule', 'scheduleName');
         getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
@@ -251,14 +251,16 @@ $('#new-schedule-btn').click(function (e) {
     $('#scheduleNameInput').change(onchangeSchedule)
 });
 
-//Si la informacion de los horarios existe
-if (scheduleData != null) {
-    //Inicializamos la tabla
-    loadScheduleDataSet();
-    printTable(scheduleList, '#table-schedule', 'scheduleName');
-    getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
-    deleteScheduleItem();
-}
+$(document).ready(function () {
+    //Si la informacion de los horarios existe
+    if (scheduleData != null) {
+        //Inicializamos la tabla
+        loadScheduleDataSet();
+        printTable(scheduleList, '#table-schedule', 'scheduleName');
+        getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+        deleteScheduleItem();
+    }
+});
 
 //Cargamos la informacion de Storage
 $.ajax({

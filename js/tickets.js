@@ -279,7 +279,7 @@ let showTicketEvent = () => {
             <td>Patente:</td>
             <td>${ticketList[indexTicket].trip.tripVehicle.vehiclePlates}</td>
         </tr>`;
-        
+
         $('#table-printTickets tbody').empty();
         $('#table-printTickets tbody').append(htmlContent);
     });
@@ -297,14 +297,16 @@ $('#register-ticket-btn').click(function (e) {
     getTicketFormData();
 });
 
-//Si la informacion existe en el sessionStorage
-if (ticketData != null) {
-    loadTicketDataSet();
-    getTicketObjects();
-    salesSummary();
-    printTicketsTable();
-    showTicketEvent();
-}
+$(document).ready(function () {
+    //Si la informacion existe en el sessionStorage
+    if (ticketData != null) {
+        loadTicketDataSet();
+        getTicketObjects();
+        salesSummary();
+        printTicketsTable();
+        showTicketEvent();
+    }
+});
 
 //Cargamos la informacion de Storage
 $.ajax({

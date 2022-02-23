@@ -182,21 +182,21 @@ let editVehicleFormData = () => {
     if (vehiclePlatesValidated != undefined && vehicleBrandValidated != undefined && vehicleModelValidated != undefined && vehicleSeatsValidated != undefined && vehicleStaffValidated != undefined) {
         //Actualizamos el Key del Trip
         for (let index = 0; index < tripKeysList.length; index++) {
-            if( tripKeysList[index].vehicleKey == vehicleList[indexVehicleItem].vehiclePlates ){
+            if (tripKeysList[index].vehicleKey == vehicleList[indexVehicleItem].vehiclePlates) {
                 editTrip(tripKeysList[index].tripDate, tripKeysList[index].routeKey, vehiclePlatesValidated, tripKeysList[index].scheduleKey, tripKeysList[index].tripCost, index);
             }
         }
         editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated, indexVehicleItem);
-        
+
         //Actualizamos la tabla de viajes
         getTripObjects();
         createVehicleSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
-        
+
         //Registramos la informacion en el Storage
         printTable(vehicleList, '#table-vehicle', 'vehicleName');
-        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName','#edit-vehicle-btn', vehicleEditEvent);
+        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
         deleteVehicleItem();
 
         cleanForm(vehicleInputsList);
@@ -224,7 +224,7 @@ let vehicleEditEvent = () => {
         $('#save-vehicle-btn').unbind('click');
         $('#save-vehicle-btn').addClass('active');
         $('#edit-vehicle-btn').removeClass('active');
-        
+
         //Rellenamos el input con la informacion
         $('#vehicleBrandInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleBrand);
         $('#vehicleModelInput').val(itemsSelectedFromTable['vehicleTableItem'].vehicleModel);
@@ -262,7 +262,7 @@ let deleteVehicleItem = () => {
         e.preventDefault();
 
         let index = vehicleList.findIndex(element => element.vehicleName == e.currentTarget.id);
-        
+
         let itemExist = false;
         for (const item of tripKeysList) {
             if (item.vehicleKey == vehicleList[index].vehiclePlates) {
@@ -302,14 +302,18 @@ $('#new-vehicle-btn').click(function (e) {
     $('#vehicleSeatsInput, #vehicleStaffInput').change(showVehicleCapacity);
 });
 
-//Si la informacion existe en el sessionStorage
-if (vehicleData != null) {
-    //Inicializamos la tabla
-    loadVehicleDataSet();
-    printTable(vehicleList, '#table-vehicle', 'vehicleName');
-    getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
-    deleteVehicleItem();
-}
+$(document).ready(function () {
+    //Si la informacion existe en el sessionStorage
+    if (vehicleData != null) {
+        //Inicializamos la tabla
+        loadVehicleDataSet();
+        printTable(vehicleList, '#table-vehicle', 'vehicleName');
+        getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+        deleteVehicleItem();
+    }
+});
+
+
 
 //Cargamos la informacion de Storage
 $.ajax({
@@ -332,6 +336,6 @@ $.ajax({
         }
     },
     error: function () {
-        animatedNotification('No se pudo cargar el archivo JSON con la información', 'error',6000);
+        animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
 });

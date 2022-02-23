@@ -311,14 +311,16 @@ $('#new-route-btn').click(function (e) {
     $('#routeDepartureCodeInput, #routeDestinationCodeInput').change(showRouteName);
 });
 
-//Si las rutas se encuentran en el sessionStorage
-if (routeData != null) {
-    //Inicializamos la tabla
-    loadRouteDataSet();
-    printTable(routeList, '#table-route', 'routeName');
-    getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
-    deleteRouteItem();
-}
+$(document).ready(function () {
+    //Si las rutas se encuentran en el sessionStorage
+    if (routeData != null) {
+        //Inicializamos la tabla
+        loadRouteDataSet();
+        printTable(routeList, '#table-route', 'routeName');
+        getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
+        deleteRouteItem();
+    }
+});
 
 //Cargamos la informacion de Storage
 $.ajax({
