@@ -327,15 +327,18 @@ $.ajax({
             }
             sessionStorage.setItem('vehicleDataSetJSON', JSON.stringify(dataSet));
             dataSet = [];
-
-            //Inicializamos la tabla
             loadVehicleDataSet();
-            printTable(vehicleList, '#table-vehicle', 'vehicleName');
-            getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
-            deleteVehicleItem();
+
         }
     },
     error: function () {
         animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
+});
+
+$(document).ajaxStop(function () {
+    //Inicializamos la tabla
+    printTable(vehicleList, '#table-vehicle', 'vehicleName');
+    getTableItem(vehicleList, 'vehicleTableItem', '#table-vehicle td', 'vehicleName', '#edit-vehicle-btn', vehicleEditEvent);
+    deleteVehicleItem();
 });

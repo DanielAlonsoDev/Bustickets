@@ -334,11 +334,7 @@ $.ajax({
             }
             sessionStorage.setItem('routeDataSetJSON', JSON.stringify(dataSet));
             dataSet = [];
-            //Inicializamos la tabla
             loadRouteDataSet();
-            printTable(routeList, '#table-route', 'routeName');
-            getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
-            deleteRouteItem();
         }
     },
     error: function () {
@@ -346,5 +342,11 @@ $.ajax({
     }
 });
 
+$(document).ajaxStop(function () {
+    //Inicializamos la tabla
+    printTable(routeList, '#table-route', 'routeName');
+    getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
+    deleteRouteItem();
+});
 
 

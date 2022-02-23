@@ -339,9 +339,6 @@ $.ajax({
             dataSet = [];
             loadTicketDataSet();
             getTicketObjects();
-            salesSummary();
-            printTicketsTable();
-            showTicketEvent();
         }
     },
     error: function () {
@@ -349,4 +346,10 @@ $.ajax({
     }
 });
 
+$(document).ajaxStop(function () {
+    salesSummary();
+    printTicketsTable();
+    showTicketEvent();
+});
 
+//https://danielalonsodev.github.io/Bustickets/data/dataFile.json

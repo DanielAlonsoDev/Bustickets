@@ -435,18 +435,20 @@ $.ajax({
             dataSet = [];
             loadTripDataSet();
             getTripObjects();
-
-            //Inicializamos los select
-            createRouteSelectors();
-            createScheduleSelectors();
-            createVehicleSelectors();
-
-            printTable(tripKeysList, '#table-trip', 'tripColumnName');
-            getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
-            deleteTripItem();
         }
     },
     error: function () {
         animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
+});
+
+$(document).ajaxStop(function () {
+    //Inicializamos los select
+    createRouteSelectors();
+    createScheduleSelectors();
+    createVehicleSelectors();
+
+    printTable(tripKeysList, '#table-trip', 'tripColumnName');
+    getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
+    deleteTripItem();
 });

@@ -274,15 +274,17 @@ $.ajax({
             }
             sessionStorage.setItem('scheduleDataSetJSON', JSON.stringify(dataSet));
             dataSet = [];
-
-            //Inicializamos la tabla
             loadScheduleDataSet();
-            printTable(scheduleList, '#table-schedule', 'scheduleName');
-            getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
-            deleteScheduleItem();
         }
     },
     error: function () {
         animatedNotification('No se pudo cargar el archivo JSON con la información', 'error', 6000);
     }
+});
+
+$(document).ajaxStop(function () {
+    //Inicializamos la tabla
+    printTable(scheduleList, '#table-schedule', 'scheduleName');
+    getTableItem(scheduleList, 'scheduleTableItem', '#table-schedule td', 'scheduleName', '#edit-schedule-btn', scheduleEditEvent);
+    deleteScheduleItem();
 });
