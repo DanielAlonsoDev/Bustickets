@@ -328,7 +328,7 @@ $(document).ready(function () {
 //Cargamos la informacion de Storage
 $.ajax({
     type: "GET",
-    url: "../data/dataFile.json",
+    url: "https://danielalonsodev.github.io/Bustickets/data/dataFile.json",
     success: function (data) {
         //Cargamos la Data de Viajes
         if (ticketData == null) {
