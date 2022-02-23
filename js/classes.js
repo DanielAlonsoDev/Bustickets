@@ -1,3 +1,4 @@
+//DECLARACION DE CLASES
 class Schedule {
     constructor(scheduleName, scheduleCheckIn, scheduleDeparture) {
         this.scheduleName = scheduleName;

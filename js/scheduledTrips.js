@@ -131,8 +131,9 @@ let addTripToData = (tripDate, routeKey, vehicleKey, scheduleKey, tripCost) => {
     sessionStorage.setItem('tripDataSetJSON', JSON.stringify(newData));
 }
 
+//Conseguir la informacion del Formulario
 let getTripFormData = () => {
-    //Validamos el valor del date
+    //Validamos el valor del Date
     if ($('#tripDateInput').val() != '' && $('#vehicle-selector option:selected').val() != 'default') {
         //Comparamos la con todos los guardados con anterioridad
         let tripExist = false;
@@ -143,16 +144,13 @@ let getTripFormData = () => {
 
             if (tripKeysList[index].tripDate == $('#tripDateInput').val()) {
                 tripDateExist = true;
-                console.log("Checkpoint 1");
             }
             if (tripKeysList[index].vehicleKey == $('#vehicle-selector option:selected').val()) {
                 tripVehicleExist = true;
-                console.log("Checkpoint 2");
             }
 
             if (tripKeysList[index].scheduleKey == $('#schedule-selector option:selected').val()) {
                 tripScheduleExist = true;
-                console.log("Checkpoint 3");
             }
 
             if (tripDateExist && tripVehicleExist && tripScheduleExist) {
@@ -224,6 +222,7 @@ let getTripFormData = () => {
     tripCostValidated = undefined;
 }
 
+//Editar un informacion del Formulario
 let editTripFormData = () => {
     indexTripItem = tripKeysList.findIndex(element => element.tripColumnName === itemsSelectedFromTable['tripTableItem'].tripColumnName);
 
@@ -233,7 +232,7 @@ let editTripFormData = () => {
         tripScheduleValidated = $('#schedule-selector option:selected').val();
     } else {
         if ($('#tripDateInput').val() != '' && $('#vehicle-selector option:selected').val() != 'default') {
-            //Comparamos la con todos los guardados con anterioridad
+            //Comparamos con todos los guardados con anterioridad
             let tripExist = false;
             for (let index = 0; index < tripList.length; index++) {
                 
@@ -243,16 +242,13 @@ let editTripFormData = () => {
 
                 if (tripKeysList[index].tripDate == $('#tripDateInput').val()) {
                     tripDateExist = true;
-                    console.log("Checkpoint 1");
                 }
                 if (tripKeysList[index].vehicleKey == $('#vehicle-selector option:selected').val()) {
                     tripVehicleExist = true;
-                    console.log("Checkpoint 2");
                 }
 
                 if (tripKeysList[index].scheduleKey == $('#schedule-selector option:selected').val()) {
                     tripScheduleExist = true;
-                    console.log("Checkpoint 3");
                 }
 
                 if (tripDateExist && tripVehicleExist && tripScheduleExist) {
@@ -302,6 +298,7 @@ let editTripFormData = () => {
         //Registramos la informacion en el Storage
         editTrip(tripDateValidated, tripRouteValidated, tripVehicleValidated, tripScheduleValidated, tripCostValidated, indexTripItem);
 
+        //Actualizamos las tablas
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         deleteTripItem();
@@ -344,6 +341,7 @@ let tripEditEvent = () => {
     }
 };
 
+//Activamos el boton guardar
 let onChangeTrip = () => {
     $('#save-trip-btn').unbind('click');
     //Validamos el contenido del input
@@ -353,11 +351,13 @@ let onChangeTrip = () => {
     };
 }
 
+//Limpiar los inputs y selectores del formulario
 let cleanTripForm = (inputList) => {
     cleanForm(inputList);
     $('#route-selector option[value="default"], #schedule-selector option[value="default"], #vehicle-selector option[value="default"]').prop('selected', true);
 }
 
+//Eliminar elementos de la lista de viajes
 let deleteTripItem = () => {
     $('#table-trip .icon-bin2').click(function (e) {
         e.preventDefault();
@@ -388,6 +388,7 @@ let deleteTripItem = () => {
     });
 }
 
+//Asignamos el evento al boton de nuevo
 $('#new-trip-btn').click(function (e) {
     cleanTripForm(tripInputsList);
     enableForm(tripInputsList);
@@ -403,6 +404,7 @@ $('#new-trip-btn').click(function (e) {
     $('#tripDateInput').change(onChangeTrip);
 });
 
+//Si los viajes se encuentran en el sessionStorage
 if (tripData != null) {
     loadTripDataSet();
     getTripObjects();

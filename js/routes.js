@@ -43,7 +43,7 @@ let addRouteToData = (addCodeDeparture, addCodeDestination, addDeparture, addDes
 
 //FUNCION PARA CONSEGUIR LA INFORMACION DEL FORMULARIO
 let getRouteFormData = () => {
-    //Validamos que el contenido del input Code Departure sea valido
+    //Validamos que el contenido del input Code Departure y Destination sea valido
     if ($('#routeDepartureCodeInput').val() != '' && $('#routeDestinationCodeInput').val() != '') {
         //Comparamos el codigo con todos los guardados con anterioridad
         let departureCodeExist = false;
@@ -71,24 +71,27 @@ let getRouteFormData = () => {
     if ($('#routeDepartureCodeInput').val() == '') {
         animatedNotification('Debes ingresar un codigo de origen', 'alert', 6000, '#routeDepartureCodeInput');
     }
+
     //Notificamos que falta el Codigo del Destino
     if ($('#routeDestinationCodeInput').val() == '') {
         animatedNotification('Debes ingresar un codigo de destino', 'alert', 6000, '#routeDestinationCodeInput');
     }
 
-    //Validamos que el contenido del input Checkin sea valido
+    //Validamos el Route Departure
     if ($('#routedDepartureNameInput').val() != '') {
         routeDepartureNameValidated = $('#routedDepartureNameInput').val();
     } else {
         animatedNotification('Debes ingresar un nombre de origen', 'alert', 6000, '#routedDepartureNameInput');
     }
 
+    //Validamos el Route Destination
     if ($('#routeDestinationNameInput').val() != '') {
         routeDestinationNameValidated = $('#routeDestinationNameInput').val();
     } else {
         animatedNotification('Debes ingresar un nombre de destino', 'alert', 6000, '#routeDestinationNameInput');
     }
 
+    //Validamos el Route Distance
     if ($('#routeDistanceInput').val() != '' && !isNaN($('#routeDistanceInput').val())) {
         routeDistanceValidated = $('#routeDistanceInput').val();
     } else {
@@ -97,13 +100,14 @@ let getRouteFormData = () => {
 
     //Cuando la informacion de todos los inputs sea valida procedemos
     if (routeDepartureNameValidated != undefined && routeDepartureCodeValidated != undefined && routeDestinationNameValidated != undefined && routeDestinationCodeValidated != undefined && routeDistanceValidated != undefined) {
-        //Regsitramos la informacion en el Storage
+        //Registramos la informacion en el Storage
         addRouteToData(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated);
 
         printTable(routeList, '#table-route', 'routeName');
         getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
         deleteRouteItem();
 
+        //Limpiamos los formularios y los cambios de los inputs
         cleanForm(routeInputsList);
         disableForm(routeInputsList);
         $('#save-route-btn').removeClass('active');
@@ -123,7 +127,7 @@ let getRouteFormData = () => {
 
 let editRouteFormData = () => {
     indexRouteItem = routeList.findIndex(element => element.routeName === itemsSelectedFromTable['routeTableItem'].routeName);
-    //Validamos que el contenido de lo codigos sea valido
+    //Validamos que el contenido del input Code Departure y Destination sea valido
     if ($('#routeDepartureCodeInput').val() == itemsSelectedFromTable['routeTableItem'].codeDeparture && $('#routeDestinationCodeInput').val() == itemsSelectedFromTable['routeTableItem'].codeDestination) {
         routeDepartureCodeValidated = $('#routeDepartureCodeInput').val();
         routeDestinationCodeValidated = $('#routeDestinationCodeInput').val();
@@ -164,19 +168,21 @@ let editRouteFormData = () => {
     }
 
 
-    //Validamos que el contenido del input Checkin sea valido
+    //Validamos que el contenido Departure Name sea valido
     if ($('#routedDepartureNameInput').val() != '') {
         routeDepartureNameValidated = $('#routedDepartureNameInput').val();
     } else {
         animatedNotification('Debes ingresar un nombre de origen', 'alert', 6000, '#routedDepartureNameInput');
     }
 
+    //Validamos que el contenido Destination Name sea valido
     if ($('#routeDestinationNameInput').val() != '') {
         routeDestinationNameValidated = $('#routeDestinationNameInput').val();
     } else {
         animatedNotification('Debes ingresar un nombre de destino', 'alert', 6000, '#routeDestinationNameInput');
     }
 
+    //Validamos que el contenido del Distance sea valido
     if ($('#routeDistanceInput').val() != '' && !isNaN($('#routeDistanceInput').val())) {
         routeDistanceValidated = $('#routeDistanceInput').val();
     } else {
@@ -191,6 +197,7 @@ let editRouteFormData = () => {
             }
         }
         editRoute(routeDepartureCodeValidated, routeDestinationCodeValidated, routeDepartureNameValidated, routeDestinationNameValidated, routeDistanceValidated, indexRouteItem);
+        //Actualizamos la tabla de viajes
         createRouteSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
@@ -200,6 +207,7 @@ let editRouteFormData = () => {
         getTableItem(routeList, 'routeTableItem', '#table-route td', 'routeName', '#edit-route-btn', routeEditEvent);
         deleteRouteItem();
 
+        //Limpiamos los formularios y los cambios de los inputs
         cleanForm(routeInputsList);
         disableForm(routeInputsList);
         $('#save-route-btn').removeClass('active');
@@ -252,11 +260,13 @@ let onchangeRoute = () => {
     };
 };
 
+//Mostrar el contenido del nombre de la ruta
 let showRouteName = () => {
     let inputNameValue = $("#routeDepartureCodeInput").val() + "-" + $("#routeDestinationCodeInput").val();
     $('#routeNameInput').val(inputNameValue);
 }
 
+//Eliminar elementos de la lista de rutas
 let deleteRouteItem = () => {
     $('#table-route .icon-bin2').click(function (e) {
         e.preventDefault();
@@ -284,6 +294,7 @@ let deleteRouteItem = () => {
     });
 }
 
+//Asignamos el evento al boton nuevo
 $('#new-route-btn').click(function (e) {
     cleanForm(routeInputsList);
     enableForm(routeInputsList);
@@ -300,6 +311,7 @@ $('#new-route-btn').click(function (e) {
     $('#routeDepartureCodeInput, #routeDestinationCodeInput').change(showRouteName);
 });
 
+//Si las rutas se encuentran en el sessionStorage
 if (routeData != null) {
     //Inicializamos la tabla
     loadRouteDataSet();

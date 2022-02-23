@@ -39,7 +39,7 @@ let addScheduleToData = (addName, addCheckIn, addDeparture) => {
     loadScheduleDataSet();
 }
 
-//FUNCION PARA CONSEGUIR LA INFORMACION DEL FORMULARIO
+//CONSEGUIR LA INFORMACION DEL FORMULARIO
 let getScheduleFormData = () => {
     //Validamos que el contenido del input Name sea valido
     if ($('#scheduleNameInput').val() != '' && $('#scheduleNameInput').val() != null && $('#scheduleNameInput').val() != undefined) {
@@ -103,6 +103,7 @@ let getScheduleFormData = () => {
     scheduleDepartureValidated = undefined;
 }
 
+//EDITAR LA INFORMACION DEL FORMULARIO
 let editScheduleFormData = () => {
     indexScheduleItem = scheduleList.findIndex(element => element.scheduleName === itemsSelectedFromTable['scheduleTableItem'].scheduleName);
     //Validamos si se realizaron cambios en el input del nombre del horario
@@ -155,6 +156,7 @@ let editScheduleFormData = () => {
         }
         editSchedule(scheduleNameValidated, scheduleCheckInValidated, scheduleDepartureValidated, indexScheduleItem);
         createScheduleSelectors();
+        //Imprimimos la tabla de viajes para reflejar los cambios
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
         getTableItem(tripKeysList, 'tripTableItem', '#table-trip td', 'tripColumnName', '#edit-trip-btn', tripEditEvent);
         
@@ -197,6 +199,7 @@ let scheduleEditEvent = () => {
     };
 };
 
+//Evento que activa el boton guardar
 let onchangeSchedule = () => {
     if ($('#scheduleNameInput').val() != '') {
         $('#save-schedule-btn').addClass('active');
@@ -204,6 +207,7 @@ let onchangeSchedule = () => {
     };
 }
 
+//Eliminar elementos de la lista de Horarios
 let deleteScheduleItem = () => {
     $('#table-schedule .icon-bin2').click(function (e) {
         e.preventDefault();
@@ -247,6 +251,7 @@ $('#new-schedule-btn').click(function (e) {
     $('#scheduleNameInput').change(onchangeSchedule)
 });
 
+//Si la informacion de los horarios existe
 if (scheduleData != null) {
     //Inicializamos la tabla
     loadScheduleDataSet();

@@ -1,4 +1,4 @@
-//FUNCION PARA IMPRIMIR LOS VALORES EN LA TABLA
+//FUNCION PARA IMPRIMIR LOS VALORES EN UNA TABLA
 let printTable = (listToPrint, tableIdName, propertyName) => {
     let selectedList = listToPrint;
     $(tableIdName + ' tbody').empty();
@@ -19,7 +19,7 @@ let cleanForm = (inputsIdNames) => {
     };
 };
 
-//FUNCION PARA LIMPIAR EVENTOS DE ELEMENTOS
+//LIMPIAR EVENTOS DE ELEMENTOS
 let eventInputCleaner = (elementsList) => {
     for (let index = 0; index < elementsList.length; index++) {
         $(elementsList[index]).unbind('change');
@@ -63,7 +63,7 @@ let getTableItem = (list, keyitemSelectedFromTable, selectedElement, propertyNam
     };
 };
 
-//Evitamos el comportamiento por defecto de los enlaces y botones de la aplicacion
+//EVITAMOS EL COMPORTAMIENTO POR DEFECTO DE LOS ENLACES Y BOTONES
 for (const item of $('a')) {
     item.addEventListener('click', (e) => {
         e.preventDefault();
@@ -105,7 +105,7 @@ let animatedNotification = (notificationText, notificationType, duration, input)
             $(input).addClass('border-red');
             break;
     }
-
+    //ANIMACION DE ENTRADA Y SALIDA
     $(`#notification .notification-${notificationCount}`).fadeIn(300);
     $(`#notification .notification-${notificationCount}`).delay(duration);
     $(`#notification .notification-${notificationCount}`).fadeOut(500);

@@ -120,6 +120,7 @@ let getVehicleFormData = () => {
     vehicleStaffValidated = undefined;
 }
 
+//Editar la informacion de un vehiculo
 let editVehicleFormData = () => {
     indexVehicleItem = vehicleList.findIndex(element => element.vehicleName === itemsSelectedFromTable['vehicleTableItem'].vehicleName);
     //Validamos que el contenido del input Name sea valido
@@ -157,18 +158,21 @@ let editVehicleFormData = () => {
         animatedNotification('Debes ingresar un nombre de marca valido', 'alert', 6000, '#vehicleBrandInput');
     }
 
+    //Validamos el contenido del Vehicle Model
     if ($('#vehicleModelInput').val() != '') {
         vehicleModelValidated = $('#vehicleModelInput').val();
     } else {
         animatedNotification('Debes ingresar un nombre de modelo valido', 'alert', 6000, '#vehicleModelInput');
     }
 
+    //Validamos el contenido del Vehicle Seats
     if ($('#vehicleSeatsInput').val() != '' && !isNaN($('#vehicleSeatsInput').val())) {
         vehicleSeatsValidated = $('#vehicleSeatsInput').val();
     } else {
         animatedNotification('Debes ingresar un numero de asientos', 'alert', 6000, '#vehicleSeatsInput');
     }
 
+    //Validamos el contenido del Vehicle Staff
     if ($('#vehicleStaffInput').val() != '' && !isNaN($('#vehicleStaffInput').val())) {
         vehicleStaffValidated = $('#vehicleStaffInput').val();
     } else {
@@ -183,6 +187,8 @@ let editVehicleFormData = () => {
             }
         }
         editVehicle(vehicleBrandValidated, vehicleModelValidated, vehiclePlatesValidated, vehicleSeatsValidated, vehicleStaffValidated, indexVehicleItem);
+        
+        //Actualizamos la tabla de viajes
         getTripObjects();
         createVehicleSelectors();
         printTable(tripKeysList, '#table-trip', 'tripColumnName');
@@ -209,6 +215,7 @@ let editVehicleFormData = () => {
     vehicleStaffValidated = undefined;
 };
 
+//Conseguimos los datos del elemento a editar
 let vehicleEditEvent = () => {
     if (itemsSelectedFromTable['vehicleTableItem'] != undefined) {
         //Habilitamos el formulario
@@ -234,12 +241,14 @@ let vehicleEditEvent = () => {
     };
 };
 
+//Mostrar la capacidad del vehiculo
 let showVehicleCapacity = () => {
     if ($('#vehicleSeatsInput').val() != null && $('#vehicleStaffInput').val() != null) {
         $('#vehicleCapacityInput').val($('#vehicleSeatsInput').val() - $('#vehicleStaffInput').val() + " Pasajeros");
     }
 };
 
+//Asignamos el evento al boton guardar
 let onchangeVehicle = () => {
     if ($('#vehicleBrandInput').val() != '') {
         $('#save-vehicle-btn').addClass('active');
@@ -247,6 +256,7 @@ let onchangeVehicle = () => {
     };
 }
 
+//Eliminar elementos de la lista de vehiculos
 let deleteVehicleItem = () => {
     $('#table-vehicle .icon-bin2').click(function (e) {
         e.preventDefault();
@@ -275,6 +285,7 @@ let deleteVehicleItem = () => {
     });
 }
 
+//Asignamos el evento al boton nuevo
 $('#new-vehicle-btn').click(function (e) {
     cleanForm(vehicleInputsList);
     enableForm(vehicleInputsList);
@@ -291,6 +302,7 @@ $('#new-vehicle-btn').click(function (e) {
     $('#vehicleSeatsInput, #vehicleStaffInput').change(showVehicleCapacity);
 });
 
+//Si la informacion existe en el sessionStorage
 if (vehicleData != null) {
     //Inicializamos la tabla
     loadVehicleDataSet();

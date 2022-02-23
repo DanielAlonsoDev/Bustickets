@@ -11,11 +11,12 @@ let createTripSelectors = () => {
         }
     }
 }
-
+//Mostrar cambios de selectores
 $('#trip-selector').focus(function (e) {
     createTripSelectors();
 });
 
+//Calcular los impuestos
 let calculateTaxes = (cost) => {
     let taxes = 19;
     let taxesValue = parseInt(cost) * (taxes / 100);
@@ -23,6 +24,7 @@ let calculateTaxes = (cost) => {
     return [taxesValue, total];
 }
 
+//Calcular la cantidad de puestos disponibles de un viaje
 let showAvailableCapacity = () => {
     loadTicketDataSet();
     $('#showAvailableInput').removeClass('border-red');
@@ -43,6 +45,7 @@ let showAvailableCapacity = () => {
     $('#showAvailableInput').val(availableCapacity - seatsCount);
 }
 
+//Mostramos la informacion de viaje en los inputs
 $('#trip-selector').change(function (e) {
     if ($('#trip-selector option:selected').val() != 'default') {
         let indexTripItem = tripKeysList.findIndex(element => element.tripColumnName == $('#trip-selector option:selected').val());
@@ -62,11 +65,13 @@ $('#trip-selector').change(function (e) {
     }
 });
 
+//Crear un nuevo elemento en la lista de ticketsKeys
 let addTicketKeys = (userName, userLastName, userId, tripKey) => {
     let newTicket = new TicketKeys(userName, userLastName, userId, tripKey, generateTicketNumber());
     ticketKeysList.push(newTicket);
 };
 
+//Editar un nuevo elemento en la lista de ticketsKeys
 let editTicketKeys = (userName, userLastName, userId, tripKey, ticketNumber, keyValue) => {
     let editTicket = new TicketKeys(userName, userLastName, userId, tripKey, ticketNumber);
     ticketKeysList[keyValue] = editTicket;
@@ -75,11 +80,13 @@ let editTicketKeys = (userName, userLastName, userId, tripKey, ticketNumber, key
     loadTicketDataSet();
 }
 
+//Crear un nuevo elemento en la lista de tickets
 let addTicket = (userName, userLastName, userId, trip, ticketNumber) => {
     let newTicket = new Ticket(userName, userLastName, userId, trip, ticketNumber);
     ticketList.push(newTicket);
 };
 
+//FUNCION PARA TRAER INFORMACION ALMACENADA EN EL STORAGE
 let loadTicketDataSet = () => {
     ticketData = JSON.parse(sessionStorage.getItem('ticketDataSetJSON'));
     ticketKeysList = [];
@@ -94,6 +101,7 @@ let loadTicketDataSet = () => {
     };
 };
 
+//Agregar nuecos elementos al sessionStorage
 let addTicketKeysToData = (userName, userLastName, userId, tripKey) => {
     //Agregamos registro al ticketKeysList
     addTicketKeys(userName, userLastName, userId, tripKey);
@@ -103,6 +111,7 @@ let addTicketKeysToData = (userName, userLastName, userId, tripKey) => {
     sessionStorage.setItem('ticketDataSetJSON', JSON.stringify(newData));
 }
 
+//ASIGNAMOS LOS OBJETOS QUE COINCIDAN CON LOS KEYS
 let getTicketObjects = () => {
     let tripIndexValidated;
     ticketList = [];
@@ -122,6 +131,7 @@ let getTicketObjects = () => {
     }
 }
 
+//Conseguir la informacion del Formulario
 let getTicketFormData = () => {
     //Validamos el contenido del input UserName
     if ($('#userNameInput').val() != '' && isNaN($('#userNameInput').val())) {
